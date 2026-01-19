@@ -9,7 +9,7 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="index.html">
     <link rel="icon" type="image/png"
-        href="{{ asset('cdn/shop/files/VATAHARI.png?crop=center&height=32&v=1762950312&width=32') }}">
+        href="cdn/shop/files/VATAHARI.png%3Fcrop=center&amp;height=32&amp;v=1762950312&amp;width=32">
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     <title>
         Vatahari – Natural Ortho Care Solutions for Pain Relief &amp; Mobility
@@ -18,6 +18,8 @@
 
     <meta name="description"
         content="Strengthen your bones, relieve joint pain, and restore natural movement with Vatahari. Our Ayurvedic ortho products blend traditional herbs with modern wellness for safe, long-lasting relief and improved quality of life.">
+
+
 
 
     <meta property="og:site_name" content="Vatahari">
@@ -31,14 +33,23 @@
         content="Strengthen your bones, relieve joint pain, and restore natural movement with Vatahari. Our Ayurvedic ortho products blend traditional herbs with modern wellness for safe, long-lasting relief and improved quality of life.">
 
 
+    <script src="cdn/shop/t/3/assets/constants.js%3Fv=132983761750457495441763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/pubsub.js%3Fv=25310214064522200911763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/global.js%3Fv=7301445359237545521763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/details-disclosure.js%3Fv=13653116266235556501763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/details-modal.js%3Fv=25581673532751508451763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/search-form.js%3Fv=133129549252120666541763467722" defer="defer"></script>
+    <script src="cdn/shop/t/3/assets/animations.js%3Fv=88693664871331136111763467722" defer="defer"></script>
+
+
     <style data-shopify>
         @font-face {
             font-family: Assistant;
             font-weight: 400;
             font-style: normal;
             font-display: swap;
-            src: url("{{ asset('cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2') }}") format("woff2"),
-                url("{{ asset('cdn/fonts/assistant/assistant_n4.6e9875ce64e0fefcd3f4446b7ec9036b3ddd2985.woff') }}") format("woff");
+            src: url("cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2") format("woff2"),
+                url("cdn/fonts/assistant/assistant_n4.6e9875ce64e0fefcd3f4446b7ec9036b3ddd2985.woff") format("woff");
         }
 
         @font-face {
@@ -46,8 +57,8 @@
             font-weight: 700;
             font-style: normal;
             font-display: swap;
-            src: url("{{ asset('cdn/fonts/assistant/assistant_n7.bf44452348ec8b8efa3aa3068825305886b1c83c.woff2') }}") format("woff2"),
-                url("{{ asset('cdn/fonts/assistant/assistant_n7.0c887fee83f6b3bda822f1150b912c72da0f7b64.woff') }}") format("woff");
+            src: url("cdn/fonts/assistant/assistant_n7.bf44452348ec8b8efa3aa3068825305886b1c83c.woff2") format("woff2"),
+                url("cdn/fonts/assistant/assistant_n7.0c887fee83f6b3bda822f1150b912c72da0f7b64.woff") format("woff");
         }
 
 
@@ -57,8 +68,8 @@
             font-weight: 400;
             font-style: normal;
             font-display: swap;
-            src: url("{{ asset('cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2') }}") format("woff2"),
-                url("{{ asset('cdn/fonts/assistant/assistant_n4.6e9875ce64e0fefcd3f4446b7ec9036b3ddd2985.woff') }}") format("woff");
+            src: url("cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2") format("woff2"),
+                url("cdn/fonts/assistant/assistant_n4.6e9875ce64e0fefcd3f4446b7ec9036b3ddd2985.woff") format("woff");
         }
 
 
@@ -345,28 +356,39 @@
         }
     </style>
 
-    <link href="{{ asset('cdn/shop/t/3/assets/base.css?v=159841507637079171801763467722.css') }}" rel="stylesheet" type="text/css"
+    <link href="cdn/shop/t/3/assets/base.css%3Fv=159841507637079171801763467722.css" rel="stylesheet" type="text/css"
         media="all" />
-    <link rel="stylesheet" href="{{ asset('cdn/shop/t/3/assets/component-cart-items.css?v=13033300910818915211763467722.css') }}"
+    <link rel="stylesheet" href="cdn/shop/t/3/assets/component-cart-items.css%3Fv=13033300910818915211763467722.css"
         media="print" onload="this.media='all'">
     <link rel="preload" as="font"
-        href="{{ asset('cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2') }}" type="font/woff2"
+        href="cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2" type="font/woff2"
         crossorigin>
 
 
     <link rel="preload" as="font"
-        href="{{ asset('cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2') }}" type="font/woff2"
+        href="cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2" type="font/woff2"
         crossorigin>
 
     <link rel="stylesheet"
-        href="{{ asset('cdn/shop/t/3/assets/component-predictive-search.css?v=118923337488134913561763467722.css') }}" media="print"
+        href="cdn/shop/t/3/assets/component-predictive-search.css%3Fv=118923337488134913561763467722.css" media="print"
         onload="this.media='all'">
+    <script>
+        if (Shopify.designMode) {
+            document.documentElement.classList.add('shopify-design-mode');
+        }
+    </script>
+    <input type="hidden" value="true" id="srCheckoutAutoOnboardClient" />
+    <link rel="stylesheet" href="https://fastrr-boost-ui.pickrr.com/assets/styles/sr-checkout.css">
+    <script src="https://fastrr-boost-ui.pickrr.com/assets/js/channels/shopify.js" defer></script>
+    <script src="https://fastrr-boost-ui.pickrr.com/assets/js/channels/shiprocketMarketing.js" defer></script>
+
 
     <style>
         .shiprocket-headless {
             width: 100% !important
         }
     </style>
+
 </head>
 
 <body class="gradient">
@@ -375,9 +397,9 @@
     </a><!-- BEGIN sections: header-group -->
     <div id="shopify-section-sections--25919688868162__announcement-bar"
         class="shopify-section shopify-section-group-header-group announcement-bar-section">
-        <link href="{{ asset('cdn/shop/t/3/assets/component-slideshow.css?v=17933591812325749411763467722.css') }}" rel="stylesheet"
+        <link href="cdn/shop/t/3/assets/component-slideshow.css%3Fv=17933591812325749411763467722.css" rel="stylesheet"
             type="text/css" media="all" />
-        <link href="{{ asset('cdn/shop/t/3/assets/component-slider.css?v=14039311878856620671763467722.css') }}" rel="stylesheet"
+        <link href="cdn/shop/t/3/assets/component-slider.css%3Fv=14039311878856620671763467722.css" rel="stylesheet"
             type="text/css" media="all" />
 
 
@@ -397,17 +419,17 @@
     </div>
     <div id="shopify-section-sections--25919688868162__header"
         class="shopify-section shopify-section-group-header-group section-header">
-        <link rel="stylesheet" href="{{ asset('cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991763467722.css') }}"
+        <link rel="stylesheet" href="cdn/shop/t/3/assets/component-list-menu.css%3Fv=151968516119678728991763467722.css"
             media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('cdn/shop/t/3/assets/component-search.css?v=165164710990765432851763467722.css') }}"
+        <link rel="stylesheet" href="cdn/shop/t/3/assets/component-search.css%3Fv=165164710990765432851763467722.css"
             media="print" onload="this.media='all'">
         <link rel="stylesheet"
-            href="{{ asset('cdn/shop/t/3/assets/component-menu-drawer.css?v=147478906057189667651763467722.css') }}" media="print"
+            href="cdn/shop/t/3/assets/component-menu-drawer.css%3Fv=147478906057189667651763467722.css" media="print"
             onload="this.media='all'">
         <link rel="stylesheet"
-            href="{{ asset('cdn/shop/t/3/assets/component-cart-notification.css?v=54116361853792938221763467722.css') }}"
+            href="cdn/shop/t/3/assets/component-cart-notification.css%3Fv=54116361853792938221763467722.css"
             media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('cdn/shop/t/3/assets/component-price.css?v=47596247576480123001763467722.css') }}"
+        <link rel="stylesheet" href="cdn/shop/t/3/assets/component-price.css%3Fv=47596247576480123001763467722.css"
             media="print" onload="this.media='all'">
         <style>
             header-drawer {
@@ -484,6 +506,7 @@
                 }
             }
         </style>
+        <script src="cdn/shop/t/3/assets/cart-notification.js%3Fv=133508293167896966491763467722" defer="defer"></script>
 
         <sticky-header data-sticky-type="on-scroll-up"
             class="header-wrapper color-scheme-1 gradient header-wrapper--border-bottom">
@@ -529,8 +552,7 @@
                 </header-drawer>
                 <h1 class="header__heading"><a href="index.html"
                         class="header__heading-link link link--text focus-inset"><span
-                            class="h2">Vatahari</span></a>
-                </h1>
+                            class="h2">Vatahari</span></a></h1>
 
                 <nav class="header__inline-menu">
                     <ul class="list-menu list-menu--inline" role="list">
@@ -592,12 +614,14 @@
                 display: none;
             }
         </style>
+
+
     </div>
     <!-- END sections: header-group -->
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
         <section id="shopify-section-template--25919691653442__image_banner" class="shopify-section section">
-            <link href="{{ asset('cdn/shop/t/3/assets/section-image-banner.css?v=124819179385751388401763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/section-image-banner.css%3Fv=124819179385751388401763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
             <style data-shopify>
                 @media screen and (max-width: 749px) {
@@ -629,9 +653,9 @@
             <div id="Banner-template--25919691653442__image_banner"
                 class="banner banner--content-align-center banner--content-align-mobile-center banner--adapt banner--adapt banner--desktop-transparent scroll-trigger animate--fade-in">
                 <div class="banner__media media scroll-trigger animate--fade-in"><img
-                        src="{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=3840') }}"
+                        src="cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=3840"
                         alt=""
-                        srcset="{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=375') }} 375w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=550') }} 550w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=750') }} 750w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=1100') }} 1100w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=1500') }} 1500w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=1780') }} 1780w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=2000') }} 2000w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=3000') }} 3000w,{{ asset('cdn/shop/files/Natural_Joint_Pain_Relief_1.png?v=1757534362&width=3840') }} 3840w"
+                        srcset="cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=375=375 37cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=550idth=55cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=750mp;widtcdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=11002&amp;wicdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=150034362&amcdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=178075753436cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=2000?v=17575cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=3000.png?v=1cdn/shop/files/Natural_Joint_Pain_Relief_1.png%3Fv=1757534362&amp;width=3840ef_1.png?v=1757534362&amp;width=3840 3840w"
                         width="1521" height="500.0" sizes="100vw" fetchpriority="high">
                 </div>
                 <div
@@ -645,14 +669,14 @@
 
         </section>
         <section id="shopify-section-template--25919691653442__featured_collection" class="shopify-section section">
-            <link href="{{ asset('cdn/shop/t/3/assets/component-card.css?v=120341546515895839841763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/component-card.css%3Fv=120341546515895839841763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
-            <link href="{{ asset('cdn/shop/t/3/assets/component-price.css?v=47596247576480123001763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/component-price.css%3Fv=47596247576480123001763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
 
-            <link href="{{ asset('cdn/shop/t/3/assets/component-slider.css?v=14039311878856620671763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/component-slider.css%3Fv=14039311878856620671763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
-            <link href="{{ asset('cdn/shop/t/3/assets/template-collection.css?v=58558206033505836701763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/template-collection.css%3Fv=58558206033505836701763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
 
             <style data-shopify>
@@ -693,36 +717,47 @@
                                 style="--animation-order: 1;">
 
                                 <link
-                                    href="{{ asset('cdn/shop/t/3/assets/component-rating.css?v=179577762467860590411763467722.css') }}"
+                                    href="cdn/shop/t/3/assets/component-rating.css%3Fv=179577762467860590411763467722.css"
                                     rel="stylesheet" type="text/css" media="all" />
                                 <link
-                                    href="{{ asset('cdn/shop/t/3/assets/component-volume-pricing.css?v=111870094811454961941763467722.css') }}"
+                                    href="cdn/shop/t/3/assets/component-volume-pricing.css%3Fv=111870094811454961941763467722.css"
                                     rel="stylesheet" type="text/css" media="all" />
 
                                 <link
-                                    href="{{ asset('cdn/shop/t/3/assets/component-price.css?v=47596247576480123001763467722.css') }}"
+                                    href="cdn/shop/t/3/assets/component-price.css%3Fv=47596247576480123001763467722.css"
                                     rel="stylesheet" type="text/css" media="all" />
                                 <link
-                                    href="{{ asset('cdn/shop/t/3/assets/quick-order-list.css?v=86354568948591544181763467722.css') }}"
+                                    href="cdn/shop/t/3/assets/quick-order-list.css%3Fv=86354568948591544181763467722.css"
                                     rel="stylesheet" type="text/css" media="all" />
                                 <link
-                                    href="{{ asset('cdn/shop/t/3/assets/quantity-popover.css?v=160630540099520878331763467722.css') }}"
+                                    href="cdn/shop/t/3/assets/quantity-popover.css%3Fv=160630540099520878331763467722.css"
                                     rel="stylesheet" type="text/css" media="all" />
                                 <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class=" card card--standard card--media  " style="--ratio-percent: 100.0%;">
+                                    <div class="
+        card card--standard
+         card--media
+
+
+
+
+
+      "
+                                        style="--ratio-percent: 100.0%;">
                                         <div class="card__inner color-scheme-2 gradient ratio"
                                             style="--ratio-percent: 100.0%;">
                                             <div class="card__media">
                                                 <div class="media media--transparent media--hover-effect">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/Untitleddesign_1.png?v=1757535467&width=165') }} 165w,{{ asset('cdn/shop/files/Untitleddesign_1.png?v=1757535467&width=360') }} 360w,{{ asset('cdn/shop/files/Untitleddesign_1.png?v=1757535467') }} 500w"
-                                                        src="{{ asset('cdn/shop/files/Untitleddesign_1.png?v=1757535467&width=533') }}"
+                                                    <img srcset="cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=165 165w,cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=360 360w,cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467 500w
+                "
+                                                        src="cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Natural Joint Relief Tablet"
                                                         class="motion-reduce" width="500" height="500">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=165') }} 165w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=360') }} 360w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }} 533w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=720') }} 720w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=940') }} 940w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=1066') }} 1066w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547') }} 1080w"
-                                                        src="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }}"
+                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
+                  "
+                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Natural Joint Relief Tablet"
                                                         class="motion-reduce" loading="lazy" width="1080"
@@ -759,7 +794,8 @@
                                                 </h3>
                                                 <div class="card-information"><span
                                                         class="caption-large light"></span>
-                                                    <div class="price  price--on-sale">
+                                                    <div class="
+      price  price--on-sale">
                                                         <div class="price__container">
                                                             <div class="price__regular"><span
                                                                     class="visually-hidden visually-hidden--inline">Regular
@@ -774,7 +810,9 @@
                                                                     price</span>
                                                                 <span>
                                                                     <s class="price-item price-item--regular">
+
                                                                         Rs. 699.00
+
                                                                     </s>
                                                                 </span><span
                                                                     class="visually-hidden visually-hidden--inline">Sale
@@ -786,8 +824,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+
                                                 </div>
                                             </div>
+
 
                                             <div class="card__badge bottom left"><span
                                                     id="Badge-template--25919691653442__featured_collection-10071948951874"
@@ -801,20 +842,31 @@
                                 style="--animation-order: 2;">
 
                                 <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class=" card card--standard card--media" style="--ratio-percent: 100.0%;">
+                                    <div class="
+        card card--standard
+         card--media
+
+
+
+
+
+      "
+                                        style="--ratio-percent: 100.0%;">
                                         <div class="card__inner color-scheme-2 gradient ratio"
                                             style="--ratio-percent: 100.0%;">
                                             <div class="card__media">
                                                 <div class="media media--transparent media--hover-effect">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png?v=1757537720&width=165') }} 165w,{{ asset('cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png?v=1757537720&width=360') }} 360w,{{ asset('cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png?v=1757537720') }} 500w"
-                                                        src="{{ asset('cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png?v=1757537720&width=533') }}"
+                                                    <img srcset="cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=165 165w,cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=360 360w,cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720 500w
+                "
+                                                        src="cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Pack of 2" class="motion-reduce"
                                                         width="500" height="500">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=165') }} 165w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=360') }} 360w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }} 533w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=720') }} 720w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=940') }} 940w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=1066') }} 1066w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547') }} 1080w"
-                                                        src="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }}"
+                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
+                  "
+                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Pack of 2" class="motion-reduce"
                                                         loading="lazy" width="1080" height="1080">
@@ -831,12 +883,9 @@
                                                         </a>
                                                     </h3>
                                                 </div>
-                                                <div class="card__badge bottom left">
-                                                    <span
+                                                <div class="card__badge bottom left"><span
                                                         id="NoMediaStandardBadge-template--25919691653442__featured_collection-10071959601474"
-                                                        class="badge badge--bottom-left color-scheme-4">
-                                                        Sale
-                                                    </span>
+                                                        class="badge badge--bottom-left color-scheme-4">Sale</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -916,14 +965,16 @@
                                             <div class="card__media">
                                                 <div class="media media--transparent media--hover-effect">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/Untitleddesign_3.png?v=1757537510&width=165') }} 165w,{{ asset('cdn/shop/files/Untitleddesign_3.png?v=1757537510&width=360') }} 360w,{{ asset('cdn/shop/files/Untitleddesign_3.png?v=1757537510') }} 500w"
-                                                        src="{{ asset('cdn/shop/files/Untitleddesign_3.png?v=1757537510&width=533') }}"
+                                                    <img srcset="cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=165 165w,cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=360 360w,cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510 500w
+                "
+                                                        src="cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati Pack of 5" class="motion-reduce"
                                                         width="500" height="500">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=165') }} 165w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=360') }} 360w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }} 533w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=720') }} 720w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=940') }} 940w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=1066') }} 1066w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547') }} 1080w"
-                                                        src="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }}"
+                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
+                  "
+                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati Pack of 5" class="motion-reduce"
                                                         loading="lazy" width="1080" height="1080">
@@ -1022,14 +1073,16 @@
                                             <div class="card__media">
                                                 <div class="media media--transparent media--hover-effect">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/Untitleddesign_2.png?v=1757537208&width=165') }} 165w,{{ asset('cdn/shop/files/Untitleddesign_2.png?v=1757537208&width=360') }} 360w,{{ asset('cdn/shop/files/Untitleddesign_2.png?v=1757537208') }} 500w"
-                                                        src="{{ asset('cdn/shop/files/Untitleddesign_2.png?v=1757537208&width=533') }}"
+                                                    <img srcset="cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=165 165w,cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=360 360w,cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208 500w
+                "
+                                                        src="cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Pack of 3" class="motion-reduce"
                                                         width="500" height="500">
 
-                                                    <img srcset="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=165') }} 165w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=360') }} 360w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }} 533w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=720') }} 720w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=940') }} 940w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=1066') }} 1066w,{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547') }} 1080w"
-                                                        src="{{ asset('cdn/shop/files/vati_ingredients.png?v=1763314547&width=533') }}"
+                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
+                  "
+                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
                                                         sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                                                         alt="Vatahari Vati - Pack of 3" class="motion-reduce"
                                                         loading="lazy" width="1080" height="1080">
@@ -1114,7 +1167,7 @@
 
         </section>
         <section id="shopify-section-template--25919691653442__image_banner_eJhDkm" class="shopify-section section">
-            <link href="{{ asset('cdn/shop/t/3/assets/section-image-banner.css?v=124819179385751388401763467722.css') }}"
+            <link href="cdn/shop/t/3/assets/section-image-banner.css%3Fv=124819179385751388401763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
             <style data-shopify>
                 @media screen and (max-width: 749px) {
@@ -1146,10 +1199,16 @@
             <div id="Banner-template--25919691653442__image_banner_eJhDkm"
                 class="banner banner--content-align-center banner--content-align-mobile-center banner--adapt banner--adapt banner--mobile-bottom scroll-trigger animate--fade-in">
                 <div class="banner__media media scroll-trigger animate--fade-in"><img
-                        src="{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=3840') }}"
+                        src="cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=3840"
                         alt=""
-                        srcset="{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=375') }} 375w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=550') }} 550w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=750') }} 750w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=1100') }} 1100w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=1500') }} 1500w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=1780') }} 1780w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=2000') }} 2000w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=3000') }} 3000w,{{ asset('cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png?v=1757537958&width=3840') }} 3840w"
+                        srcset="cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=375=375 37cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=550idth=55cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=750mp;widtcdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=11008&amp;wicdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=150037958&amcdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=178075753795cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=2000?v=17575cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=3000.png?v=1cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=3840VEDA.png?v=1757537958&amp;width=3840 3840w"
                         width="1521" height="500.0" sizes="100vw" fetchpriority="auto">
+                </div>
+                <div
+                    class="banner__content banner__content--middle-center page-width scroll-trigger animate--slide-in">
+                    <div
+                        class="banner__box content-container content-container--full-width-mobile color-scheme-1 gradient">
+                    </div>
                 </div>
             </div>
 
@@ -1160,15 +1219,15 @@
     <!-- BEGIN sections: footer-group -->
     <div id="shopify-section-sections--25919688802626__footer"
         class="shopify-section shopify-section-group-footer-group">
-        <link href="{{ asset('cdn/shop/t/3/assets/section-footer.css?v=60318643098753476351763467722.css') }}" rel="stylesheet"
+        <link href="cdn/shop/t/3/assets/section-footer.css%3Fv=60318643098753476351763467722.css" rel="stylesheet"
             type="text/css" media="all" />
-        <link href="{{ asset('cdn/shop/t/3/assets/component-newsletter.css?v=4727253280200485261763467722.css') }}"
+        <link href="cdn/shop/t/3/assets/component-newsletter.css%3Fv=4727253280200485261763467722.css"
             rel="stylesheet" type="text/css" media="all" />
-        <link href="{{ asset('cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991763467722.css') }}"
+        <link href="cdn/shop/t/3/assets/component-list-menu.css%3Fv=151968516119678728991763467722.css"
             rel="stylesheet" type="text/css" media="all" />
-        <link href="{{ asset('cdn/shop/t/3/assets/component-list-payment.css?v=69253961410771838501763467722.css') }}"
+        <link href="cdn/shop/t/3/assets/component-list-payment.css%3Fv=69253961410771838501763467722.css"
             rel="stylesheet" type="text/css" media="all" />
-        <link href="{{ asset('cdn/shop/t/3/assets/component-list-social.css?v=35792976012981934991763467722.css') }}"
+        <link href="cdn/shop/t/3/assets/component-list-social.css%3Fv=35792976012981934991763467722.css"
             rel="stylesheet" type="text/css" media="all" />
         <style data-shopify>
             .footer {
@@ -1198,6 +1257,7 @@
         <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
         <li id="a11y-new-window-message">Opens in a new window.</li>
     </ul>
+    <script src="cdn/shop/t/3/assets/predictive-search.js%3Fv=57209189334897115771763467722" defer="defer"></script>
 </body>
 
 </html>
