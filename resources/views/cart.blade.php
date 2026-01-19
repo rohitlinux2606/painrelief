@@ -74,12 +74,25 @@
 
         .btn-checkout {
             background-color: #000;
-            color: #fff;
+            color: #fff !important;
+            /* Link color override karne ke liye */
             border-radius: 6px;
             padding: 12px;
             font-weight: 600;
             width: 100%;
             border: none;
+            display: block;
+            /* Full width lene ke liye */
+            text-align: center;
+            /* Text ko beech mein karne ke liye */
+            text-decoration: none;
+            /* Underline hatane ke liye */
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-checkout:hover {
+            background-color: #333;
+            color: #fff !important;
         }
 
         .remove-link {
@@ -115,10 +128,16 @@
                                     <h6 class="fw-bold mb-1">{{ $item->product->title }}</h6>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="d-flex align-items-center border rounded px-1">
-                                            <button class="qty-btn decrease-qty"><i class="bi bi-dash"></i></button>
+                                            <button class="qty-btn"
+                                                onclick="updateCartDB('{{ $item->id }}', 'decrease', this.nextElementSibling, this.closest('.cart-item-row'))">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
                                             <input type="text" class="qty-input" value="{{ $item->quantity }}"
                                                 readonly>
-                                            <button class="qty-btn increase-qty"><i class="bi bi-plus"></i></button>
+                                            <button class="qty-btn"
+                                                onclick="updateCartDB('{{ $item->id }}', 'increase', this.previousElementSibling, this.closest('.cart-item-row'))">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
                                         </div>
                                         <a href="#" class="remove-link remove-item"><i
                                                 class="bi bi-trash me-1"></i>Remove</a>
@@ -158,30 +177,63 @@
                         <h5 class="fw-bold">Estimated Total</h5>
                         <h5 class="fw-bold" id="grand-total-display">Rs. 0.00</h5>
                     </div>
-                    <button class="btn-checkout">Checkout Now</button>
+                    <a href="{{ route('checkout') }}" class="btn-checkout">
+                        Checkout Now
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // 1. updateCartDB ko bahar rakhein taaki onclick ise dhund sake
+        function updateCartDB(itemId, action, inputElement, rowElement) {
+            fetch("{{ route('update-cart') }}", { // Make sure 'update-cart' route exists
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        item_id: itemId,
+                        action: action
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Input box update karein
+                        inputElement.value = data.new_qty;
+
+                        // UI totals refresh karein (Jo niche define hai)
+                        // Hum direct function call kar sakte hain calculation ke liye
+                        window.refreshAllTotals();
+                    }
+                })
+                .catch(err => console.error("Error updating cart:", err));
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Function to update all totals
-            function updateCartTotals() {
+            // Is function ko window object mein daal dete hain taaki bahar se call ho sake
+            window.refreshAllTotals = function updateCartTotals() {
                 let subtotal = 0;
                 let totalItems = 0;
 
                 const cartItems = document.querySelectorAll('.cart-item');
 
                 cartItems.forEach(item => {
-                    const qty = parseInt(item.querySelector('.qty-input').value);
+                    const qtyInput = item.querySelector('.qty-input');
+                    if (!qtyInput) return;
+
+                    const qty = parseInt(qtyInput.value);
                     const unitPrice = parseFloat(item.querySelector('.item-total').getAttribute(
                         'data-unit-price'));
 
                     const itemTotalPrice = qty * unitPrice;
 
-                    // Update the price display for this specific row
+                    // Row price update karein
                     item.querySelector('.item-total').innerText =
                         `Rs. ${itemTotalPrice.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
@@ -189,58 +241,35 @@
                     totalItems += qty;
                 });
 
-                // Update the Summary Box
+                // Summary Box update karein
                 document.getElementById('total-qty-count').innerText = totalItems;
                 document.getElementById('subtotal-display').innerText =
                     `Rs. ${subtotal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
                 document.getElementById('grand-total-display').innerText =
                     `Rs. ${subtotal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
-                // If cart is empty after removal
                 if (cartItems.length === 0) {
                     document.getElementById('cart-items-container').innerHTML =
                         `<div class="text-center p-5"><p>Your cart is empty!</p><a href="/" class="btn btn-dark btn-sm">Start Shopping</a></div>`;
                 }
             }
 
-            // Handle Quantity Increase
-            document.querySelectorAll('.increase-qty').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    let input = this.parentElement.querySelector('.qty-input');
-                    input.value = parseInt(input.value) + 1;
-                    updateCartTotals();
-                    // Tip: Yahan aap AJAX call kar sakte hain DB update karne ke liye
-                });
-            });
-
-            // Handle Quantity Decrease
-            document.querySelectorAll('.decrease-qty').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    let input = this.parentElement.querySelector('.qty-input');
-                    if (parseInt(input.value) > 1) {
-                        input.value = parseInt(input.value) - 1;
-                        updateCartTotals();
-                        // Tip: Yahan aap AJAX call kar sakte hain DB update karne ke liye
-                    }
-                });
-            });
-
-            // Handle Item Removal
+            // Handle Item Removal (AJAX ke bina local UI remove)
             document.querySelectorAll('.remove-item').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     if (confirm('Are you sure you want to remove this item?')) {
                         const row = this.closest('.cart-item');
-                        const hr = row.nextElementSibling; // removes the <hr> tag too
+                        const hr = row.nextElementSibling;
                         row.remove();
-                        if (hr) hr.remove();
-                        updateCartTotals();
+                        if (hr && hr.tagName === 'HR') hr.remove();
+                        window.refreshAllTotals();
                     }
                 });
             });
 
-            // Initial Calculation on Load
-            updateCartTotals();
+            // Initial Calculation
+            window.refreshAllTotals();
         });
     </script>
 </body>

@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Container\Attributes\Log;
+use Illuminate\Support\Str;
 
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Customer;
 
 class Pagecontroller extends Controller
 {
@@ -59,6 +63,31 @@ class Pagecontroller extends Controller
         return redirect()->route('show-cart')->with('success', 'Product added to cart!');
     }
 
+    // CartController.php mein add karein
+    public function updateQuantity(Request $request)
+    {
+        $item = CartItem::findOrFail($request->item_id);
+
+        if ($request->action == 'increase') {
+            $item->increment('quantity');
+        } else if ($request->action == 'decrease' && $item->quantity > 1) {
+            $item->decrement('quantity');
+        }
+
+        // Naya total calculate karke bhejein
+        $cart = Cart::with('items')->find($item->cart_id);
+        $newSubtotal = $cart->items->sum(function ($i) {
+            return $i->price * $i->quantity;
+        });
+
+        return response()->json([
+            'status' => 'success',
+            'new_qty' => $item->quantity,
+            'item_total' => number_format($item->price * $item->quantity, 2),
+            'cart_subtotal' => number_format($newSubtotal, 2)
+        ]);
+    }
+
     public function showCart()
     {
         $sessionId = Session::getId();
@@ -71,5 +100,88 @@ class Pagecontroller extends Controller
             ->first();
 
         return view('cart', compact('cart'));
+    }
+
+    public function checkout()
+    {
+        // if (!Auth::check()) {
+        //     return redirect()->route('login');
+        // }
+        $sessionId = Session::getId();
+        $cart = Cart::where('session_id', $sessionId)->with('items.product')->first();
+
+        if (!$cart || $cart->items->count() == 0) {
+            return redirect()->route('cart.show')->with('error', 'Your cart is empty');
+        }
+
+        return view('checkout', compact('cart'));
+    }
+
+
+    public function placeOrder(Request $request)
+    {
+        // 1. Validation (Customer details add kar di)
+        $request->validate([
+            'email' => 'required|email',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'pincode' => 'required',
+        ]);
+
+        $sessionId = Session::getId();
+        $cart = Cart::where('session_id', $sessionId)->first();
+
+        // 2. CUSTOMER LOGIC: Pehle check karein customer exist karta hai?
+        // Agar login hai toh Auth::user(), warna email se dhundhein
+        $customer = Customer::where('email', $request->email)->first();
+
+        if (!$customer) {
+            // Naya customer banayein agar nahi mila
+            $customer = Customer::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => bcrypt(Str::random(10)), // Temporary password
+                'is_active' => true
+            ]);
+        }
+
+        // 3. CREATE ORDER (Ab customer_id use karenge)
+        $order = Order::create([
+            'customer_id' => $customer->id, // User ID ki jagah Customer ID
+            'order_number' => 'ORD-' . strtoupper(Str::random(10)),
+            'subtotal' => $cart->items->sum(function ($item) {
+                return $item->price * $item->quantity;
+            }),
+            'total' => $cart->items->sum(function ($item) {
+                return $item->price * $item->quantity;
+            }),
+            'status' => 'pending',
+            'payment_method' => 'COD',
+            'payment_status' => 'unpaid',
+        ]);
+
+        // 4. Save Order Items (Wahi purana logic)
+        foreach ($cart->items as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'title' => $item->product->title,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+                'total' => $item->price * $item->quantity,
+            ]);
+        }
+
+        // 5. Cleanup
+        $cart->items()->delete();
+        $cart->delete();
+
+        return redirect()->route('order.success', $order->order_number);
     }
 }

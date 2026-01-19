@@ -17,11 +17,10 @@
 
         body {
             background-color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, sans-serif;
             color: #333;
         }
 
-        /* Navbar */
         .navbar {
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
@@ -30,21 +29,17 @@
         .navbar-brand {
             font-weight: 700;
             letter-spacing: 1.5px;
-            font-size: 1.25rem;
         }
 
-        /* Layout Structure */
         .main-wrapper {
             max-width: 1100px;
             margin: 0 auto;
         }
 
-        /* Left Column (Forms) */
         .form-section {
             padding: 40px 20px 40px 0;
         }
 
-        /* Right Column (Summary) */
         .summary-section {
             background-color: var(--bg-summary);
             border-left: 1px solid var(--border-color);
@@ -52,12 +47,10 @@
             min-height: 100vh;
         }
 
-        /* Form Inputs */
         .form-label-custom {
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            color: #333;
             margin-bottom: 8px;
             display: block;
         }
@@ -65,30 +58,26 @@
         .shopify-input {
             border: 1px solid var(--border-color) !important;
             border-radius: 5px !important;
-            padding: 10px 12px !important;
+            padding: 11px !important;
             font-size: 0.9rem !important;
-            box-shadow: none !important;
         }
 
         .shopify-input:focus {
             border-color: #000 !important;
-            outline: 1px solid #000;
+            box-shadow: 0 0 0 1px #000 !important;
         }
 
-        /* Buttons */
         .btn-continue {
             background-color: #000;
             color: #fff;
-            border: none;
-            padding: 15px 25px;
+            padding: 16px 30px;
             border-radius: 5px;
             font-weight: 600;
-            font-size: 0.9rem;
             width: auto;
             float: right;
+            border: none;
         }
 
-        /* Summary Elements */
         .product-img-wrapper {
             width: 64px;
             height: 64px;
@@ -104,13 +93,14 @@
             right: -10px;
             background: #666;
             color: #fff;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
@@ -121,14 +111,12 @@
             .summary-section {
                 padding: 20px;
                 border-left: none;
-                border-bottom: 1px solid var(--border-color);
-                order: -1;
                 min-height: auto;
+                order: -1;
             }
 
             .btn-continue {
                 width: 100%;
-                float: none;
             }
         }
     </style>
@@ -136,118 +124,167 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar">
         <div class="container main-wrapper px-3 px-lg-0">
-            <a class="navbar-brand mx-auto mx-lg-0" href="#">VATAHARI</a>
-            <div class="d-none d-lg-block">
-                <small class="me-3">Home</small>
-                <small>Catalog</small>
-            </div>
+            <a class="navbar-brand text-dark text-decoration-none" href="/">VATAHARI</a>
         </div>
     </nav>
 
     <div class="main-wrapper">
         <div class="row g-0">
             <div class="col-lg-7 form-section">
-                <nav style="--bs-breadcrumb-divider: '›';" aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb small mb-4">
-                        <li class="breadcrumb-item"><a href="#" class="text-dark text-decoration-none">Cart</a>
-                        </li>
+                        <li class="breadcrumb-item"><a href="{{ route('show-cart') }}"
+                                class="text-dark text-decoration-none">Cart</a></li>
                         <li class="breadcrumb-item active fw-bold">Information</li>
                         <li class="breadcrumb-item text-muted">Shipping</li>
-                        <li class="breadcrumb-item text-muted">Payment</li>
                     </ol>
                 </nav>
 
-                <form>
+                <form action="{{ route('place-order') }}" method="POST" id="checkoutForm">
+                    @csrf
                     <div class="d-flex justify-content-between align-items-end mb-2">
-                        <span class="form-label-custom mb-0">Contact</span>
-                        <small class="small">Have an account? <a href="#" class="text-dark">Log in</a></small>
+                        <span class="form-label-custom mb-0">Contact Information</span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control shopify-input" placeholder="Email"
+                            required>
                     </div>
                     <div class="mb-4">
-                        <input type="text" class="form-control shopify-input"
-                            placeholder="Email or mobile phone number">
+                        <input type="tel" name="phone" class="form-control shopify-input"
+                            placeholder="Phone number (for delivery updates)" required>
                     </div>
 
                     <span class="form-label-custom">Shipping Address</span>
                     <div class="row g-2">
-                        <div class="col-12">
-                            <select class="form-select shopify-input">
-                                <option>India</option>
-                            </select>
+                        <div class="col-md-6">
+                            <input type="text" name="first_name" class="form-control shopify-input"
+                                placeholder="First name" required>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control shopify-input"
-                                placeholder="First name (optional)">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control shopify-input" placeholder="Last name">
+                            <input type="text" name="last_name" class="form-control shopify-input"
+                                placeholder="Last name" required>
                         </div>
                         <div class="col-12">
-                            <input type="text" class="form-control shopify-input" placeholder="Address">
+                            <input type="text" name="address" class="form-control shopify-input"
+                                placeholder="Complete Address (House No, Street, Area)" required>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control shopify-input" placeholder="City">
+                            <input type="text" name="city" class="form-control shopify-input" placeholder="City"
+                                required>
                         </div>
                         <div class="col-md-4">
-                            <select class="form-select shopify-input">
-                                <option selected>State</option>
+                            <select name="state" class="form-select shopify-input" required>
+                                <option value="" selected disabled>State</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control shopify-input" placeholder="PIN code">
+                            <input type="text" name="pincode" class="form-control shopify-input"
+                                placeholder="PIN code" required>
                         </div>
                     </div>
 
                     <div class="mt-5 d-flex justify-content-between align-items-center">
-                        <a href="#" class="text-dark text-decoration-none small"><i
-                                class="bi bi-chevron-left"></i> Return to cart</a>
-                        <button class="btn btn-continue">Continue to shipping</button>
+                        <a href="{{ route('show-cart') }}" class="text-dark text-decoration-none small">
+                            <i class="bi bi-chevron-left"></i> Return to cart
+                        </a>
+                        <button type="submit" class="btn btn-continue">Complete Order</button>
                     </div>
                 </form>
-
-                <div class="mt-5 pt-4 border-top">
-                    <small class="text-muted me-3">Refund policy</small>
-                    <small class="text-muted">Privacy policy</small>
-                </div>
             </div>
 
             <div class="col-lg-5 summary-section">
-                <div class="d-flex align-items-center mb-4">
-                    <div class="product-img-wrapper">
-                        <img src="https://via.placeholder.com/64" class="w-100 h-100 rounded" alt="Product">
-                        <span class="img-badge">1</span>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                        <h6 class="small mb-0 fw-bold">Vatahari Vati - Natural Relief</h6>
-                        <small class="text-muted">60 Tablets</small>
-                    </div>
-                    <div class="text-end small fw-bold">Rs. 630.00</div>
+                <div id="order-items-list">
+                    @php $subtotal = 0; @endphp
+                    @foreach ($cart->items as $item)
+                        @php
+                            $itemTotal = $item->price * $item->quantity;
+                            $subtotal += $itemTotal;
+                        @endphp
+                        <div class="d-flex align-items-center mb-4 cart-product-row" data-price="{{ $item->price }}"
+                            data-qty="{{ $item->quantity }}">
+                            <div class="product-img-wrapper">
+                                <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
+                                    style="object-fit: cover;">
+                                <span class="img-badge">{{ $item->quantity }}</span>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="small mb-0 fw-bold">{{ $item->product->title }}</h6>
+                                <small class="text-muted">Unit Price: Rs. {{ number_format($item->price, 2) }}</small>
+                            </div>
+                            <div class="text-end small fw-bold">Rs. {{ number_format($itemTotal, 2) }}</div>
+                        </div>
+                    @endforeach
                 </div>
 
-                <div class="d-flex gap-2 mb-4 border-top pt-4">
+                {{-- <div class="d-flex gap-2 mb-4 border-top pt-4">
                     <input type="text" class="form-control shopify-input" placeholder="Discount code">
                     <button class="btn btn-light border px-3 small">Apply</button>
-                </div>
+                </div> --}}
 
                 <div class="border-top pt-3">
                     <div class="d-flex justify-content-between mb-2 small">
                         <span class="text-muted">Subtotal</span>
-                        <span class="fw-bold">Rs. 630.00</span>
+                        <span class="fw-bold" id="subtotal-val">Rs. {{ number_format($subtotal, 2) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 small">
                         <span class="text-muted">Shipping</span>
-                        <span class="text-muted">Calculated at next step</span>
+                        <span class="text-success fw-bold">FREE</span>
                     </div>
+                    <hr>
                     <div class="d-flex justify-content-between align-items-center mt-2">
                         <h5 class="fw-bold mb-0">Total</h5>
-                        <h4 class="fw-bold mb-0">Rs. 630.00</h4>
+                        <h4 class="fw-bold mb-0" id="total-val" style="color: #000;">Rs.
+                            {{ number_format($subtotal, 2) }}</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calculation Logic
+            function calculateOrderSummary() {
+                let subtotal = 0;
+                const rows = document.querySelectorAll('.cart-product-row');
+
+                rows.forEach(row => {
+                    const price = parseFloat(row.getAttribute('data-price'));
+                    const qty = parseInt(row.getAttribute('data-qty'));
+                    subtotal += (price * qty);
+                });
+
+                // Formatting to Indian Currency
+                const formatter = new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    minimumFractionDigits: 2
+                });
+
+                const formattedSubtotal = formatter.format(subtotal).replace('₹', 'Rs. ');
+
+                document.getElementById('subtotal-val').innerText = formattedSubtotal;
+                document.getElementById('total-val').innerText = formattedSubtotal;
+            }
+
+            // Run on load
+            calculateOrderSummary();
+
+            // Simple Form Validation Feedback
+            const form = document.getElementById('checkoutForm');
+            form.addEventListener('submit', function(e) {
+                const btn = form.querySelector('.btn-continue');
+                btn.innerHTML =
+                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...`;
+                btn.disabled = true;
+            });
+        });
+    </script>
 </body>
 
 </html>

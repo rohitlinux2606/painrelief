@@ -21,6 +21,9 @@ Route::get('/', [App\Http\Controllers\Pagecontroller::class, 'home'])->name('pag
 Route::get('/product/{id}', [App\Http\Controllers\Pagecontroller::class, 'productDetail'])->name('product-detail');
 Route::get('/cart/add/{id}', [App\Http\Controllers\Pagecontroller::class, 'addToCart'])->name('add-to-cart');
 Route::get('/cart/show', [App\Http\Controllers\Pagecontroller::class, 'showCart'])->name('show-cart');
+Route::post('/cart/update', [App\Http\Controllers\Pagecontroller::class, 'updateQuantity'])->name('update-cart');
+Route::get('/checkout', [App\Http\Controllers\Pagecontroller::class, 'checkout'])->name('checkout');
+Route::get('/place-order', [App\Http\Controllers\Pagecontroller::class, 'placeOrder'])->name('place-order');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
