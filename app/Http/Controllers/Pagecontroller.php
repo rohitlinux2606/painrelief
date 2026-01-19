@@ -14,6 +14,7 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Customer;
+use App\Models\Address;
 
 class Pagecontroller extends Controller
 {
@@ -120,8 +121,7 @@ class Pagecontroller extends Controller
 
     public function placeOrder(Request $request)
     {
-        // \Log::info($request->all());
-        // 1. Validation (Customer details add kar di)
+        // 1. Validation
         $request->validate([
             'email' => 'required|email',
             'first_name' => 'required',
@@ -136,23 +136,21 @@ class Pagecontroller extends Controller
         $sessionId = Session::getId();
         $cart = Cart::where('session_id', $sessionId)->first();
 
-        // 2. CUSTOMER LOGIC: Pehle check karein customer exist karta hai?
-        // Agar login hai toh Auth::user(), warna email se dhundhein
-        // Pehle check karein ki kya is email ya phone ka koi customer pehle se hai?
+        if (!$cart || $cart->items->count() == 0) {
+            return redirect()->route('show-cart')->with('error', 'Cart is empty');
+        }
+
+        // 2. CUSTOMER LOGIC
         $customer = Customer::where('email', $request->email)
             ->orWhere('phone', $request->phone)
             ->first();
 
         if ($customer) {
-            // Purana customer mil gaya, bas details update kar do
             $customer->update([
                 'first_name' => $request->first_name,
                 'last_name'  => $request->last_name,
-                'email'      => $request->email,
-                'phone'      => $request->phone,
             ]);
         } else {
-            // Bilkul naya customer hai
             $customer = Customer::create([
                 'first_name' => $request->first_name,
                 'last_name'  => $request->last_name,
@@ -162,34 +160,46 @@ class Pagecontroller extends Controller
                 'is_active'  => true
             ]);
         }
-        // 3. CREATE ORDER (Ab customer_id use karenge)
+
+        // 3. ADDRESS LOGIC: Naya address save karein
+        $address = Address::create([
+            'customer_id'   => $customer->id,
+            'type'          => 'shipping',
+            'name'          => $request->first_name . ' ' . $request->last_name,
+            'phone'         => $request->phone,
+            'address_line1' => $request->address,
+            'city'          => $request->city,
+            'state'         => $request->state,
+            'postal_code'   => $request->pincode,
+            'country'       => 'India',
+        ]);
+
+        // 4. CREATE ORDER (customer_id aur address_id ke saath)
+        // Note: Make sure aapke orders table mein address_id ka column ho
         $order = Order::create([
-            'customer_id' => $customer->id,
-            'order_number' => 'ORD-' . strtoupper(Str::random(10)),
-            'subtotal' => $cart->items->sum(function ($item) {
-                return $item->price * $item->quantity;
-            }),
-            'total' => $cart->items->sum(function ($item) {
-                return $item->price * $item->quantity;
-            }),
-            'status' => 'pending',
+            'customer_id'    => $customer->id,
+            'address_id'     => $address->id, // Address link kar diya
+            'order_number'   => 'ORD-' . strtoupper(Str::random(10)),
+            'subtotal'       => $cart->items->sum(fn($item) => $item->price * $item->quantity),
+            'total'          => $cart->items->sum(fn($item) => $item->price * $item->quantity),
+            'status'         => 'pending',
             'payment_method' => 'COD',
             'payment_status' => 'unpaid',
         ]);
 
-        // 4. Save Order Items (Wahi purana logic)
+        // 5. Save Order Items
         foreach ($cart->items as $item) {
             OrderItem::create([
-                'order_id' => $order->id,
+                'order_id'   => $order->id,
                 'product_id' => $item->product_id,
-                'title' => $item->product->title,
-                'price' => $item->price,
-                'quantity' => $item->quantity,
-                'total' => $item->price * $item->quantity,
+                'title'      => $item->product->title,
+                'price'      => $item->price,
+                'quantity'   => $item->quantity,
+                'total'      => $item->price * $item->quantity,
             ]);
         }
 
-        // 5. Cleanup
+        // 6. Cleanup
         $cart->items()->delete();
         $cart->delete();
 

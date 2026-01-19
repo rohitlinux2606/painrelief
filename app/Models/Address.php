@@ -8,7 +8,7 @@ class Address extends Model
 {
     protected $fillable = [
         'customer_id',
-        'type', // shipping / billing
+        'type',
         'name',
         'phone',
         'address_line1',
