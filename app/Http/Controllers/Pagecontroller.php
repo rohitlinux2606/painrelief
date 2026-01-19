@@ -111,7 +111,7 @@ class Pagecontroller extends Controller
         $cart = Cart::where('session_id', $sessionId)->with('items.product')->first();
 
         if (!$cart || $cart->items->count() == 0) {
-            return redirect()->route('cart.show')->with('error', 'Your cart is empty');
+            return redirect()->route('show-cart')->with('error', 'Your cart is empty');
         }
 
         return view('checkout', compact('cart'));
@@ -120,6 +120,7 @@ class Pagecontroller extends Controller
 
     public function placeOrder(Request $request)
     {
+        // \Log::info($request->all());
         // 1. Validation (Customer details add kar di)
         $request->validate([
             'email' => 'required|email',
@@ -137,23 +138,33 @@ class Pagecontroller extends Controller
 
         // 2. CUSTOMER LOGIC: Pehle check karein customer exist karta hai?
         // Agar login hai toh Auth::user(), warna email se dhundhein
-        $customer = Customer::where('email', $request->email)->first();
+        // Pehle check karein ki kya is email ya phone ka koi customer pehle se hai?
+        $customer = Customer::where('email', $request->email)
+            ->orWhere('phone', $request->phone)
+            ->first();
 
-        if (!$customer) {
-            // Naya customer banayein agar nahi mila
+        if ($customer) {
+            // Purana customer mil gaya, bas details update kar do
+            $customer->update([
+                'first_name' => $request->first_name,
+                'last_name'  => $request->last_name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+            ]);
+        } else {
+            // Bilkul naya customer hai
             $customer = Customer::create([
                 'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => bcrypt(Str::random(10)), // Temporary password
-                'is_active' => true
+                'last_name'  => $request->last_name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+                'password'   => bcrypt(Str::random(10)),
+                'is_active'  => true
             ]);
         }
-
         // 3. CREATE ORDER (Ab customer_id use karenge)
         $order = Order::create([
-            'customer_id' => $customer->id, // User ID ki jagah Customer ID
+            'customer_id' => $customer->id,
             'order_number' => 'ORD-' . strtoupper(Str::random(10)),
             'subtotal' => $cart->items->sum(function ($item) {
                 return $item->price * $item->quantity;
@@ -182,6 +193,18 @@ class Pagecontroller extends Controller
         $cart->items()->delete();
         $cart->delete();
 
-        return redirect()->route('order.success', $order->order_number);
+        return redirect()->route('order-success', $order->order_number);
+    }
+
+    public function orderSuccess($orderNumber)
+    {
+        // Customer details ke saath order load karein
+        $order = Order::with('customer', 'items')->where('order_number', $orderNumber)->first();
+
+        if (!$order) {
+            return redirect()->route('home');
+        }
+
+        return view('order-success', compact('order'));
     }
 }

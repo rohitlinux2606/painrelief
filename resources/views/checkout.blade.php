@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Vatahari</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
         :root {
@@ -65,6 +68,17 @@
         .shopify-input:focus {
             border-color: #000 !important;
             box-shadow: 0 0 0 1px #000 !important;
+        }
+
+        /* Select2 Style Adjustment to match Shopify Inputs */
+        .select2-container--default .select2-selection--single {
+            border: 1px solid var(--border-color) !important;
+            height: 45px !important;
+            padding: 8px !important;
+        }
+
+        .select2-container--default .select2-selection--arrow {
+            height: 43px !important;
         }
 
         .btn-continue {
@@ -170,18 +184,19 @@
                             <input type="text" name="address" class="form-control shopify-input"
                                 placeholder="Complete Address (House No, Street, Area)" required>
                         </div>
+
                         <div class="col-md-4">
-                            <input type="text" name="city" class="form-control shopify-input" placeholder="City"
-                                required>
-                        </div>
-                        <div class="col-md-4">
-                            <select name="state" class="form-select shopify-input" required>
-                                <option value="" selected disabled>State</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <select name="state" id="state-select" class="form-select select2" required>
+                                <option value="" selected disabled>Loading States...</option>
                             </select>
                         </div>
+
+                        <div class="col-md-4">
+                            <select name="city" id="city-select" class="form-select select2" required disabled>
+                                <option value="" selected disabled>Select State First</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-4">
                             <input type="text" name="pincode" class="form-control shopify-input"
                                 placeholder="PIN code" required>
@@ -221,11 +236,6 @@
                     @endforeach
                 </div>
 
-                {{-- <div class="d-flex gap-2 mb-4 border-top pt-4">
-                    <input type="text" class="form-control shopify-input" placeholder="Discount code">
-                    <button class="btn btn-light border px-3 small">Apply</button>
-                </div> --}}
-
                 <div class="border-top pt-3">
                     <div class="d-flex justify-content-between mb-2 small">
                         <span class="text-muted">Subtotal</span>
@@ -246,42 +256,98 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Calculation Logic
+        $(document).ready(function() {
+            // 1. Initialize Select2
+            $('.select2').select2({
+                placeholder: "Select an option",
+                allowClear: true,
+                width: '100%'
+            });
+
+            const stateSelect = $('#state-select');
+            const citySelect = $('#city-select');
+
+            // 2. Fetch All States of India on Load
+            fetch("https://countriesnow.space/api/v0.1/countries/states", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        country: "India"
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    stateSelect.empty().append('<option value="" selected disabled>Select State</option>');
+                    data.data.states.forEach(state => {
+                        stateSelect.append(`<option value="${state.name}">${state.name}</option>`);
+                    });
+                })
+                .catch(err => {
+                    console.error("Error loading states", err);
+                    stateSelect.empty().append('<option value="">Error Loading</option>');
+                });
+
+            // 3. Handle State Change to Load Cities
+            stateSelect.on('change', function() {
+                const stateName = $(this).val();
+                if (!stateName) return;
+
+                citySelect.prop('disabled', true).empty().append(
+                    '<option value="">Loading Cities...</option>');
+
+                fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            country: "India",
+                            state: stateName
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        citySelect.empty().append(
+                            '<option value="" selected disabled>Select City</option>');
+                        data.data.forEach(city => {
+                            citySelect.append(`<option value="${city}">${city}</option>`);
+                        });
+                        citySelect.prop('disabled', false);
+                    })
+                    .catch(err => console.error("Error loading cities", err));
+            });
+
+            // Original Calculation Logic
             function calculateOrderSummary() {
                 let subtotal = 0;
-                const rows = document.querySelectorAll('.cart-product-row');
-
-                rows.forEach(row => {
-                    const price = parseFloat(row.getAttribute('data-price'));
-                    const qty = parseInt(row.getAttribute('data-qty'));
+                $('.cart-product-row').each(function() {
+                    const price = parseFloat($(this).data('price'));
+                    const qty = parseInt($(this).data('qty'));
                     subtotal += (price * qty);
                 });
 
-                // Formatting to Indian Currency
                 const formatter = new Intl.NumberFormat('en-IN', {
                     style: 'currency',
                     currency: 'INR',
                     minimumFractionDigits: 2
                 });
-
                 const formattedSubtotal = formatter.format(subtotal).replace('₹', 'Rs. ');
-
-                document.getElementById('subtotal-val').innerText = formattedSubtotal;
-                document.getElementById('total-val').innerText = formattedSubtotal;
+                $('#subtotal-val').text(formattedSubtotal);
+                $('#total-val').text(formattedSubtotal);
             }
-
-            // Run on load
             calculateOrderSummary();
 
-            // Simple Form Validation Feedback
-            const form = document.getElementById('checkoutForm');
-            form.addEventListener('submit', function(e) {
-                const btn = form.querySelector('.btn-continue');
-                btn.innerHTML =
-                    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...`;
-                btn.disabled = true;
+            // Form Submit Loading
+            $('#checkoutForm').on('submit', function() {
+                const btn = $(this).find('.btn-continue');
+                btn.html('<span class="spinner-border spinner-border-sm"></span> Processing...').prop(
+                    'disabled', true);
             });
         });
     </script>
