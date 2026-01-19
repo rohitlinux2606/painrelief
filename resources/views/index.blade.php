@@ -1204,12 +1204,6 @@
                         srcset="cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=375=375 37cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=550idth=55cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=750mp;widtcdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=11008&amp;wicdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=150037958&amcdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=178075753795cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=2000?v=17575cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=3000.png?v=1cdn/shop/files/GOODNESS_OF_PURITY_AUTHENCITY_OF_AYURVEDA.png%3Fv=1757537958&amp;width=3840VEDA.png?v=1757537958&amp;width=3840 3840w"
                         width="1521" height="500.0" sizes="100vw" fetchpriority="auto">
                 </div>
-                <div
-                    class="banner__content banner__content--middle-center page-width scroll-trigger animate--slide-in">
-                    <div
-                        class="banner__box content-container content-container--full-width-mobile color-scheme-1 gradient">
-                    </div>
-                </div>
             </div>
 
 
