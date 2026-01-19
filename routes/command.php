@@ -17,7 +17,7 @@ use App\Http\Controllers\DevController;
 // They should not be used in production environments.
 //===============================================================================//
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dev', 'as' => 'dev.'], function () {
+Route::group(['prefix' => 'dev', 'as' => 'dev.'], function () {
     // Generate a new migration for the session table
     Route::get('/generate-session-table', function () {
         Artisan::call('session:table');
@@ -180,6 +180,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dev', 'as' => 'dev.'], functi
 
         return 'Log file does not exist.';
     })->name('download-and-clear-log');
-
-    ROute::post('/new-env-key', [DevController::class, 'newEnvKey'])->name('new-env-key');
 });
