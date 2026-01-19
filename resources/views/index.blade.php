@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
-    <link rel="canonical" href="index.html">
+    <link rel="canonical" href="{{ route('page.home') }}">
     <link rel="icon" type="image/png"
         href="cdn/shop/files/VATAHARI.png%3Fcrop=center&amp;height=32&amp;v=1762950312&amp;width=32">
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -392,7 +392,7 @@
 </head>
 
 <body class="gradient">
-    <a class="skip-to-content-link button visually-hidden" href="index.html#MainContent">
+    <a class="skip-to-content-link button visually-hidden" href="{{ route('page.home') }}#MainContent">
         Skip to content
     </a><!-- BEGIN sections: header-group -->
     <div id="shopify-section-sections--25919688868162__announcement-bar"
@@ -506,6 +506,67 @@
                 }
             }
         </style>
+
+        <style>
+            /* Button Base Styles as Anchors */
+            .button {
+                display: flex;
+                /* flex use karne se text center rahega */
+                justify-content: center;
+                align-items: center;
+                border: 0.1rem solid transparent;
+                border-radius: 4px;
+                padding: 1rem 3rem;
+                text-align: center;
+                text-decoration: none !important;
+                /* anchor ka underline hatane ke liye */
+                cursor: pointer;
+                font-size: 1.4rem;
+                letter-spacing: 0.1rem;
+                transition: all 0.3s ease;
+                width: 100%;
+                /* full width */
+                text-transform: capitalize;
+                font-weight: 600;
+                min-height: 4.5rem;
+                box-sizing: border-box;
+                /* padding handle karne ke liye */
+            }
+
+            /* Add To Cart (Outline Style) */
+            .button--secondary {
+                background: transparent;
+                color: #000 !important;
+                border: 1.5px solid #000;
+            }
+
+            .button--secondary:hover {
+                background-color: #f3f3f3;
+                color: #000 !important;
+            }
+
+            /* Buy Now (Solid Black Style) */
+            .button--primary {
+                background-color: #000;
+                color: #fff !important;
+                border: 1.5px solid #000;
+            }
+
+            .button--primary:hover {
+                background-color: #333;
+                border-color: #333;
+                color: #fff !important;
+            }
+
+            .mb-2 {
+                margin-bottom: 0.8rem;
+            }
+
+            /* Product Card Information Adjustments */
+            .card__information {
+                padding: 1.5rem !important;
+            }
+        </style>
         <script src="cdn/shop/t/3/assets/cart-notification.js%3Fv=133508293167896966491763467722" defer="defer"></script>
 
         <sticky-header data-sticky-type="on-scroll-up"
@@ -534,15 +595,19 @@
                                 <div class="menu-drawer__navigation-container">
                                     <nav class="menu-drawer__navigation">
                                         <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-                                            <li><a id="HeaderDrawer-home" href="index.html"
+                                            <li>
+                                                <a id="HeaderDrawer-home" href="{{ route('page.home') }}"
                                                     class="menu-drawer__menu-item list-menu__item link link--text focus-inset menu-drawer__menu-item--active"
                                                     aria-current="page">
                                                     Home
-                                                </a></li>
-                                            <li><a id="HeaderDrawer-catalog" href="collections/all.html"
+                                                </a>
+                                            </li>
+                                            {{-- <li>
+                                                <a id="HeaderDrawer-catalog" href="{{ route('page.home') }}"
                                                     class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
                                                     Catalog
-                                                </a></li>
+                                                </a>
+                                            </li> --}}
                                         </ul>
                                     </nav>
                                 </div>
@@ -550,75 +615,28 @@
                         </div>
                     </details>
                 </header-drawer>
-                <h1 class="header__heading"><a href="index.html"
+                <h1 class="header__heading"><a href="{{ route('page.home') }}"
                         class="header__heading-link link link--text focus-inset"><span
                             class="h2">Vatahari</span></a></h1>
 
                 <nav class="header__inline-menu">
                     <ul class="list-menu list-menu--inline" role="list">
-                        <li><a id="HeaderMenu-home" href="index.html"
+                        <li><a id="HeaderMenu-home" href="{{ route('page.home') }}"
                                 class="header__menu-item list-menu__item link link--text focus-inset"
                                 aria-current="page">
                                 <span class="header__active-menu-item">Home</span>
                             </a></li>
-                        <li><a id="HeaderMenu-catalog" href="collections/all.html"
+                        {{-- <li><a id="HeaderMenu-catalog" href="{{ route('page.home') }}"
                                 class="header__menu-item list-menu__item link link--text focus-inset">
                                 <span>Catalog</span>
-                            </a></li>
+                            </a></li> --}}
                     </ul>
                 </nav>
             </header>
         </sticky-header>
 
-        <cart-notification>
-            <div class="cart-notification-wrapper page-width">
-                <div id="cart-notification" class="cart-notification focus-inset color-scheme-1 gradient"
-                    aria-modal="true" aria-label="Item added to your cart" role="dialog" tabindex="-1">
-                    <div class="cart-notification__header">
-                        <h2 class="cart-notification__heading caption-large text-body"><svg
-                                xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-checkmark"
-                                viewBox="0 0 12 9">
-                                <path fill="currentColor" fill-rule="evenodd"
-                                    d="M11.35.643a.5.5 0 0 1 .006.707l-6.77 6.886a.5.5 0 0 1-.719-.006L.638 4.845a.5.5 0 1 1 .724-.69l2.872 3.011 6.41-6.517a.5.5 0 0 1 .707-.006z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Item added to your cart
-                        </h2>
-                        <button type="button"
-                            class="cart-notification__close modal__close-button link link--text focus-inset"
-                            aria-label="Close">
-                            <span class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    class="icon icon-close" viewBox="0 0 18 17">
-                                    <path fill="currentColor"
-                                        d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z" />
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                    <div id="cart-notification-product" class="cart-notification-product"></div>
-                    <div class="cart-notification__links">
-                        <a href="#" id="cart-notification-button"
-                            class="button button--secondary button--full-width">View cart</a>
-                        <form action="#" method="post" id="cart-notification-form">
-                            <button class="button button--primary button--full-width" name="checkout">
-                                Check out
-                            </button>
-                        </form>
-                        <button type="button" class="link button-label">Continue shopping</button>
-                    </div>
-                </div>
-            </div>
-        </cart-notification>
-        <style data-shopify>
-            .cart-notification {
-                display: none;
-            }
-        </style>
-
-
     </div>
     <!-- END sections: header-group -->
-
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
         <section id="shopify-section-template--25919691653442__image_banner" class="shopify-section section">
             <link href="cdn/shop/t/3/assets/section-image-banner.css%3Fv=124819179385751388401763467722.css"
@@ -665,20 +683,16 @@
                     </div>
                 </div>
             </div>
-
-
         </section>
         <section id="shopify-section-template--25919691653442__featured_collection" class="shopify-section section">
             <link href="cdn/shop/t/3/assets/component-card.css%3Fv=120341546515895839841763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
             <link href="cdn/shop/t/3/assets/component-price.css%3Fv=47596247576480123001763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
-
             <link href="cdn/shop/t/3/assets/component-slider.css%3Fv=14039311878856620671763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
             <link href="cdn/shop/t/3/assets/template-collection.css%3Fv=58558206033505836701763467722.css"
                 rel="stylesheet" type="text/css" media="all" />
-
             <style data-shopify>
                 .section-template--25919691653442__featured_collection-padding {
                     padding-top: 33px;
@@ -698,10 +712,9 @@
                     data-id="template--25919691653442__featured_collection">
                     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width">
                         <h2 class="title inline-richtext h1 scroll-trigger animate--slide-in">
-                            Best Sellers
+                            Products
                         </h2>
                     </div>
-
                     <slider-component
                         class="slider-mobile-gutter page-width page-width-desktop scroll-trigger animate--slide-in">
                         <ul id="Slider-template--25919691653442__featured_collection"
@@ -709,462 +722,73 @@
                             class="grid product-grid contains-card contains-card--product contains-card--standard grid--4-col-desktop grid--2-col-tablet-down"
                             role="list" aria-label="Slider">
 
-
-
-
-                            <li id="Slide-template--25919691653442__featured_collection-1"
-                                class="grid__item scroll-trigger animate--slide-in" data-cascade
-                                style="--animation-order: 1;">
-
-                                <link
-                                    href="cdn/shop/t/3/assets/component-rating.css%3Fv=179577762467860590411763467722.css"
-                                    rel="stylesheet" type="text/css" media="all" />
-                                <link
-                                    href="cdn/shop/t/3/assets/component-volume-pricing.css%3Fv=111870094811454961941763467722.css"
-                                    rel="stylesheet" type="text/css" media="all" />
-
-                                <link
-                                    href="cdn/shop/t/3/assets/component-price.css%3Fv=47596247576480123001763467722.css"
-                                    rel="stylesheet" type="text/css" media="all" />
-                                <link
-                                    href="cdn/shop/t/3/assets/quick-order-list.css%3Fv=86354568948591544181763467722.css"
-                                    rel="stylesheet" type="text/css" media="all" />
-                                <link
-                                    href="cdn/shop/t/3/assets/quantity-popover.css%3Fv=160630540099520878331763467722.css"
-                                    rel="stylesheet" type="text/css" media="all" />
-                                <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class="
-        card card--standard
-         card--media
-
-
-
-
-
-      "
-                                        style="--ratio-percent: 100.0%;">
-                                        <div class="card__inner color-scheme-2 gradient ratio"
-                                            style="--ratio-percent: 100.0%;">
-                                            <div class="card__media">
-                                                <div class="media media--transparent media--hover-effect">
-
-                                                    <img srcset="cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=165 165w,cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=360 360w,cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467 500w
-                "
-                                                        src="cdn/shop/files/Untitleddesign_1.png%3Fv=1757535467&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Natural Joint Relief Tablet"
-                                                        class="motion-reduce" width="500" height="500">
-
-                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
-                  "
-                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Natural Joint Relief Tablet"
-                                                        class="motion-reduce" loading="lazy" width="1080"
-                                                        height="1080">
-                                                </div>
-                                            </div>
-                                            <div class="card__content">
-                                                <div class="card__information">
-                                                    <h3 class="card__heading">
-                                                        <a href="products/vatahari-vati-natural-joint-relief-tablet.html"
-                                                            id="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071948951874"
-                                                            class="full-unstyled-link"
-                                                            aria-labelledby="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071948951874 NoMediaStandardBadge-template--25919691653442__featured_collection-10071948951874">
-                                                            Vatahari Vati - Natural Joint Relief Tablet
-                                                        </a>
-                                                    </h3>
-                                                </div>
-                                                <div class="card__badge bottom left"><span
-                                                        id="NoMediaStandardBadge-template--25919691653442__featured_collection-10071948951874"
-                                                        class="badge badge--bottom-left color-scheme-4">Sale</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card__content">
-                                            <div class="card__information">
-                                                <h3 class="card__heading h5"
-                                                    id="title-template--25919691653442__featured_collection-10071948951874">
-                                                    <a href="products/vatahari-vati-natural-joint-relief-tablet.html"
-                                                        id="CardLink-template--25919691653442__featured_collection-10071948951874"
-                                                        class="full-unstyled-link"
-                                                        aria-labelledby="CardLink-template--25919691653442__featured_collection-10071948951874 Badge-template--25919691653442__featured_collection-10071948951874">
-                                                        Vatahari Vati - Natural Joint Relief Tablet
-                                                    </a>
-                                                </h3>
-                                                <div class="card-information"><span
-                                                        class="caption-large light"></span>
-                                                    <div class="
-      price  price--on-sale">
-                                                        <div class="price__container">
-                                                            <div class="price__regular"><span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span class="price-item price-item--regular">
-                                                                    Rs. 630.00
-                                                                </span>
-                                                            </div>
-                                                            <div class="price__sale">
-                                                                <span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span>
-                                                                    <s class="price-item price-item--regular">
-
-                                                                        Rs. 699.00
-
-                                                                    </s>
-                                                                </span><span
-                                                                    class="visually-hidden visually-hidden--inline">Sale
-                                                                    price</span>
-                                                                <span
-                                                                    class="price-item price-item--sale price-item--last">
-                                                                    Rs. 630.00
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="card__badge bottom left"><span
-                                                    id="Badge-template--25919691653442__featured_collection-10071948951874"
-                                                    class="badge badge--bottom-left color-scheme-4">Sale</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li id="Slide-template--25919691653442__featured_collection-2"
-                                class="grid__item scroll-trigger animate--slide-in" data-cascade
-                                style="--animation-order: 2;">
-
-                                <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class="
-        card card--standard
-         card--media
-
-
-
-
-
-      "
-                                        style="--ratio-percent: 100.0%;">
-                                        <div class="card__inner color-scheme-2 gradient ratio"
-                                            style="--ratio-percent: 100.0%;">
-                                            <div class="card__media">
-                                                <div class="media media--transparent media--hover-effect">
-
-                                                    <img srcset="cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=165 165w,cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=360 360w,cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720 500w
-                "
-                                                        src="cdn/shop/files/Untitleddesign_4_9b8ab6f6-03e2-4c83-ab4c-fd3b3f776161.png%3Fv=1757537720&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Pack of 2" class="motion-reduce"
-                                                        width="500" height="500">
-
-                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
-                  "
-                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Pack of 2" class="motion-reduce"
-                                                        loading="lazy" width="1080" height="1080">
-                                                </div>
-                                            </div>
-                                            <div class="card__content">
-                                                <div class="card__information">
-                                                    <h3 class="card__heading">
-                                                        <a href="products/vatahari-vati-pack-of-2.html"
-                                                            id="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071959601474"
-                                                            class="full-unstyled-link"
-                                                            aria-labelledby="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071959601474 NoMediaStandardBadge-template--25919691653442__featured_collection-10071959601474">
-                                                            Vatahari Vati - Pack of 2
-                                                        </a>
-                                                    </h3>
-                                                </div>
-                                                <div class="card__badge bottom left"><span
-                                                        id="NoMediaStandardBadge-template--25919691653442__featured_collection-10071959601474"
-                                                        class="badge badge--bottom-left color-scheme-4">Sale</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card__content">
-                                            <div class="card__information">
-                                                <h3 class="card__heading h5"
-                                                    id="title-template--25919691653442__featured_collection-10071959601474">
-                                                    <a href="products/vatahari-vati-pack-of-2.html"
-                                                        id="CardLink-template--25919691653442__featured_collection-10071959601474"
-                                                        class="full-unstyled-link"
-                                                        aria-labelledby="CardLink-template--25919691653442__featured_collection-10071959601474 Badge-template--25919691653442__featured_collection-10071959601474">
-                                                        Vatahari Vati - Pack of 2
-                                                    </a>
-                                                </h3>
-                                                <div class="card-information"><span
-                                                        class="caption-large light"></span>
-                                                    <div class="
-      price  price--on-sale">
-                                                        <div class="price__container">
-                                                            <div class="price__regular"><span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span class="price-item price-item--regular">
-                                                                    Rs. 1,200.00
-                                                                </span>
-                                                            </div>
-                                                            <div class="price__sale">
-                                                                <span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span>
-                                                                    <s class="price-item price-item--regular">
-
-                                                                        Rs. 1,398.00
-
-                                                                    </s>
-                                                                </span><span
-                                                                    class="visually-hidden visually-hidden--inline">Sale
-                                                                    price</span>
-                                                                <span
-                                                                    class="price-item price-item--sale price-item--last">
-                                                                    Rs. 1,200.00
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="card__badge bottom left"><span
-                                                    id="Badge-template--25919691653442__featured_collection-10071959601474"
-                                                    class="badge badge--bottom-left color-scheme-4">Sale</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li id="Slide-template--25919691653442__featured_collection-3"
-                                class="grid__item scroll-trigger animate--slide-in" data-cascade
-                                style="--animation-order: 3;">
-
-                                <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class="
-        card card--standard
-         card--media
-
-
-
-
-
-      "
-                                        style="--ratio-percent: 100.0%;">
-                                        <div class="card__inner color-scheme-2 gradient ratio"
-                                            style="--ratio-percent: 100.0%;">
-                                            <div class="card__media">
-                                                <div class="media media--transparent media--hover-effect">
-
-                                                    <img srcset="cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=165 165w,cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=360 360w,cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510 500w
-                "
-                                                        src="cdn/shop/files/Untitleddesign_3.png%3Fv=1757537510&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati Pack of 5" class="motion-reduce"
-                                                        width="500" height="500">
-
-                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
-                  "
-                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati Pack of 5" class="motion-reduce"
-                                                        loading="lazy" width="1080" height="1080">
-                                                </div>
-                                            </div>
-                                            <div class="card__content">
-                                                <div class="card__information">
-                                                    <h3 class="card__heading">
-                                                        <a href="products/vatahari-vati-pack-of-5.html"
-                                                            id="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071959109954"
-                                                            class="full-unstyled-link"
-                                                            aria-labelledby="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071959109954 NoMediaStandardBadge-template--25919691653442__featured_collection-10071959109954">
-                                                            Vatahari Vati Pack of 5
-                                                        </a>
-                                                    </h3>
-                                                </div>
-                                                <div class="card__badge bottom left"><span
-                                                        id="NoMediaStandardBadge-template--25919691653442__featured_collection-10071959109954"
-                                                        class="badge badge--bottom-left color-scheme-4">Sale</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card__content">
-                                            <div class="card__information">
-                                                <h3 class="card__heading h5"
-                                                    id="title-template--25919691653442__featured_collection-10071959109954">
-                                                    <a href="products/vatahari-vati-pack-of-5.html"
-                                                        id="CardLink-template--25919691653442__featured_collection-10071959109954"
-                                                        class="full-unstyled-link"
-                                                        aria-labelledby="CardLink-template--25919691653442__featured_collection-10071959109954 Badge-template--25919691653442__featured_collection-10071959109954">
-                                                        Vatahari Vati Pack of 5
-                                                    </a>
-                                                </h3>
-                                                <div class="card-information"><span
-                                                        class="caption-large light"></span>
-                                                    <div class="
-      price  price--on-sale">
-                                                        <div class="price__container">
-                                                            <div class="price__regular"><span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span class="price-item price-item--regular">
-                                                                    Rs. 2,500.00
-                                                                </span>
-                                                            </div>
-                                                            <div class="price__sale">
-                                                                <span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span>
-                                                                    <s class="price-item price-item--regular">
-
-                                                                        Rs. 3,495.00
-
-                                                                    </s>
-                                                                </span><span
-                                                                    class="visually-hidden visually-hidden--inline">Sale
-                                                                    price</span>
-                                                                <span
-                                                                    class="price-item price-item--sale price-item--last">
-                                                                    Rs. 2,500.00
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="card__badge bottom left"><span
-                                                    id="Badge-template--25919691653442__featured_collection-10071959109954"
-                                                    class="badge badge--bottom-left color-scheme-4">Sale</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li id="Slide-template--25919691653442__featured_collection-4"
-                                class="grid__item scroll-trigger animate--slide-in" data-cascade
-                                style="--animation-order: 4;">
-
-                                <div class="card-wrapper product-card-wrapper underline-links-hover">
-                                    <div class="
-        card card--standard
-         card--media
-
-
-
-
-
-      "
-                                        style="--ratio-percent: 100.0%;">
-                                        <div class="card__inner color-scheme-2 gradient ratio"
-                                            style="--ratio-percent: 100.0%;">
-                                            <div class="card__media">
-                                                <div class="media media--transparent media--hover-effect">
-
-                                                    <img srcset="cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=165 165w,cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=360 360w,cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208 500w
-                "
-                                                        src="cdn/shop/files/Untitleddesign_2.png%3Fv=1757537208&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Pack of 3" class="motion-reduce"
-                                                        width="500" height="500">
-
-                                                    <img srcset="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=165 165w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=360 360w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533 533w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=720 720w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=940 940w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=1066 1066w,cdn/shop/files/vati_ingredients.png%3Fv=1763314547 1080w
-                  "
-                                                        src="cdn/shop/files/vati_ingredients.png%3Fv=1763314547&amp;width=533"
-                                                        sizes="(min-width: 1200px) 267px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                                                        alt="Vatahari Vati - Pack of 3" class="motion-reduce"
-                                                        loading="lazy" width="1080" height="1080">
-                                                </div>
-                                            </div>
-                                            <div class="card__content">
-                                                <div class="card__information">
-                                                    <h3 class="card__heading">
-                                                        <a href="products/vatahari-vati-pack-of-3.html"
-                                                            id="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071951212866"
-                                                            class="full-unstyled-link"
-                                                            aria-labelledby="StandardCardNoMediaLink-template--25919691653442__featured_collection-10071951212866 NoMediaStandardBadge-template--25919691653442__featured_collection-10071951212866">
-                                                            Vatahari Vati - Pack of 3
-                                                        </a>
-                                                    </h3>
-                                                </div>
-                                                <div class="card__badge bottom left"><span
-                                                        id="NoMediaStandardBadge-template--25919691653442__featured_collection-10071951212866"
-                                                        class="badge badge--bottom-left color-scheme-4">Sale</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card__content">
-                                            <div class="card__information">
-                                                <h3 class="card__heading h5"
-                                                    id="title-template--25919691653442__featured_collection-10071951212866">
-                                                    <a href="products/vatahari-vati-pack-of-3.html"
-                                                        id="CardLink-template--25919691653442__featured_collection-10071951212866"
-                                                        class="full-unstyled-link"
-                                                        aria-labelledby="CardLink-template--25919691653442__featured_collection-10071951212866 Badge-template--25919691653442__featured_collection-10071951212866">
-                                                        Vatahari Vati - Pack of 3
-                                                    </a>
-                                                </h3>
-                                                <div class="card-information"><span
-                                                        class="caption-large light"></span>
-                                                    <div class="
-      price  price--on-sale">
-                                                        <div class="price__container">
-                                                            <div class="price__regular"><span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span class="price-item price-item--regular">
-                                                                    Rs. 1,650.00
-                                                                </span>
-                                                            </div>
-                                                            <div class="price__sale">
-                                                                <span
-                                                                    class="visually-hidden visually-hidden--inline">Regular
-                                                                    price</span>
-                                                                <span>
-                                                                    <s class="price-item price-item--regular">
-
-                                                                        Rs. 2,097.00
-
-                                                                    </s>
-                                                                </span><span
-                                                                    class="visually-hidden visually-hidden--inline">Sale
-                                                                    price</span>
-                                                                <span
-                                                                    class="price-item price-item--sale price-item--last">
-                                                                    Rs. 1,650.00
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                            @forelse ($products as $product)
+                                <li class="grid__item scroll-trigger animate--slide-in" data-cascade>
+                                    <div class="card-wrapper product-card-wrapper underline-links-hover">
+                                        <div class="card card--standard card--media" style="--ratio-percent: 100.0%;">
+                                            {{-- Image Section --}}
+                                            <div class="card__inner color-scheme-2 gradient ratio"
+                                                style="--ratio-percent: 100.0%;">
+                                                <div class="card__media">
+                                                    <div class="media media--transparent media--hover-effect">
+                                                        <img src="{{ asset($product->thumbnail) }}"
+                                                            alt="{{ $product->title }}" width="500"
+                                                            height="500">
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            {{-- Content Section --}}
+                                            <div class="card__content">
+                                                <div class="card__information">
+                                                    <h3 class="card__heading h5">
+                                                        <a href="{{ route('product-detail', $product->id) }}"
+                                                            class="full-unstyled-link">{{ $product->title }}</a>
+                                                    </h3>
 
-                                            <div class="card__badge bottom left"><span
-                                                    id="Badge-template--25919691653442__featured_collection-10071951212866"
-                                                    class="badge badge--bottom-left color-scheme-4">Sale</span></div>
+                                                    <div class="price price--on-sale">
+                                                        <div class="price__container">
+                                                            <div class="price__sale">
+                                                                <span class="price-item price-item--sale fw-bold">Rs.
+                                                                    {{ $product->price }}</span>
+                                                                @if ($product->compare_at_price)
+                                                                    <s class="price-item price-item--regular"
+                                                                        style="margin-left: 8px; color: #777;">
+                                                                        Rs. {{ $product->compare_at_price }}
+                                                                    </s>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- DYNAMIC ANCHOR BUTTONS SECTION --}}
+                                                    <div class="product-form__buttons" style="margin-top: 15px;">
+                                                        {{-- Add to Cart Anchor --}}
+                                                        <a href="{{ route('add-to-cart', $product->id) }}"
+                                                            class="button button--secondary mb-2">
+                                                            <span>Add to Cart</span>
+                                                        </a>
+
+                                                        {{-- Buy Now Anchor --}}
+                                                        <a href="{{ $product->external_link }}"
+                                                            class="button button--primary" target="_blank">
+                                                            <span>Buy Now</span>
+                                                        </a>
+                                                    </div>
+                                                    {{-- END BUTTONS --}}
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @empty
+                                <p>No Product Found</p>
+                            @endforelse
                         </ul>
                     </slider-component>
                 </div>
             </div>
-
-
         </section>
         <section id="shopify-section-template--25919691653442__image_banner_eJhDkm" class="shopify-section section">
             <link href="cdn/shop/t/3/assets/section-image-banner.css%3Fv=124819179385751388401763467722.css"
@@ -1205,8 +829,6 @@
                         width="1521" height="500.0" sizes="100vw" fetchpriority="auto">
                 </div>
             </div>
-
-
         </section>
     </main>
 

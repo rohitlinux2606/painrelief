@@ -8,14 +8,26 @@ use App\Http\Controllers\Admin\Productcontroller;
 // Route::get('/', function () {
 //     return redirect()->to('/index.html');
 // });
-Route::view('/', 'index');
+Route::view('/c', 'checkout');
+Route::view('/cart', 'cart');
+Route::view('/product', 'product-detail');
 // Route::get('/{any}', function () {
 //     return redirect()->to('/index.html');
 // })->where('any', '.*');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\Pagecontroller::class, 'home'])->name('page.home');
+Route::get('/product/{id}', [App\Http\Controllers\Pagecontroller::class, 'productDetail'])->name('product-detail');
+Route::get('/cart/add/{id}', [App\Http\Controllers\Pagecontroller::class, 'addToCart'])->name('add-to-cart');
+Route::get('/cart/show', [App\Http\Controllers\Pagecontroller::class, 'showCart'])->name('show-cart');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// if try register then redirect login
+Route::get('/register', function () {
+    return redirect()->to('/login');
+});
 
 
 Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(function () {
