@@ -934,15 +934,16 @@
             </div>
         </section>
 
-        <section class="shorts-section">
-            <div class="page-width">
-                <div class="collection__title title-wrapper title-wrapper--no-top-margin">
-                    <h2 class="title inline-richtext h1">Shop by Shorts</h2>
-                </div>
+        @if (!empty($videos))
+            <section class="shorts-section">
+                <div class="page-width">
+                    <div class="collection__title title-wrapper title-wrapper--no-top-margin">
+                        <h2 class="title inline-richtext h1">Shop by Shorts</h2>
+                    </div>
 
-                <div class="swiper myShortsSwiper">
-                    <div class="swiper-wrapper">
-                        @if (!empty($videos))
+                    <div class="swiper myShortsSwiper">
+                        <div class="swiper-wrapper">
+
                             @foreach ($videos as $video)
                                 <div class="swiper-slide">
                                     <div class="shorts-card">
@@ -965,14 +966,15 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endif
-                    </div>
 
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
     </main>
 
     <!-- BEGIN sections: footer-group -->
