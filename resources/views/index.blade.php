@@ -934,7 +934,7 @@
             </div>
         </section>
 
-        @if (!empty($videos))
+        @if (!empty($videos) && count($videos) > 0)
             <section class="shorts-section">
                 <div class="page-width">
                     <div class="collection__title title-wrapper title-wrapper--no-top-margin">
