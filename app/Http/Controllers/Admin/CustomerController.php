@@ -86,10 +86,14 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $customer = Customer::with(['orders', 'addresses'])->findOrFail($id);
+        $title = "View Customer";
+
+        return view('admin.pages.customers.show', compact('customer', 'title'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -150,5 +154,31 @@ class CustomerController extends Controller
             Log::error("Tour Delete Error: " . $e->getMessage());
             return back()->with('error', 'Something went wrong.');
         }
+    }
+
+
+    /**
+     * Restore customer
+     */
+    public function restore($id)
+    {
+        $customer = Customer::withTrashed()->findOrFail($id);
+        $customer->restore();
+
+        return redirect()->route('admin.customer-control.customer.index')
+            ->with('success', 'Customer restored successfully!');
+    }
+
+
+    /**
+     * Delete Customer Permanently
+     */
+    public function forceDelete($id)
+    {
+        $customer = Customer::withTrashed()->findOrFail($id);
+        $customer->forceDelete();
+
+        return redirect()->route('admin.customer-control.customer.index')
+            ->with('success', 'Customer permanently deleted!');
     }
 }

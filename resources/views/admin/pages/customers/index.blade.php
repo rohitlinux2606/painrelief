@@ -111,11 +111,30 @@
                                     </span>
                                 </td>
 
-                                <td class="text-center">
-                                    <div class="btn-group">
+                                <td>
+                                    @if ($customer->trashed())
+                                        <a href="{{ route('admin.customer-control.customer.restore', $customer->id) }}"
+                                            class="btn btn-sm btn-outline-success">
+                                            <i class="bx bx-revision"></i>
+                                        </a>
+
+                                        <form
+                                            action="{{ route('admin.customer-control.customer.forceDelete', $customer->id) }}"
+                                            method="POST" class="d-inline">
+                                            @csrf @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('admin.customer-control.customer.show', $customer->id) }}"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="bx bx-show"></i>
+                                        </a>
+
                                         <a href="{{ route('admin.customer-control.customer.edit', $customer->id) }}"
                                             class="btn btn-sm btn-outline-primary">
-                                            <i class='bx bx-edit-alt'></i>
+                                            <i class="bx bx-edit"></i>
                                         </a>
 
                                         <form
@@ -124,11 +143,12 @@
                                             onsubmit="return confirm('Delete this customer?')">
                                             @csrf @method('DELETE')
                                             <button class="btn btn-sm btn-outline-danger">
-                                                <i class='bx bx-trash'></i>
+                                                <i class="bx bx-trash"></i>
                                             </button>
                                         </form>
-                                    </div>
+                                    @endif
                                 </td>
+
                             </tr>
                         @empty
                             <tr>
