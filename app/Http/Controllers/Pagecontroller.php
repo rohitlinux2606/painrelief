@@ -23,7 +23,6 @@ class Pagecontroller extends Controller
     {
         $products = Product::with('images')->get();
         $videos = ProductVideos::all();
-        \Log::info($videos);
         return view('index', compact('products', 'videos'));
     }
 
