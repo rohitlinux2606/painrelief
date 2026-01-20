@@ -950,10 +950,6 @@
                                         <div class="video-wrapper">
                                             <iframe src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}"
                                                 allowfullscreen></iframe>
-
-
-                                            {{-- <iframe src="https://www.youtube.com/embed/nuJJB1K0mxY"
-                                                allowfullscreen></iframe> --}}
                                         </div>
                                         <a href="{{ route('product-detail', $video->product->id) }}"
                                             class="short-product-info link link--text">

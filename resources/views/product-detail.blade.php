@@ -258,8 +258,8 @@
                 <h1 class="product-title">{{ $product->title }}</h1>
 
                 <div class="price-wrapper">
-                    <span class="price-old">Rs. {{ $product->compare_at_price }}</span>
-                    <span class="price-current">Rs. {{ $product->price }}</span>
+                    <span class="price-old">Rs.{{ $product->compare_at_price }}</span>
+                    <span class="price-current">Rs.{{ $product->price }}</span>
                     <span class="badge badge-sale">Sale</span>
                 </div>
 
