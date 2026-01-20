@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 use App\Models\Customer;
+use App\Models\Address;
 
 class CustomerController extends Controller
 {
@@ -180,5 +181,15 @@ class CustomerController extends Controller
 
         return redirect()->route('admin.customer-control.customer.index')
             ->with('success', 'Customer permanently deleted!');
+    }
+
+    /**
+     * Get customer addresses via AJAX
+     */
+    public function getCustomerAddresses($id)
+    {
+        $addresses = Address::where('customer_id', $id)->get();
+
+        return response()->json($addresses);
     }
 }

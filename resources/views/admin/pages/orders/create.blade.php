@@ -267,4 +267,31 @@
             }
         });
     </script>
+
+    <script>
+        document.getElementById('customerSelect').addEventListener('change', function() {
+            let customerId = this.value;
+            let addressSelect = document.getElementById('addressSelect');
+
+            addressSelect.innerHTML = '<option value="">Loading...</option>';
+
+            if (!customerId) {
+                addressSelect.innerHTML = '<option value="">Select Address</option>';
+                return;
+            }
+
+            fetch(`/admin/get/customer/address/${customerId}`)
+                .then(res => res.json())
+                .then(data => {
+                    addressSelect.innerHTML = '<option value="">Select Address</option>';
+                    data.forEach(address => {
+                        addressSelect.innerHTML += `
+                    <option value="${address.id}">
+                        ${address.address_line1}, ${address.city}, ${address.state}
+                    </option>
+                `;
+                    });
+                });
+        });
+    </script>
 @endpush
