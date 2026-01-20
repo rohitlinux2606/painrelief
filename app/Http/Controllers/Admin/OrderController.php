@@ -87,11 +87,22 @@ class OrderController extends Controller
         ]);
 
         DB::beginTransaction();
+
         try {
 
             $subtotal = 0;
+
             foreach ($request->items as $item) {
                 $subtotal += $item['price'] * $item['quantity'];
+
+                $product = Product::findOrFail($item['product_id']);
+
+                // 🚨 Stock check
+                if ($product->track_quantity && !$product->continue_selling_out_of_stock) {
+                    if ($product->stock_quantity < $item['quantity']) {
+                        throw new \Exception("Not enough stock for product: {$product->title}");
+                    }
+                }
             }
 
             $tax      = $request->tax ?? 0;
@@ -112,13 +123,22 @@ class OrderController extends Controller
             ]);
 
             foreach ($request->items as $item) {
+
+                $product = Product::findOrFail($item['product_id']);
+
                 $order->items()->create([
                     'product_id' => $item['product_id'],
-                    'title'      => $item['title'],
+                    'title'      => $product->title,
                     'price'      => $item['price'],
                     'quantity'   => $item['quantity'],
                     'total'      => $item['price'] * $item['quantity'],
                 ]);
+
+                // 🔻 Deduct stock
+                if ($product->track_quantity) {
+                    $product->stock_quantity -= $item['quantity'];
+                    $product->save();
+                }
             }
 
             DB::commit();
@@ -130,8 +150,6 @@ class OrderController extends Controller
             return back()->with('error', $e->getMessage())->withInput();
         }
     }
-
-
 
 
     /**
