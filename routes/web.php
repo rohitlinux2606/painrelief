@@ -42,4 +42,8 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('product', Productcontroller::class);
         Route::post('product-image/delete', [ProductController::class, 'deleteImage'])->name('image.delete');
     });
+
+    Route::name('customer-control.')->group(function () {
+        Route::resource('customer', App\Http\Controllers\Admin\CustomerController::class);
+    });
 });

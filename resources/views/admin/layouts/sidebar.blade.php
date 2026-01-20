@@ -79,14 +79,14 @@
         </li>
 
         <!-- Customers -->
-        <li class="menu-item {{ request()->routeIs('admin.product-control.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ request()->routeIs('admin.customer-control.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>Customers
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('admin.product-control.product.index') ? 'active' : '' }}">
-                    <a href="{{ route('admin.product-control.product.index') }}" class="menu-link">
-                        Product List
+                <li class="menu-item {{ request()->routeIs('admin.customer-control.customer.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customer-control.customer.index') }}" class="menu-link">
+                        Customer List
                     </a>
                 </li>
             </ul>
