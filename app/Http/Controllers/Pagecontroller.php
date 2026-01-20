@@ -15,18 +15,22 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Customer;
 use App\Models\Address;
+use App\Models\ProductVideos;
 
 class Pagecontroller extends Controller
 {
     public function home()
     {
         $products = Product::with('images')->get();
-        return view('index', compact('products'));
+        $videos = ProductVideos::all();
+        \Log::info($videos);
+        return view('index', compact('products', 'videos'));
     }
 
     public function productDetail($id)
     {
         $product = Product::find($id);
+        // $videos = ProductVideos::where('product_id', $id)->get();
         return view('product-detail', compact('product'));
     }
 

@@ -40,6 +40,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
 
     Route::name('product-control.')->group(function () {
         Route::resource('product', Productcontroller::class);
+        Route::resource('product-videos', App\Http\Controllers\Admin\ProductVideoController::class);
         Route::post('product-image/delete', [ProductController::class, 'deleteImage'])->name('image.delete');
     });
 

@@ -20,7 +20,8 @@
         content="Strengthen your bones, relieve joint pain, and restore natural movement with Vatahari. Our Ayurvedic ortho products blend traditional herbs with modern wellness for safe, long-lasting relief and improved quality of life.">
 
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <meta property="og:site_name" content="Vatahari">
     <meta property="og:title" content="Vatahari – Natural Ortho Care Solutions for Pain Relief &amp; Mobility">
@@ -567,6 +568,108 @@
                 padding: 1.5rem !important;
             }
         </style>
+        <style>
+            .shorts-section {
+                padding: 50px 0;
+                background: #fff;
+            }
+
+            .shorts-container {
+                padding: 0 3rem;
+            }
+
+            .shorts-card {
+                background: #fff;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid #eee;
+                transition: transform 0.3s ease;
+                height: 100%;
+            }
+
+            .video-wrapper {
+                position: relative;
+                width: 100%;
+                padding-top: 177.77%;
+                /* 9:16 Aspect Ratio */
+                background: #000;
+            }
+
+            .video-wrapper iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            .short-product-info {
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .short-product-info img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+            .product-details {
+                flex: 1;
+            }
+
+            .product-details h4 {
+                margin: 0;
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: #121212;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .product-details .price {
+                font-size: 1.3rem;
+                color: #333;
+            }
+
+            .product-details .old-price {
+                text-decoration: line-through;
+                color: #999;
+                margin-left: 5px;
+            }
+
+            /* Navigation Arrows Customization */
+            .swiper-button-next,
+            .swiper-button-prev {
+                color: #000;
+                background: rgba(255, 255, 255, 0.9);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .video-wrapper {
+                pointer-events: none;
+                /* Isse video par click nahi hoga, sirf swipe hoga */
+            }
+
+            .shorts-card:hover .video-wrapper {
+                pointer-events: auto;
+                /* Hover par play karne ki permission dega */
+            }
+        </style>
         <script src="cdn/shop/t/3/assets/cart-notification.js%3Fv=133508293167896966491763467722" defer="defer"></script>
 
         <sticky-header data-sticky-type="on-scroll-up"
@@ -830,6 +933,46 @@
                 </div>
             </div>
         </section>
+
+        <section class="shorts-section">
+            <div class="page-width">
+                <div class="collection__title title-wrapper title-wrapper--no-top-margin">
+                    <h2 class="title inline-richtext h1">Shop by Shorts</h2>
+                </div>
+
+                <div class="swiper myShortsSwiper">
+                    <div class="swiper-wrapper">
+                        @if (!empty($videos))
+                            @foreach ($videos as $video)
+                                <div class="swiper-slide">
+                                    <div class="shorts-card">
+                                        <div class="video-wrapper">
+                                            <iframe src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}"
+                                                allowfullscreen></iframe>
+
+
+                                            {{-- <iframe src="https://www.youtube.com/embed/nuJJB1K0mxY"
+                                                allowfullscreen></iframe> --}}
+                                        </div>
+                                        <a href="{{ route('product-detail', $video->product->id) }}"
+                                            class="short-product-info link link--text">
+                                            <img src="{{ $video->product->thumbnail }}" alt="Product">
+                                            <div class="product-details">
+                                                <h4>{{ $video->product->title }}</h4>
+                                                <div class="price">Rs. {{ $video->product->price }}</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- BEGIN sections: footer-group -->
@@ -874,6 +1017,32 @@
         <li id="a11y-new-window-message">Opens in a new window.</li>
     </ul>
     <script src="cdn/shop/t/3/assets/predictive-search.js%3Fv=57209189334897115771763467722" defer="defer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Swiper
+            var swiper = new Swiper('.myShortsSwiper', {
+                slidesPerView: 2, // Mobile par 2
+                spaceBetween: 15,
+                loop: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    // Tablet par 3
+                    750: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                    // Desktop par 5
+                    990: {
+                        slidesPerView: 5,
+                        spaceBetween: 25,
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

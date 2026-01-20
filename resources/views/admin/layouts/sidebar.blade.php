@@ -75,6 +75,12 @@
                         Product List
                     </a>
                 </li>
+                <li
+                    class="menu-item {{ request()->routeIs('admin.product-control.product-videos.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.product-control.product-videos.index') }}" class="menu-link">
+                        Product Videos
+                    </a>
+                </li>
             </ul>
         </li>
 
@@ -97,7 +103,8 @@
                 <i class="menu-icon tf-icons bx bx-user"></i>Customers
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('admin.customer-control.customer.index') ? 'active' : '' }}">
+                <li
+                    class="menu-item {{ request()->routeIs('admin.customer-control.customer.index') ? 'active' : '' }}">
                     <a href="{{ route('admin.customer-control.customer.index') }}" class="menu-link">
                         Customer List
                     </a>
