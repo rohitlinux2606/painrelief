@@ -48,4 +48,8 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::get('customer/{id}/restore', [App\Http\Controllers\Admin\CustomerController::class, 'restore'])->name('customer.restore');
         Route::delete('customer/{id}/force-delete', [App\Http\Controllers\Admin\CustomerController::class, 'forceDelete'])->name('customer.forceDelete');
     });
+
+    Route::name('order-control.')->group(function () {
+        Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
+    });
 });

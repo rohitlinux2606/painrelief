@@ -78,6 +78,19 @@
             </ul>
         </li>
 
+        <li class="menu-item {{ request()->routeIs('admin.order-control.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-box"></i>Orders
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.order-control.order.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.order-control.order.index') }}" class="menu-link">
+                        Order List
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <!-- Customers -->
         <li class="menu-item {{ request()->routeIs('admin.customer-control.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
