@@ -570,12 +570,8 @@
         </style>
         <style>
             .shorts-section {
-                padding: 50px 0;
+                padding: 40px 0;
                 background: #fff;
-            }
-
-            .shorts-container {
-                padding: 0 3rem;
             }
 
             .shorts-card {
@@ -583,8 +579,14 @@
                 border-radius: 12px;
                 overflow: hidden;
                 border: 1px solid #eee;
-                transition: transform 0.3s ease;
+                transition: all 0.3s ease;
                 height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .shorts-card:hover {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             }
 
             .video-wrapper {
@@ -593,6 +595,7 @@
                 padding-top: 177.77%;
                 /* 9:16 Aspect Ratio */
                 background: #000;
+                cursor: pointer;
             }
 
             .video-wrapper iframe {
@@ -607,67 +610,81 @@
             .short-product-info {
                 padding: 12px;
                 display: flex;
-                align-items: center;
-                gap: 10px;
+                align-items: flex-start;
+                /* Top aligned for multi-line text */
+                gap: 12px;
+                text-decoration: none !important;
             }
 
             .short-product-info img {
-                width: 50px;
-                height: 50px;
+                width: 45px;
+                height: 45px;
                 object-fit: cover;
-                border-radius: 4px;
+                border-radius: 6px;
+                flex-shrink: 0;
+                /* Image size fixed rahegi */
+                border: 1px solid #f0f0f0;
             }
 
             .product-details {
                 flex: 1;
+                min-width: 0;
+                /* Text truncation handling */
             }
 
             .product-details h4 {
-                margin: 0;
-                font-size: 1.4rem;
+                margin: 0 0 4px 0;
+                font-size: 1.3rem;
+                line-height: 1.4;
                 font-weight: 600;
                 color: #121212;
-                white-space: nowrap;
+                /* Yahan se text niche aayega yadi lamba hai */
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                /* 2 lines tak dikhega phir niche auto */
+                -webkit-box-orient: vertical;
                 overflow: hidden;
-                text-overflow: ellipsis;
+                white-space: normal;
+                /* Nowrap ko hata diya */
             }
 
             .product-details .price {
                 font-size: 1.3rem;
-                color: #333;
+                font-weight: 700;
+                color: #000;
             }
 
-            .product-details .old-price {
-                text-decoration: line-through;
-                color: #999;
-                margin-left: 5px;
+            /* Navigation Arrows */
+            .myShortsSwiper {
+                padding: 10px 5px !important;
             }
 
-            /* Navigation Arrows Customization */
             .swiper-button-next,
             .swiper-button-prev {
                 color: #000;
-                background: rgba(255, 255, 255, 0.9);
-                width: 40px;
-                height: 40px;
+                background: #fff;
+                width: 35px;
+                height: 35px;
                 border-radius: 50%;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             }
 
             .swiper-button-next:after,
             .swiper-button-prev:after {
-                font-size: 18px;
-                font-weight: bold;
+                font-size: 14px;
             }
 
-            .video-wrapper {
-                pointer-events: none;
-                /* Isse video par click nahi hoga, sirf swipe hoga */
-            }
+            /* Mobile handling for Video Swipe */
+            @media (max-width: 768px) {
+                .video-wrapper {
+                    pointer-events: none;
+                    /* Mobile par swipe aasaan rahega */
+                }
 
-            .shorts-card:hover .video-wrapper {
-                pointer-events: auto;
-                /* Hover par play karne ki permission dega */
+                /* Click to play fix */
+                .video-wrapper.active {
+                    pointer-events: auto;
+                }
             }
         </style>
         <script src="cdn/shop/t/3/assets/cart-notification.js%3Fv=133508293167896966491763467722" defer="defer"></script>
@@ -937,32 +954,34 @@
         @if (!empty($videos) && count($videos) > 0)
             <section class="shorts-section">
                 <div class="page-width">
-                    <div class="collection__title title-wrapper title-wrapper--no-top-margin">
-                        <h2 class="title inline-richtext h1">Shop by Shorts</h2>
+                    <div class="collection__title title-wrapper title-wrapper--no-top-margin mb-4">
+                        <h2 class="title inline-richtext h1 text-center">Shop by Shorts</h2>
                     </div>
 
                     <div class="swiper myShortsSwiper">
                         <div class="swiper-wrapper">
-
                             @foreach ($videos as $video)
                                 <div class="swiper-slide">
                                     <div class="shorts-card">
-                                        <div class="video-wrapper">
-                                            <iframe src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}"
-                                                allowfullscreen></iframe>
+                                        <div class="video-wrapper" onclick="this.style.pointerEvents='auto'">
+                                            <iframe
+                                                src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?modestbranding=1&rel=0"
+                                                loading="lazy" allowfullscreen>
+                                            </iframe>
                                         </div>
                                         <a href="{{ route('product-detail', $video->product->id) }}"
-                                            class="short-product-info link link--text">
-                                            <img src="{{ $video->product->thumbnail }}" alt="Product">
+                                            class="short-product-info">
+                                            <img src="{{ asset($video->product->thumbnail) }}"
+                                                alt="{{ $video->product->title }}">
                                             <div class="product-details">
                                                 <h4>{{ $video->product->title }}</h4>
-                                                <div class="price">Rs. {{ $video->product->price }}</div>
+                                                <div class="price">₹{{ number_format($video->product->price, 2) }}
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
 
                         <div class="swiper-button-next"></div>
