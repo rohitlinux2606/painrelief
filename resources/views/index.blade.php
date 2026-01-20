@@ -229,9 +229,9 @@
 
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Home</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link px-3" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="#">Shop All</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Ayurvedic Tips</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#">Ayurvedic Tips</a></li> --}}
                 </ul>
                 <div class="d-flex align-items-center gap-4">
                     <i class="bi bi-search fs-5" style="cursor:pointer"></i>
@@ -297,8 +297,11 @@
                                 <div class="shorts-card shadow-sm">
                                     <div class="video-wrapper" onclick="this.style.pointerEvents='auto'">
                                         <iframe
-                                            src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?modestbranding=1&rel=0"
-                                            loading="lazy" allowfullscreen></iframe>
+                                            src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=1&loop=1&playlist={{ $video->getYoutubeId() }}"
+                                            loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
+                                            allowfullscreen>
+                                        </iframe>
+
                                     </div>
                                     <a href="{{ route('product-detail', $video->product->id) }}"
                                         class="short-product-info">
