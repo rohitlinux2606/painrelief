@@ -128,11 +128,36 @@ class Pagecontroller extends Controller
 
     public function removeItem($itemId)
     {
-        $item = CartItem::findOrFail($itemId);
+        $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
+
+        // पहले cart निकालो
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })->first();
+
+        if (!$cart) {
+            return redirect()->back()->with('error', 'Cart not found');
+        }
+
+        // अब उसी cart का item ढूंढो
+        $item = CartItem::where('id', $itemId)
+            ->where('cart_id', $cart->id)
+            ->first();
+
+        if (!$item) {
+            return redirect()->back()->with('error', 'Unauthorized action');
+        }
+
         $item->delete();
 
         return redirect()->back()->with('success', 'Item removed from cart');
     }
+
 
     public function checkout()
     {
