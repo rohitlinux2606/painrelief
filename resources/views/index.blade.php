@@ -237,8 +237,8 @@
     </style>
 </head>
 
-<a href="https://wa.me/919999999999?text=Hello%20I%20want%20to%20know%20about%20Vatahari%20products"
-    class="whatsapp-float" target="_blank">
+<a href="https://wa.me/910?text=Hello%20I%20want%20to%20know%20about%20Vatahari%20products" class="whatsapp-float"
+    target="_blank">
     <i class="bi bi-whatsapp fs-4"></i>
     Chat on WhatsApp
 </a>
