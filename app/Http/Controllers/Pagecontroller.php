@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Container\Attributes\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Product;
 use App\Models\Cart;
@@ -19,6 +19,19 @@ use App\Models\ProductVideos;
 
 class Pagecontroller extends Controller
 {
+    /* =========================
+       SESSION HELPER (IMPORTANT)
+    ========================== */
+    private function getCartSessionId()
+    {
+        if (!session()->has('cart_session')) {
+            session(['cart_session' => session()->getId()]);
+        }
+        return session('cart_session');
+    }
+
+    /* ========================= */
+
     public function home()
     {
         $products = Product::with('images')->get();
@@ -29,7 +42,6 @@ class Pagecontroller extends Controller
     public function productDetail($id)
     {
         $product = Product::find($id);
-        // $videos = ProductVideos::where('product_id', $id)->get();
         return view('product-detail', compact('product'));
     }
 
@@ -37,25 +49,33 @@ class Pagecontroller extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // 1. Session dhundho ya banao (Guest users ke liye)
-        $sessionId = Session::getId();
-        $userId = Auth::id(); // Agar login hai to ID milegi, warna null
+        $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
 
-        // 2. User ka Cart dhundho ya naya banao
-        $cart = Cart::firstOrCreate(
-            ['user_id' => $userId, 'session_id' => $sessionId]
-        );
+        // CART FETCH / CREATE (FIXED)
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })->first();
 
-        // 3. Check karo kya ye product pehle se cart mein hai?
+        if (!$cart) {
+            $cart = Cart::create([
+                'user_id'    => $userId,
+                'session_id' => $sessionId
+            ]);
+        }
+
+        // CART ITEM LOGIC (UNCHANGED)
         $cartItem = CartItem::where('cart_id', $cart->id)
             ->where('product_id', $id)
             ->first();
 
         if ($cartItem) {
-            // Agar hai to quantity badha do
             $cartItem->increment('quantity');
         } else {
-            // Naya item add karo
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $id,
@@ -67,7 +87,6 @@ class Pagecontroller extends Controller
         return redirect()->route('show-cart')->with('success', 'Product added to cart!');
     }
 
-    // CartController.php mein add karein
     public function updateQuantity(Request $request)
     {
         $item = CartItem::findOrFail($request->item_id);
@@ -78,11 +97,8 @@ class Pagecontroller extends Controller
             $item->decrement('quantity');
         }
 
-        // Naya total calculate karke bhejein
         $cart = Cart::with('items')->find($item->cart_id);
-        $newSubtotal = $cart->items->sum(function ($i) {
-            return $i->price * $i->quantity;
-        });
+        $newSubtotal = $cart->items->sum(fn($i) => $i->price * $i->quantity);
 
         return response()->json([
             'status' => 'success',
@@ -94,25 +110,37 @@ class Pagecontroller extends Controller
 
     public function showCart()
     {
-        $sessionId = Session::getId();
+        $sessionId = $this->getCartSessionId();
         $userId = Auth::id();
 
-        // User ka cart load karo uske items aur products ke saath
-        $cart = Cart::where('user_id', $userId)
-            ->orWhere('session_id', $sessionId)
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })
             ->with('items.product')
             ->first();
 
         return view('cart', compact('cart'));
     }
 
+    public function removeItem($itemId)
+    {
+        $item = CartItem::findOrFail($itemId);
+        $item->delete();
+
+        return redirect()->back()->with('success', 'Item removed from cart');
+    }
+
     public function checkout()
     {
-        // if (!Auth::check()) {
-        //     return redirect()->route('login');
-        // }
-        $sessionId = Session::getId();
-        $cart = Cart::where('session_id', $sessionId)->with('items.product')->first();
+        $sessionId = $this->getCartSessionId();
+
+        $cart = Cart::where('session_id', $sessionId)
+            ->with('items.product')
+            ->first();
 
         if (!$cart || $cart->items->count() == 0) {
             return redirect()->route('show-cart')->with('error', 'Your cart is empty');

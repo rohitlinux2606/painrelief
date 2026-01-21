@@ -140,7 +140,7 @@
             </div>
 
             <div class="whatsapp-section">
-                <h5 class="fw-bold mb-2">Join Our Health Community! 🌿</h5>
+                <h5 class="fw-bold mb-2">Join Our Health Community & get Expert Advice! 🌿</h5>
                 <p class="small text-muted mb-4">Connect with 500+ members, get daily health tips, and exclusive offers.
                 </p>
 

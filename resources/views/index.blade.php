@@ -376,7 +376,8 @@
                     <i class="bi bi-search fs-5" style="cursor:pointer"></i>
                     <i class="bi bi-person fs-5" style="cursor:pointer"></i>
                     <div class="position-relative">
-                        <i class="bi bi-bag fs-5" style="cursor:pointer"></i>
+                        <a href="{{ route('show-cart') }}" class="text-black"><i class="bi bi-bag fs-5"
+                                style="cursor:pointer"></i></a>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark"
                             style="font-size: 9px;">0</span>
                     </div>
@@ -726,7 +727,6 @@
         });
     </script>
 
-    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>

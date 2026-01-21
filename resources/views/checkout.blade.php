@@ -256,17 +256,27 @@
                             $itemTotal = $item->price * $item->quantity;
                             $subtotal += $itemTotal;
                         @endphp
-                        <div class="d-flex align-items-center mb-4 cart-product-row" data-price="{{ $item->price }}"
+                        <div class="d-flex align-items-center mb-4 cart-product-row position-relative"
+                            id="cart-row-{{ $item->id }}" data-price="{{ $item->price }}"
                             data-qty="{{ $item->quantity }}">
+
                             <div class="product-img-wrapper">
                                 <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
                                     style="object-fit: cover;">
                                 <span class="img-badge">{{ $item->quantity }}</span>
                             </div>
+
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="small mb-0 fw-bold">{{ $item->product->title }}</h6>
-                                <small class="text-muted">Unit Price: Rs. {{ number_format($item->price, 2) }}</small>
+                                <small class="text-muted">Unit Price: Rs.
+                                    {{ number_format($item->price, 2) }}</small><br>
+                                <a class="btn btn-sm p-0 text-danger small remove-item-btn"
+                                    href="{{ route('checkout.delete-item', $item->id) }}"
+                                    style="font-size: 0.7rem; text-decoration: underline; border:none; background:none;">
+                                    <i class="bi bi-trash3"></i> Remove
+                                </a>
                             </div>
+
                             <div class="text-end small fw-bold">Rs. {{ number_format($itemTotal, 2) }}</div>
                         </div>
                     @endforeach

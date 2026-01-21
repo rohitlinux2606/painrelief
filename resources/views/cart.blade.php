@@ -193,8 +193,8 @@
                                                 <i class="bi bi-plus"></i>
                                             </button>
                                         </div>
-                                        <a href="#" class="remove-link remove-item"><i
-                                                class="bi bi-trash me-1"></i>Remove</a>
+                                        <a href="{{ route('checkout.delete-item', $item->id) }}"
+                                            class="remove-link remove-item"><i class="bi bi-trash me-1"></i>Remove</a>
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-md-end">

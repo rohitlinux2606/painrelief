@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\Productcontroller;
 
@@ -22,6 +23,7 @@ Route::get('/product/{id}', [App\Http\Controllers\Pagecontroller::class, 'produc
 Route::get('/cart/add/{id}', [App\Http\Controllers\Pagecontroller::class, 'addToCart'])->name('add-to-cart');
 Route::get('/cart/show', [App\Http\Controllers\Pagecontroller::class, 'showCart'])->name('show-cart');
 Route::post('/cart/update', [App\Http\Controllers\Pagecontroller::class, 'updateQuantity'])->name('update-cart');
+Route::get('/checkout/delete-item/{id}', [App\Http\Controllers\Pagecontroller::class, 'removeItem'])->name('checkout.delete-item');
 Route::get('/checkout', [App\Http\Controllers\Pagecontroller::class, 'checkout'])->name('checkout');
 Route::post('/place-order', [App\Http\Controllers\Pagecontroller::class, 'placeOrder'])->name('place-order');
 Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller::class, 'orderSuccess'])->name('order-success');
@@ -30,6 +32,10 @@ Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller:
 // if try register then redirect login
 Route::get('/register', function () {
     return redirect()->to('/login');
+});
+
+Route::get('clear-session', function (Request $request) {
+    $request->session()->flush();
 });
 
 
