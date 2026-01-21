@@ -401,7 +401,7 @@
                             <span class="fs-3 fw-bold ms-2">₹600</span>
                         </div>
 
-                        <p class="text-danger fw-bold small">आप बचाते हैं ₹100</p>
+                        <p class="text-danger fw-bold small">You Save ₹100</p>
 
                         <span class="badge bg-secondary mb-3">Trial Pack</span>
 
@@ -429,7 +429,7 @@
                             <span class="fs-3 fw-bold ms-2">₹1,099</span>
                         </div>
 
-                        <p class="text-success fw-bold small">आप बचाते हैं ₹301</p>
+                        <p class="text-success fw-bold small">You Save ₹301</p>
                         <p class="small text-muted">(Per product: ₹549)</p>
 
                         <div class="d-grid mt-3">
@@ -454,7 +454,7 @@
                             <span class="fs-3 fw-bold ms-2">₹1,499</span>
                         </div>
 
-                        <p class="text-danger fw-bold small">आप बचाते हैं ₹601</p>
+                        <p class="text-danger fw-bold small">You Save ₹601</p>
                         <p class="small text-muted">(Per product: ₹499)</p>
 
                         <div class="d-grid mt-3">
@@ -479,7 +479,7 @@
                             <span class="fs-3 fw-bold ms-2">₹2,299</span>
                         </div>
 
-                        <p class="text-danger fw-bold small">आप बचाते हैं ₹1,201</p>
+                        <p class="text-danger fw-bold small">You Save ₹1,201</p>
                         <p class="small text-muted">(Per product: ₹459)</p>
 
                         <div class="d-grid mt-3">
@@ -504,7 +504,7 @@
                             <span class="fs-3 fw-bold ms-2">₹3,999</span>
                         </div>
 
-                        <p class="text-success fw-bold small">आप बचाते हैं ₹3,001</p>
+                        <p class="text-success fw-bold small">You Save ₹3,001</p>
                         <p class="small text-muted">(Per product: ₹399)</p>
 
                         <div class="d-grid mt-3">
