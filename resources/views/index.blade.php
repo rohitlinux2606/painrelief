@@ -212,7 +212,7 @@
         }
     </style>
 
-    <style>
+    {{-- <style>
         .whatsapp-float {
             position: fixed;
             bottom: 25px;
@@ -234,15 +234,79 @@
             background: #1ebe5d;
             color: #fff;
         }
+    </style> --}}
+
+    {{-- <style>
+        .support-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #0d6efd;
+            color: #fff;
+            border-radius: 50px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            text-decoration: none;
+        }
+
+        .support-float:hover {
+            background: #0b5ed7;
+            color: #fff;
+        }
+    </style> --}}
+
+    <style>
+        .support-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #000;
+            color: #fff;
+            border-radius: 50px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .support-float:hover {
+            background: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
     </style>
 </head>
 
-<a href="https://wa.me/910?text=Hello%20I%20want%20to%20know%20about%20Vatahari%20products" class="whatsapp-float"
+{{-- <a href="https://wa.me/910?text=Hello%20I%20want%20to%20know%20about%20Vatahari%20products" class="whatsapp-float"
     target="_blank">
     <i class="bi bi-whatsapp fs-4"></i>
     Chat on WhatsApp
-</a>
+</a> --}}
 
+{{-- <a href="tel:+919999999999" class="support-float">
+    <i class="bi bi-telephone-fill fs-4"></i>
+    Call Support
+</a> --}}
+
+{{-- <a href="mailto:support@vatahari.com" class="support-float">
+    <i class="bi bi-envelope-fill fs-4"></i>
+    Email Support
+</a> --}}
+
+<a href="#" class="support-float">
+    <i class="bi bi-headset fs-4"></i>
+    Customer Support
+</a>
 
 <body>
 
