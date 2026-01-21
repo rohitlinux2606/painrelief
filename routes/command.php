@@ -17,7 +17,7 @@ use App\Http\Controllers\DevController;
 // They should not be used in production environments.
 //===============================================================================//
 
-Route::group(['prefix' => 'dev', 'as' => 'dev.'], function () {
+Route::group(['prefix' => 'dev', 'as' => 'dev.', 'middleware' => 'auth'], function () {
     // Generate a new migration for the session table
     Route::get('/generate-session-table', function () {
         Artisan::call('session:table');
