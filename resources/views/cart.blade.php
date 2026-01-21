@@ -133,7 +133,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
-            <a class="navbar-brand text-black" href="#">VATAHARI</a>
+            <a class="navbar-brand text-black" href="{{ route('page.home') }}">VATAHARI</a>
         </div>
     </nav>
 
