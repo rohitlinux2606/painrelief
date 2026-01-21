@@ -34,7 +34,6 @@
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
-
     <style>
         body {
             background-color: #f9fafb;
