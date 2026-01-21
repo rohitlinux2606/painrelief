@@ -118,7 +118,7 @@
                 <p class="small text-muted mb-4">Connect with 500+ members, get daily health tips, and exclusive offers.
                 </p>
 
-                <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK" target="_blank" class="btn-whatsapp">
+                <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp">
                     <i class="bi bi-whatsapp"></i> Join Vatahari Community
                 </a>
 
