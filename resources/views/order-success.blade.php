@@ -144,7 +144,8 @@
                 <p class="small text-muted mb-4">Connect with 500+ members, get daily health tips, and exclusive offers.
                 </p>
 
-                <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp">
+                <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp"
+                    onclick="trackJoinCommunity()">
                     <i class="bi bi-whatsapp"></i> Join Vatahari Community
                 </a>
 
@@ -160,6 +161,19 @@
         </div>
     </div>
 
+    <script>
+        fbq('track', 'Lead');
+    </script>
+
+    <script>
+        function trackJoinCommunity() {
+            fbq('trackCustom', 'JoinCommunity', {
+                platform: 'WhatsApp',
+                page: 'Order Confirmation'
+            });
+        }
+    </script>
+    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>

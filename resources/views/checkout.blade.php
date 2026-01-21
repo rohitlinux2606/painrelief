@@ -38,6 +38,15 @@
             src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fbq('track', 'InitiateCheckout', {
+                currency: "INR",
+                value: {{ $subtotal }}
+            });
+        });
+    </script>
+
     <style>
         :root {
             --border-color: #e6e6e6;
@@ -378,6 +387,8 @@
             });
         });
     </script>
+
+    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>

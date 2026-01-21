@@ -326,6 +326,8 @@
             window.refreshAllTotals();
         });
     </script>
+
+    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>

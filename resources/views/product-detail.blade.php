@@ -289,9 +289,10 @@
                     <span class="badge badge-sale">Sale</span>
                 </div>
 
-                <a href="{{ route('add-to-cart', $product->id) }}" class="btn-add-to-cart">Add to cart</a>
+                <a href="{{ route('add-to-cart', $product->id) }}" class="btn-add-to-cart"
+                    onclick="addToCartEvent()">Add to cart</a>
 
-                <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank">
+                <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank" onclick="buyNowEvent()">
                     <span>BUY NOW</span>
                     <div class="buy-now-subtext">
                         <img src="" alt="" style="height: 12px; filter: brightness(0) invert(1);">
@@ -372,7 +373,14 @@
                 this.classList.add('active');
             });
         });
+
+        fbq('track', 'ViewContent', {
+            content_name: 'Vatahari Vati',
+            content_type: 'product'
+        });
     </script>
+
+    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>

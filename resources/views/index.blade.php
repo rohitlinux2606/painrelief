@@ -413,9 +413,11 @@
                             @endif
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc">Add to
+                            <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
+                                onclick="addToCartEvent()">Add to
                                 Cart</a>
-                            <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy">Buy
+                            <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy"
+                                onclick="buyNowEvent()">Buy
                                 Now</a>
                         </div>
                     </div>
@@ -723,6 +725,8 @@
             startCountdown(oneHour, display);
         });
     </script>
+
+    <script src="{{ asset('meta/pixel.js') }}"></script>
 </body>
 
 </html>
