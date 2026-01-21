@@ -571,9 +571,9 @@
                 <div class="col-md-2">
                     <h5 class="fw-bold mb-3">Contact Us</h5>
 
-                    <p class="small mb-2">
+                    {{-- <p class="small mb-2">
                         <i class="bi bi-person me-2"></i> Rohit Kumar
-                    </p>
+                    </p> --}}
 
                     {{-- <p class="small mb-2">
                         <i class="bi bi-telephone me-2"></i>
