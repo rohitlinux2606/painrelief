@@ -193,8 +193,9 @@
                                                 <i class="bi bi-plus"></i>
                                             </button>
                                         </div>
-                                        <a href="{{ route('checkout.delete-item', $item->id) }}"
-                                            class="remove-link remove-item"><i class="bi bi-trash me-1"></i>Remove</a>
+                                        <a href="{{ route('cart.delete-item', $item->id) }}"
+                                            class="remove-link remove-item"><i class="bi bi-trash me-1"></i>Remove
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-md-end">
@@ -308,19 +309,19 @@
                 }
             }
 
-            // Handle Item Removal (AJAX ke bina local UI remove)
-            document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (confirm('Are you sure you want to remove this item?')) {
-                        const row = this.closest('.cart-item');
-                        const hr = row.nextElementSibling;
-                        row.remove();
-                        if (hr && hr.tagName === 'HR') hr.remove();
-                        window.refreshAllTotals();
-                    }
-                });
-            });
+            // // Handle Item Removal (AJAX ke bina local UI remove)
+            // document.querySelectorAll('.remove-item').forEach(btn => {
+            //     btn.addEventListener('click', function(e) {
+            //         e.preventDefault();
+            //         if (confirm('Are you sure you want to remove this item?')) {
+            //             const row = this.closest('.cart-item');
+            //             const hr = row.nextElementSibling;
+            //             row.remove();
+            //             if (hr && hr.tagName === 'HR') hr.remove();
+            //             window.refreshAllTotals();
+            //         }
+            //     });
+            // });
 
             // Initial Calculation
             window.refreshAllTotals();
