@@ -364,7 +364,8 @@
                             @endif
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <a href="#" class="btn-custom btn-atc">Add to Cart</a>
+                            <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc">Add to
+                                Cart</a>
                             <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy">Buy
                                 Now</a>
                         </div>
