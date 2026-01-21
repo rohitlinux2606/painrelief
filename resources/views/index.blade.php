@@ -330,7 +330,7 @@
     Email Support
 </a> --}}
 
-<a href="#" class="support-float">
+<a href="tel:+919691905073" class="support-float">
     <i class="bi bi-headset fs-4"></i>
     Customer Support
 </a>
@@ -372,7 +372,8 @@
         <img src="{{ asset('cdn/001.png') }}" alt="Joint Pain Relief Banner">
     </section>
 
-    <section class="container py-5">
+    <section class="container pb-5 pt-2">
+
         <h2 class="h1 fw-bold mb-5">Featured Products</h2>
         <div class="row g-4">
             @forelse ($products as $product)
