@@ -555,12 +555,69 @@
         </section>
     @endif
 
-    <footer class="bg-dark text-white py-5 mt-5">
-        <div class="container text-center">
-            <h3 class="fw-bold mb-4">VATAHARI</h3>
-            <p class="text-secondary small">© 2026 Vatahari Ayurveda. All Rights Reserved.</p>
+    <footer class="bg-dark text-white pt-5">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- Brand -->
+                <div class="col-md-10">
+                    <h4 class="fw-bold">VATAHARI</h4>
+                    <p class="text-secondary small">
+                        Natural Ortho Care Solutions for Better Life.
+                    </p>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-2">
+                    <h5 class="fw-bold mb-3">Contact Us</h5>
+
+                    <p class="small mb-2">
+                        <i class="bi bi-person me-2"></i> Rohit Kumar
+                    </p>
+
+                    {{-- <p class="small mb-2">
+                        <i class="bi bi-telephone me-2"></i>
+                        <a href="tel:+919999999999" class="text-white text-decoration-none">
+                            +91 99999 99999
+                        </a>
+                    </p> --}}
+
+                    <p class="small mb-2">
+                        <i class="bi bi-envelope me-2"></i>
+                        <a href="mailto:support@vatahari.in" class="text-white text-decoration-none">
+                            support@vatahari.in
+                        </a>
+                    </p>
+
+                    <p class="small">
+                        <i class="bi bi-geo-alt me-2"></i>
+                        Indore, Madhya Pradesh, India
+                    </p>
+                </div>
+
+                {{-- <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-secondary text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Shop</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                    </ul>
+                </div> --}}
+
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <div class="text-center pb-4">
+                <p class="text-secondary small mb-0">
+                    © 2026 Vatahari Ayurveda. All Rights Reserved.
+                </p>
+            </div>
         </div>
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
