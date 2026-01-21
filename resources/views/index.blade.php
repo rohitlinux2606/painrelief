@@ -211,7 +211,38 @@
             font-weight: bold;
         }
     </style>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background: #1ebe5d;
+            color: #fff;
+        }
+    </style>
 </head>
+
+<a href="https://wa.me/919999999999?text=Hello%20I%20want%20to%20know%20about%20Vatahari%20products"
+    class="whatsapp-float" target="_blank">
+    <i class="bi bi-whatsapp fs-4"></i>
+    Chat on WhatsApp
+</a>
+
 
 <body>
 
