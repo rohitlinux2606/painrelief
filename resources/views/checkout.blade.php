@@ -42,7 +42,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                // value: {{ $subtotal }}
+                value: 00
             });
         });
     </script>
