@@ -285,6 +285,143 @@
         <img src="{{ asset('cdn/002.png') }}" alt="Quality Banner">
     </section>
 
+    <section class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Smart Combo Offers</h2>
+            <p class="text-muted">High Attraction + Higher Cart Value</p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Pack 1 -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">Pack of 1</h5>
+                        <p class="text-muted small">Best for first-time users</p>
+
+                        <div class="my-3">
+                            <span class="text-decoration-line-through text-muted">₹700</span>
+                            <span class="fs-3 fw-bold ms-2">₹600</span>
+                        </div>
+
+                        <p class="text-danger fw-bold small">आप बचाते हैं ₹100</p>
+
+                        <span class="badge bg-secondary mb-3">Trial Pack</span>
+
+                        <div class="d-grid mt-3">
+                            <a href="https://www.flipkart.com/ytm-vatahari-vati-original-tablet-pack-1-arthritis-sciatica-joint-pain-tablets/p/itm18780af6afda0?pid=BPRGA4FGMMZGCR9Z"
+                                class="btn btn-dark">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pack 2 -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow border-2 border-success">
+                    <div class="card-body text-center position-relative">
+
+                        <span class="badge bg-success position-absolute top-0 start-50 translate-middle">Most
+                            Popular</span>
+
+                        <h5 class="fw-bold mt-3">Pack of 2</h5>
+                        <p class="text-muted small">Couple / 1 Month Regular Use</p>
+
+                        <div class="my-3">
+                            <span class="text-decoration-line-through text-muted">₹1400</span>
+                            <span class="fs-3 fw-bold ms-2">₹1,099</span>
+                        </div>
+
+                        <p class="text-success fw-bold small">आप बचाते हैं ₹301</p>
+                        <p class="small text-muted">(Per product: ₹549)</p>
+
+                        <div class="d-grid mt-3">
+                            <a href="https://www.flipkart.com/ytm-vatahari-vati-ayurvedic-tablets-joints-pain-2-x-30-units/p/itm01296c4901bcb?pid=BPRGRZTETYFET8VJ"
+                                class="btn btn-dark">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pack 3 -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <span class="badge bg-warning text-dark mb-2">Best Value</span>
+
+                        <h5 class="fw-bold">Pack of 3</h5>
+                        <p class="text-muted small">Family Pack / 2–3 Months Use</p>
+
+                        <div class="my-3">
+                            <span class="text-decoration-line-through text-muted">₹2100</span>
+                            <span class="fs-3 fw-bold ms-2">₹1,499</span>
+                        </div>
+
+                        <p class="text-danger fw-bold small">आप बचाते हैं ₹601</p>
+                        <p class="small text-muted">(Per product: ₹499)</p>
+
+                        <div class="d-grid mt-3">
+                            <a href="https://www.flipkart.com/ytm-watahari-wati-cartilage-bone-joint-support-supplement-collagen-glucosamine/p/itm975ad3d38b0d7?pid=AYDHJFPKTYNFSUMB"
+                                class="btn btn-dark">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pack 5 -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <span class="badge bg-danger mb-2">Maximum Savings</span>
+
+                        <h5 class="fw-bold">Pack of 5</h5>
+                        <p class="text-muted small">Long-Term Health Users</p>
+
+                        <div class="my-3">
+                            <span class="text-decoration-line-through text-muted">₹3500</span>
+                            <span class="fs-3 fw-bold ms-2">₹2,299</span>
+                        </div>
+
+                        <p class="text-danger fw-bold small">आप बचाते हैं ₹1,201</p>
+                        <p class="small text-muted">(Per product: ₹459)</p>
+
+                        <div class="d-grid mt-3">
+                            <a href="https://www.flipkart.com/ytm-watahari-wati-jodo-ghutnon-aur-nason-ke-dard-arthritis-pain-ki-ayurvedic-dawa/p/itm452a7b807eebb?pid=AYDHJCD8DKEUP3HS"
+                                class="btn btn-dark">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- <!-- Pack 10 -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <span class="badge bg-primary mb-2">Wholesale Pack</span>
+
+                        <h5 class="fw-bold">Pack of 10</h5>
+                        <p class="text-muted small">Big Families / Resellers</p>
+
+                        <div class="my-3">
+                            <span class="text-decoration-line-through text-muted">₹7000</span>
+                            <span class="fs-3 fw-bold ms-2">₹3,999</span>
+                        </div>
+
+                        <p class="text-success fw-bold small">आप बचाते हैं ₹3,001</p>
+                        <p class="small text-muted">(Per product: ₹399)</p>
+
+                        <div class="d-grid mt-3">
+                            <a href="#" class="btn btn-dark">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
+        </div>
+    </section>
+
+
     @if (!empty($videos) && count($videos) > 0)
         <section class="shorts-section bg-light">
             <div class="container">
