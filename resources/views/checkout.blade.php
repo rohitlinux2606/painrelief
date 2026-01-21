@@ -270,11 +270,11 @@
                                 <h6 class="small mb-0 fw-bold">{{ $item->product->title }}</h6>
                                 <small class="text-muted">Unit Price: Rs.
                                     {{ number_format($item->price, 2) }}</small><br>
-                                <a class="btn btn-sm p-0 text-danger small remove-item-btn"
+                                {{-- <a class="btn btn-sm p-0 text-danger small remove-item-btn"
                                     href="{{ route('checkout.delete-item', $item->id) }}"
                                     style="font-size: 0.7rem; text-decoration: underline; border:none; background:none;">
                                     <i class="bi bi-trash3"></i> Remove
-                                </a>
+                                </a> --}}
                             </div>
 
                             <div class="text-end small fw-bold">Rs. {{ number_format($itemTotal, 2) }}</div>
