@@ -237,6 +237,24 @@
             font-size: 14px;
             font-weight: bold;
         }
+
+
+        .limited-offer-bar {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            text-align: center;
+            padding: 16px 20px;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .limited-offer-bar .time {
+            font-weight: 900;
+        }
     </style>
 
     {{-- <style>
@@ -372,7 +390,11 @@
         <img src="{{ asset('cdn/001.png') }}" alt="Joint Pain Relief Banner">
     </section>
 
-    <section class="container pb-5 pt-2">
+    <section class="container py-5">
+
+        <div class="limited-offer-bar">
+            ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
+        </div>
 
         <h2 class="h1 fw-bold mb-5">Featured Products</h2>
         <div class="row g-4">
@@ -672,6 +694,34 @@
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        function startCountdown(duration, display) {
+            let timer = duration,
+                hours, minutes, seconds;
+
+            setInterval(function() {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                }
+            }, 1000);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let oneHour = 60 * 60; // 1 hour = 3600 seconds
+            let display = document.querySelector('#offerTimer');
+            startCountdown(oneHour, display);
         });
     </script>
 </body>
