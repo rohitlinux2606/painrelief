@@ -169,7 +169,7 @@
         <h2 class="fw-bold mb-4">Your Cart</h2>
 
         <div class="row g-4">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="card p-4" id="cart-items-container">
                     @if ($cart && $cart->items->count() > 0)
                         @foreach ($cart->items as $item)
@@ -215,7 +215,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="summary-box shadow-sm">
                     <h5 class="fw-bold mb-4">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-2">

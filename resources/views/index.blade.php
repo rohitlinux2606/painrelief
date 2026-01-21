@@ -612,7 +612,7 @@
             <div class="row g-4">
 
                 <!-- Brand -->
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <h4 class="fw-bold">VATAHARI</h4>
                     <p class="text-secondary small">
                         Natural Ortho Care Solutions for Better Life.
@@ -620,24 +620,24 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <h5 class="fw-bold mb-3">Contact Us</h5>
 
                     {{-- <p class="small mb-2">
                         <i class="bi bi-person me-2"></i> Rohit Kumar
                     </p> --}}
 
-                    {{-- <p class="small mb-2">
+                    <p class="small mb-2">
                         <i class="bi bi-telephone me-2"></i>
-                        <a href="tel:+919999999999" class="text-white text-decoration-none">
-                            +91 99999 99999
+                        <a href="tel:+919691905073" class="text-white text-decoration-none">
+                            +91 96919 05073
                         </a>
-                    </p> --}}
+                    </p>
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto:support@vatahari.in" class="text-white text-decoration-none">
-                            support@vatahari.in
+                        <a href="mailto: orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
+                            orthosanjeevanilab@gmail.com
                         </a>
                     </p>
 
