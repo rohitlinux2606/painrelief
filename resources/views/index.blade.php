@@ -736,7 +736,7 @@
 
             fbq('trackCustom', 'JoinCommunity', {
                 platform: 'WhatsApp',
-                page: 'Order Confirmation'
+                page: 'Welcome'
             });
 
             setTimeout(function() {
