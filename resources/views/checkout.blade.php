@@ -185,8 +185,9 @@
             <div class="col-lg-7 form-section">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb small mb-4">
-                        <li class="breadcrumb-item"><a href="{{ route('show-cart') }}"
-                                class="text-dark text-decoration-none">Cart</a></li>
+                        {{-- <li class="breadcrumb-item"><a href="{{ route('show-cart') }}"
+                                class="text-dark text-decoration-none">Cart</a></li> --}}
+                        <li class="breadcrumb-item">Cart</li>
                         <li class="breadcrumb-item active fw-bold">Information</li>
                         <li class="breadcrumb-item text-muted">Shipping</li>
                     </ol>
