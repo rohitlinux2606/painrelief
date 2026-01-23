@@ -105,6 +105,14 @@ Route::group(['prefix' => 'dev', 'as' => 'dev.', 'middleware' => 'auth'], functi
         return "All caches have been cleared!";
     })->name('clear-all');
 
+    // Cache All
+    Route::get('/cache-all', function () {
+        Artisan::call('config:cache');
+        Artisan::call('route:cache');
+        Artisan::call('view:cache');
+        return "All caching completed!";
+    })->name('cache-all');
+
     // Restart queue
     Route::get('/queue-restart', function () {
         Artisan::call('queue:restart');
