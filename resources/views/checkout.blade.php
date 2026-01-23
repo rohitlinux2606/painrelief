@@ -263,21 +263,34 @@
                             <div class="product-img-wrapper">
                                 <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
                                     style="object-fit: cover;">
-                                <span class="img-badge">{{ $item->quantity }}</span>
+                                <span class="img-badge qty-badge-{{ $item->id }}">{{ $item->quantity }}</span>
                             </div>
 
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="small mb-0 fw-bold">{{ $item->product->title }}</h6>
-                                <small class="text-muted">Unit Price: Rs.
-                                    {{ number_format($item->price, 2) }}</small><br>
-                                {{-- <a class="btn btn-sm p-0 text-danger small remove-item-btn"
-                                    href="{{ route('checkout.delete-item', $item->id) }}"
-                                    style="font-size: 0.7rem; text-decoration: underline; border:none; background:none;">
-                                    <i class="bi bi-trash3"></i> Remove
-                                </a> --}}
+                                <h6 class="small mb-1 fw-bold">{{ $item->product->title }}</h6>
+                                <small class="text-muted d-block mb-2">Unit Price: Rs.
+                                    {{ number_format($item->price, 2) }}</small>
+                                
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-outline-secondary qty-btn" 
+                                                data-action="decrease" data-item-id="{{ $item->id }}">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <span class="btn btn-outline-secondary disabled qty-display-{{ $item->id }}">{{ $item->quantity }}</span>
+                                        <button type="button" class="btn btn-outline-secondary qty-btn" 
+                                                data-action="increase" data-item-id="{{ $item->id }}">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger remove-item-btn" 
+                                            data-item-id="{{ $item->id }}" title="Remove Item">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="text-end small fw-bold">Rs. {{ number_format($itemTotal, 2) }}</div>
+                            <div class="text-end small fw-bold item-total-{{ $item->id }}">Rs. {{ number_format($itemTotal, 2) }}</div>
                         </div>
                     @endforeach
                 </div>
@@ -388,6 +401,56 @@
                 $('#total-val').text(formattedSubtotal);
             }
             calculateOrderSummary();
+
+            // AJAX Quantity Update
+            $('.qty-btn').on('click', function() {
+                const btn = $(this);
+                const action = btn.data('action');
+                const itemId = btn.data('item-id');
+                const row = $(`#cart-row-${itemId}`);
+                
+                btn.prop('disabled', true);
+                
+                $.post('{{ route("update-cart") }}', {
+                    _token: '{{ csrf_token() }}',
+                    item_id: itemId,
+                    action: action
+                })
+                .done(function(response) {
+                    if (response.status === 'success') {
+                        // Update quantity displays
+                        $(`.qty-display-${itemId}`).text(response.new_qty);
+                        $(`.qty-badge-${itemId}`).text(response.new_qty);
+                        $(`.item-total-${itemId}`).text(`Rs. ${response.item_total}`);
+                        
+                        // Update row data
+                        row.data('qty', response.new_qty);
+                        
+                        // Update totals
+                        $('#subtotal-val').text(`Rs. ${response.cart_subtotal}`);
+                        $('#total-val').text(`Rs. ${response.cart_subtotal}`);
+                    }
+                })
+                .fail(function() {
+                    alert('Error updating quantity. Please try again.');
+                })
+                .always(function() {
+                    btn.prop('disabled', false);
+                });
+            });
+
+            // AJAX Remove Item
+            $('.remove-item-btn').on('click', function() {
+                const btn = $(this);
+                const itemId = btn.data('item-id');
+                const row = $(`#cart-row-${itemId}`);
+                
+                if (!confirm('Remove this item from cart?')) return;
+                
+                btn.prop('disabled', true).html('<i class="bi bi-hourglass-split"></i>');
+                
+                window.location.href = `{{ url('/cart/delete-item') }}/${itemId}`;
+            });
 
             // Form Submit Loading
             $('#checkoutForm').on('submit', function() {

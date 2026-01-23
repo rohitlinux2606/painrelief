@@ -279,6 +279,31 @@
             color: #fff;
         }
     </style>
+
+    {{-- <style>
+        .support-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #0d6efd;
+            color: #fff;
+            border-radius: 50px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            text-decoration: none;
+        }
+
+        .support-float:hover {
+            background: #0b5ed7;
+            color: #fff;
+        }
+    </style> --}}
+
     <style>
         .support-float {
             position: fixed;
@@ -306,10 +331,20 @@
     </style>
 </head>
 
-{{-- <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+<a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
     <i class="bi bi-whatsapp fs-4"></i>
     <!--Chat on WhatsApp-->
     Join Community
+</a>
+
+{{-- <a href="tel:+919999999999" class="support-float">
+    <i class="bi bi-telephone-fill fs-4"></i>
+    Call Support
+</a> --}}
+
+{{-- <a href="mailto:support@vatahari.com" class="support-float">
+    <i class="bi bi-envelope-fill fs-4"></i>
+    Email Support
 </a> --}}
 
 <a href="tel:+919691905073" class="support-float">

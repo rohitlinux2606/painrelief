@@ -84,7 +84,7 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        return redirect()->route('show-cart')->with('success', 'Product added to cart!');
+        return redirect()->route('checkout')->with('success', 'Product added to cart!');
     }
 
     public function updateQuantity(Request $request)
@@ -162,8 +162,15 @@ class Pagecontroller extends Controller
     public function checkout()
     {
         $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
 
-        $cart = Cart::where('session_id', $sessionId)
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })
             ->with('items.product')
             ->first();
 
