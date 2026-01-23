@@ -289,8 +289,11 @@
                     <span class="badge badge-sale">Sale</span>
                 </div>
 
-                <a href="{{ route('add-to-cart', $product->id) }}" class="btn-add-to-cart"
-                    onclick="addToCartEvent()">Add to cart</a>
+                {{-- <a href="{{ route('add-to-cart', $product->id) }}" class="btn-add-to-cart"
+                    onclick="addToCartEvent()">Add to cart</a> --}}
+
+                <a href="{{ $product->external_link }}" class="btn-add-to-cart" onclick="addToCartEvent()">Add to
+                    cart</a>
 
                 <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank" onclick="buyNowEvent()">
                     <span>BUY NOW</span>
