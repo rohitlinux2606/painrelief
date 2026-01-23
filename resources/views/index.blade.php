@@ -344,7 +344,8 @@
     </style>
 </head>
 
-<a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+<a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank"
+    onclick="trackJoinCommunity(event)">
     <i class="bi bi-whatsapp fs-4"></i>
     <span class="float-text">Join Community</span>
 </a>
@@ -728,6 +729,23 @@
             let display = document.querySelector('#offerTimer');
             startCountdown(oneHour, display);
         });
+    </script>
+    <script>
+        function trackJoinCommunity(event) {
+            event.preventDefault();
+
+            fbq('trackCustom', 'JoinCommunity', {
+                platform: 'WhatsApp',
+                page: 'Order Confirmation'
+            });
+
+            setTimeout(function() {
+                window.open(
+                    'https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD',
+                    '_blank'
+                );
+            }, 300);
+        }
     </script>
 
 </body>
