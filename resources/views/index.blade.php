@@ -306,11 +306,10 @@
     </style>
 </head>
 
-{{-- <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+<a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
     <i class="bi bi-whatsapp fs-4"></i>
-    <!--Chat on WhatsApp-->
     Join Community
-</a> --}}
+</a>
 
 <a href="tel:+919691905073" class="support-float">
     <i class="bi bi-headset fs-4"></i>
