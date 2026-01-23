@@ -157,10 +157,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $customer = Order::with(['orders', 'addresses'])->findOrFail($id);
-        $title = "View Customer";
+        $order = Order::with(['items', 'address', 'customer'])->findOrFail($id);
+        $title = "View Order Detail";
 
-        return view('admin.pages.customers.show', compact('customer', 'title'));
+        return view('admin.pages.orders.show', compact('order', 'title'));
     }
 
 
