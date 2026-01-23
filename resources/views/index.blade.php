@@ -257,14 +257,16 @@
     </style>
 
     <style>
+        /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
-            bottom: 250px;
+            bottom: 110px;
+            /* सपोर्ट बटन के ऊपर रखने के लिए */
             right: 25px;
             background: #25D366;
             color: #fff;
             border-radius: 50px;
-            padding: 12px 18px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -272,14 +274,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 9999;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .whatsapp-float:hover {
-            background: #1ebe5d;
-            color: #fff;
-        }
-    </style>
-    <style>
+        /* Support Float Button */
         .support-float {
             position: fixed;
             bottom: 25px;
@@ -287,7 +285,7 @@
             background: #000;
             color: #fff;
             border-radius: 50px;
-            padding: 12px 18px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -298,22 +296,62 @@
             transition: 0.3s ease;
         }
 
+        .whatsapp-float:hover {
+            background: #1ebe5d;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
         .support-float:hover {
-            background: #fff;
-            color: #000;
-            border: 1px solid #000;
+            background: #333;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Mobile Responsive Design (यही सबसे जरूरी है) */
+        @media (max-width: 768px) {
+            .float-text {
+                display: none;
+                /* मोबाइल पर टेक्स्ट छुप जाएगा */
+            }
+
+            .whatsapp-float,
+            .support-float {
+                padding: 0;
+                width: 55px;
+                /* बटन गोल हो जाएगा */
+                height: 55px;
+                justify-content: center;
+                border-radius: 50%;
+                right: 15px;
+                /* मोबाइल पर थोड़ी जगह कम */
+            }
+
+            .whatsapp-float {
+                bottom: 90px;
+            }
+
+            .support-float {
+                bottom: 20px;
+            }
+
+            .whatsapp-float i,
+            .support-float i {
+                font-size: 1.6rem !important;
+                /* आइकॉन थोड़ा बड़ा दिखेगा */
+            }
         }
     </style>
 </head>
 
 <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
     <i class="bi bi-whatsapp fs-4"></i>
-    Join Community
+    <span class="float-text">Join Community</span>
 </a>
 
 <a href="tel:+919691905073" class="support-float">
     <i class="bi bi-headset fs-4"></i>
-    Customer Support
+    <span class="float-text">Customer Support</span>
 </a>
 
 <body>
