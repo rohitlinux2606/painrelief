@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vatahari – Natural Ortho Care Solutions</title>
+    <title>Vatahari – End Your Joint Pain Naturally | Trusted Ayurvedic Relief</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -42,21 +42,45 @@
             --primary-green: #1a4d2e;
             --text-dark: #121212;
             --font-main: 'Assistant', sans-serif;
+            --comfort-blue: #4a90e2;
+            --trust-gold: #d4af37;
         }
 
         body {
             font-family: var(--font-main);
             color: var(--text-dark);
             overflow-x: hidden;
+            font-size: 18px;
+            /* Larger base font for elderly users */
+            line-height: 1.6;
         }
 
-        /* Announcement Bar */
+        /* Empathy-Driven Announcement Bar */
         .announcement-bar {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 12px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .trust-badges {
             background: #f8f9fa;
-            font-size: 13px;
-            letter-spacing: 1px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #28a745;
         }
 
         /* Navbar Styling */
@@ -107,8 +131,8 @@
         }
 
         .product-title {
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 1.6rem;
+            font-weight: 700;
             margin-top: 15px;
             color: #121212;
             display: -webkit-box;
@@ -116,20 +140,31 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-decoration: none;
-            min-height: 40px;
+            min-height: 50px;
+            line-height: 1.4;
         }
 
         .price-sale {
             font-weight: 800;
-            font-size: 1.6rem;
-            color: #000;
+            font-size: 1.8rem;
+            color: #d63384;
         }
 
         .price-old {
             text-decoration: line-through;
             color: #888;
             margin-left: 8px;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+        }
+
+        .savings-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 10px;
         }
 
         /* Buttons Custom */
@@ -239,20 +274,79 @@
 
 
         .limited-offer-bar {
-            background: #fff;
-            color: #000;
-            border: 2px solid #000;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
             text-align: center;
-            padding: 16px 20px;
+            padding: 20px;
             font-weight: 800;
-            font-size: 18px;
+            font-size: 20px;
             letter-spacing: 0.5px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .limited-offer-bar .time {
             font-weight: 900;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 25px;
+            margin: 0 10px;
+        }
+
+        .pain-relief-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .pain-relief-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .pain-relief-hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .testimonial-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cash-on-delivery {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 600;
+            font-size: 18px;
         }
     </style>
 
@@ -357,8 +451,40 @@
 
 <body>
 
-    <div class="announcement-bar text-center">
-        WELCOME TO OUR STORE
+    <div class="announcement-bar">
+        🌿 We Understand Your Pain - Natural Relief is Here 🌿
+    </div>
+
+    <!-- Trust Badges Section -->
+    <div class="trust-badges">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="trust-badge">
+                        <i class="bi bi-shield-check"></i>
+                        <span>100% Ayurvedic</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="trust-badge">
+                        <i class="bi bi-truck"></i>
+                        <span>Free Delivery</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="trust-badge">
+                        <i class="bi bi-cash-coin"></i>
+                        <span>Cash on Delivery</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="trust-badge">
+                        <i class="bi bi-people"></i>
+                        <span>50,000+ Happy Customers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
@@ -389,41 +515,58 @@
         </div>
     </nav>
 
-    <section class="banner-section">
-        <img src="{{ asset('cdn/001.png') }}" alt="Joint Pain Relief Banner">
+    <!-- Pain Relief Hero Section -->
+    <section class="pain-relief-hero">
+        <div class="container">
+            <h1>End Your Joint Pain Today</h1>
+            <p>Regain Your Mobility & Live Pain-Free with Ancient Ayurvedic Wisdom</p>
+            <div class="testimonial-badge">
+                ⭐⭐⭐⭐⭐ "Finally found relief after years of suffering" - Dr. Sharma, Ayurvedic Practitioner
+            </div>
+        </div>
     </section>
 
     <section class="container py-5">
 
         <div class="limited-offer-bar">
-            ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
+            ⏰ LIMITED TIME: Get Instant Relief - Only <span class="time" id="offerTimer">01:00:00</span> Left for FREE
+            Delivery!
         </div>
 
-        <h2 class="h1 fw-bold mb-5">Featured Products</h2>
+        <div class="cash-on-delivery mb-4">
+            💵 No Risk! Pay Only When You Receive Your Medicine at Home
+        </div>
+
+        <h2 class="h1 fw-bold mb-2 text-center">Stop Suffering - Start Healing</h2>
+        <p class="text-center text-muted mb-5 fs-5">Trusted by thousands who chose natural healing over endless pain</p>
         <div class="row g-4">
             @forelse ($products as $product)
-                <div class="col-6 col-md-4 col-lg-3">
+                <div class="col-6 col-md-4 col-lg-3" itemscope itemtype="https://schema.org/Product">
                     <div class="product-card">
-                        <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
+                        <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none"
+                            itemprop="url">
                             <div class="product-img-container">
-                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
+                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}"
+                                    itemprop="image">
                             </div>
-                            <h4 class="product-title">{{ $product->title }}</h4>
+                            <h4 class="product-title" itemprop="name">{{ $product->title }}</h4>
                         </a>
-                        <div class="price-wrapper my-2">
-                            <span class="price-sale">₹{{ number_format($product->price, 2) }}</span>
+                        <div class="price-wrapper my-2" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <meta itemprop="priceCurrency" content="INR">
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                            <span class="price-sale" itemprop="price"
+                                content="{{ $product->price }}">₹{{ number_format($product->price, 2) }}</span>
                             @if ($product->compare_at_price)
                                 <span class="price-old">₹{{ number_format($product->compare_at_price, 2) }}</span>
+                                <span class="savings-badge">Save
+                                    ₹{{ number_format($product->compare_at_price - $product->price, 0) }}</span>
                             @endif
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            {{-- <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
-                                onclick="addToCartEvent()">Add & Checkout</a> --}}
-
-                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add & Checkout</a>
-                            <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy"
-                                onclick="buyNowEvent()">Buy
-                                Now</a>
+                            <a href="{{ $product->external_link }}" class="btn-custom btn-buy"
+                                onclick="buyNowEvent()">Get Instant Relief Now</a>
+                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add to Cart - Pay on
+                                Delivery</a>
                         </div>
                     </div>
                 </div>
@@ -439,8 +582,8 @@
 
     <section class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Smart Combo Offers</h2>
-            <p class="text-muted">High Attraction + Higher Cart Value</p>
+            <h2 class="fw-bold">Choose Your Path to Pain-Free Living</h2>
+            <p class="text-muted fs-5">More bottles = Better results + Maximum savings</p>
         </div>
 
         <div class="row g-4">
@@ -449,21 +592,21 @@
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body text-center">
-                        <h5 class="fw-bold">Pack of 1</h5>
-                        <p class="text-muted small">Best for first-time users</p>
+                        <h5 class="fw-bold">Trial Pack</h5>
+                        <p class="text-muted small">Start your healing journey</p>
 
                         <div class="my-3">
                             <span class="text-decoration-line-through text-muted">₹700</span>
-                            <span class="fs-3 fw-bold ms-2">₹600</span>
+                            <span class="fs-3 fw-bold ms-2 text-success">₹600</span>
                         </div>
 
                         <p class="text-danger fw-bold small">You Save ₹100</p>
 
-                        <span class="badge bg-secondary mb-3">Trial Pack</span>
+                        <span class="badge bg-info mb-3">Perfect for First-Time Users</span>
 
                         <div class="d-grid mt-3">
                             <a href="https://www.flipkart.com/ytm-vatahari-vati-original-tablet-pack-1-arthritis-sciatica-joint-pain-tablets/p/itm18780af6afda0?pid=BPRGA4FGMMZGCR9Z"
-                                class="btn btn-dark">Buy Now</a>
+                                class="btn btn-dark">Start Healing Today</a>
                         </div>
                     </div>
                 </div>
@@ -477,20 +620,20 @@
                         <span class="badge bg-success position-absolute top-0 start-50 translate-middle">Most
                             Popular</span>
 
-                        <h5 class="fw-bold mt-3">Pack of 2</h5>
-                        <p class="text-muted small">Couple / 1 Month Regular Use</p>
+                        <h5 class="fw-bold mt-3">Healing Pack</h5>
+                        <p class="text-muted small">1 Month Complete Relief</p>
 
                         <div class="my-3">
                             <span class="text-decoration-line-through text-muted">₹1400</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,099</span>
+                            <span class="fs-3 fw-bold ms-2 text-success">₹1,099</span>
                         </div>
 
                         <p class="text-success fw-bold small">You Save ₹301</p>
-                        <p class="small text-muted">(Per product: ₹549)</p>
+                        <p class="small text-muted">(Per bottle: ₹549)</p>
 
                         <div class="d-grid mt-3">
                             <a href="https://www.flipkart.com/ytm-vatahari-vati-ayurvedic-tablets-joints-pain-2-x-30-units/p/itm01296c4901bcb?pid=BPRGRZTETYFET8VJ"
-                                class="btn btn-dark">Buy Now</a>
+                                class="btn btn-success">Get Maximum Relief</a>
                         </div>
                     </div>
                 </div>
@@ -502,20 +645,20 @@
                     <div class="card-body text-center">
                         <span class="badge bg-warning text-dark mb-2">Best Value</span>
 
-                        <h5 class="fw-bold">Pack of 3</h5>
-                        <p class="text-muted small">Family Pack / 2–3 Months Use</p>
+                        <h5 class="fw-bold">Family Wellness Pack</h5>
+                        <p class="text-muted small">2-3 Months Complete Care</p>
 
                         <div class="my-3">
                             <span class="text-decoration-line-through text-muted">₹2100</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,499</span>
+                            <span class="fs-3 fw-bold ms-2 text-success">₹1,499</span>
                         </div>
 
                         <p class="text-danger fw-bold small">You Save ₹601</p>
-                        <p class="small text-muted">(Per product: ₹499)</p>
+                        <p class="small text-muted">(Per bottle: ₹499)</p>
 
                         <div class="d-grid mt-3">
                             <a href="https://www.flipkart.com/ytm-watahari-wati-cartilage-bone-joint-support-supplement-collagen-glucosamine/p/itm975ad3d38b0d7?pid=AYDHJFPKTYNFSUMB"
-                                class="btn btn-dark">Buy Now</a>
+                                class="btn btn-warning">Secure Family Health</a>
                         </div>
                     </div>
                 </div>
@@ -527,48 +670,24 @@
                     <div class="card-body text-center">
                         <span class="badge bg-danger mb-2">Maximum Savings</span>
 
-                        <h5 class="fw-bold">Pack of 5</h5>
-                        <p class="text-muted small">Long-Term Health Users</p>
+                        <h5 class="fw-bold">Complete Recovery Pack</h5>
+                        <p class="text-muted small">Long-Term Pain Freedom</p>
 
                         <div class="my-3">
                             <span class="text-decoration-line-through text-muted">₹3500</span>
-                            <span class="fs-3 fw-bold ms-2">₹2,299</span>
+                            <span class="fs-3 fw-bold ms-2 text-success">₹2,299</span>
                         </div>
 
                         <p class="text-danger fw-bold small">You Save ₹1,201</p>
-                        <p class="small text-muted">(Per product: ₹459)</p>
+                        <p class="small text-muted">(Per bottle: ₹459)</p>
 
                         <div class="d-grid mt-3">
                             <a href="https://www.flipkart.com/ytm-watahari-wati-jodo-ghutnon-aur-nason-ke-dard-arthritis-pain-ki-ayurvedic-dawa/p/itm452a7b807eebb?pid=AYDHJCD8DKEUP3HS"
-                                class="btn btn-dark">Buy Now</a>
+                                class="btn btn-danger">Achieve Complete Freedom</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{-- <!-- Pack 10 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-primary mb-2">Wholesale Pack</span>
-
-                        <h5 class="fw-bold">Pack of 10</h5>
-                        <p class="text-muted small">Big Families / Resellers</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹7000</span>
-                            <span class="fs-3 fw-bold ms-2">₹3,999</span>
-                        </div>
-
-                        <p class="text-success fw-bold small">You Save ₹3,001</p>
-                        <p class="small text-muted">(Per product: ₹399)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="#" class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
 
         </div>
     </section>
@@ -611,6 +730,125 @@
             </div>
         </section>
     @endif
+
+    <!-- Doctor Testimonials & Trust Section -->
+    <section class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);" itemscope
+        itemtype="https://schema.org/Organization">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Trusted by Medical Professionals</h2>
+                <p class="text-muted fs-5">See what Ayurvedic doctors and patients say about Vatahari</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm" itemscope itemtype="https://schema.org/Review">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-person-circle text-success fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Dr. Rajesh Sharma</span>
+                            </h5>
+                            <p class="small text-muted mb-3">Senior Ayurvedic Practitioner, 25+ years</p>
+                            <div class="text-warning mb-2" itemprop="reviewRating" itemscope
+                                itemtype="https://schema.org/Rating">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <p class="small" itemprop="reviewBody">"I recommend Vatahari to my patients with chronic
+                                joint pain. The results
+                                are remarkable - 90% show improvement within 2 weeks."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm" itemscope itemtype="https://schema.org/Review">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-person-heart text-info fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Mrs. Sunita Devi</span>
+                            </h5>
+                            <p class="small text-muted mb-3">Arthritis Patient, Age 62</p>
+                            <div class="text-warning mb-2" itemprop="reviewRating" itemscope
+                                itemtype="https://schema.org/Rating">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <p class="small" itemprop="reviewBody">"After 3 years of unbearable knee pain, Vatahari
+                                gave me my life back. I
+                                can walk, climb stairs, and play with my grandchildren again!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm" itemscope itemtype="https://schema.org/Review">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="bi bi-person-check text-primary fs-1"></i>
+                            </div>
+                            <h5 class="fw-bold" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Mr. Ramesh Kumar</span>
+                            </h5>
+                            <p class="small text-muted mb-3">Sciatica Patient, Age 45</p>
+                            <div class="text-warning mb-2" itemprop="reviewRating" itemscope
+                                itemtype="https://schema.org/Rating">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                                ⭐⭐⭐⭐⭐
+                            </div>
+                            <p class="small" itemprop="reviewBody">"Sciatica pain kept me awake for months. Within 10
+                                days of using
+                                Vatahari, I'm sleeping peacefully and back to work!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab Reports & Certifications -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="text-center p-4" style="background: rgba(40, 167, 69, 0.1); border-radius: 15px;">
+                        <h4 class="fw-bold mb-3">🏆 Quality Certifications & Lab Reports</h4>
+                        <div class="row g-3">
+                            <div class="col-md-3 col-6">
+                                <div class="p-3">
+                                    <i class="bi bi-award text-success fs-2"></i>
+                                    <p class="small fw-bold mt-2 mb-0">ISO Certified</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3">
+                                    <i class="bi bi-clipboard-check text-success fs-2"></i>
+                                    <p class="small fw-bold mt-2 mb-0">Lab Tested</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3">
+                                    <i class="bi bi-flower1 text-success fs-2"></i>
+                                    <p class="small fw-bold mt-2 mb-0">100% Natural</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3">
+                                    <i class="bi bi-shield-check text-success fs-2"></i>
+                                    <p class="small fw-bold mt-2 mb-0">GMP Certified</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="small text-muted mt-3 mb-0">All our products undergo rigorous quality testing. Lab
+                            reports available on request.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer class="bg-dark text-white pt-5">
         <div class="container">

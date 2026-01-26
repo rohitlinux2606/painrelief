@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Vatahari</title>
+    <title>Secure Checkout - Your Pain Relief is Almost Here | Vatahari</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -58,6 +58,7 @@
             background-color: #fff;
             font-family: -apple-system, sans-serif;
             color: #333;
+            font-size: 16px; /* Larger font for elderly users */
         }
 
         .navbar {
@@ -87,18 +88,19 @@
         }
 
         .form-label-custom {
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
             margin-bottom: 8px;
             display: block;
+            color: #2c3e50;
         }
 
         .shopify-input {
-            border: 1px solid var(--border-color) !important;
-            border-radius: 5px !important;
-            padding: 11px !important;
-            font-size: 0.9rem !important;
+            border: 2px solid var(--border-color) !important;
+            border-radius: 8px !important;
+            padding: 15px !important;
+            font-size: 1rem !important;
         }
 
         .shopify-input:focus {
@@ -118,14 +120,22 @@
         }
 
         .btn-continue {
-            background-color: #000;
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: #fff;
-            padding: 16px 30px;
-            border-radius: 5px;
-            font-weight: 600;
+            padding: 18px 35px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
             width: auto;
             float: right;
             border: none;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            transition: 0.3s;
+        }
+        
+        .btn-continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
         }
 
         .product-img-wrapper {
@@ -244,10 +254,12 @@
                         {{-- <a href="{{ route('show-cart') }}" class="text-dark text-decoration-none small">
                             <i class="bi bi-chevron-left"></i> Return to cart
                         </a> --}}
-                        <a href="{{ route('page.home') }}" class="text-dark text-decoration-none small">
-                            <i class="bi bi-chevron-left"></i> Return to home
+                        <a href="{{ route('page.home') }}" class="text-dark text-decoration-none">
+                            <i class="bi bi-chevron-left"></i> Continue Shopping
                         </a>
-                        <button type="submit" class="btn btn-continue">Complete Order</button>
+                        <button type="submit" class="btn btn-continue">
+                            🚚 Complete Order - Pay on Delivery
+                        </button>
                     </div>
                 </form>
             </div>
