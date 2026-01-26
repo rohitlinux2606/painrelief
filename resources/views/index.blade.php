@@ -4,7 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vatahari – Natural Ortho Care Solutions</title>
+    <title>Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint Pain Relief</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Vatahari offers natural ayurvedic solutions for joint pain, arthritis, and ortho care. Get effective pain relief with our herbal tablets and traditional remedies.">
+    <meta name="keywords"
+        content="joint pain relief, ayurvedic medicine, arthritis treatment, ortho care, natural pain relief, herbal tablets, vatahari, ayurveda">
+    <meta name="author" content="Vatahari Ayurveda">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint Pain Relief">
+    <meta property="og:description"
+        content="Discover natural ayurvedic solutions for joint pain and arthritis. Effective herbal remedies for better ortho care and pain relief.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('cdn/001.png') }}">
+    <meta property="og:site_name" content="Vatahari Ayurveda">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vatahari – Natural Ortho Care Solutions">
+    <meta name="twitter:description" content="Natural ayurvedic solutions for joint pain and arthritis relief.">
+    <meta name="twitter:image" content="{{ asset('cdn/001.png') }}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "Vatahari Ayurveda",
+      "url": "{{ url('/') }}",
+      "logo": "{{ asset('cdn/001.png') }}",
+      "description": "Natural Ortho Care Solutions for Better Life",
+      "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "+91-96919-05073",
+        "contactType": "Customer Service",
+        "email": "orthosanjeevanilab@gmail.com",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Hindi"]
+      },
+      "address": {
+        "@@type": "PostalAddress",
+        "addressLocality": "Indore",
+        "addressRegion": "Madhya Pradesh",
+        "addressCountry": "India"
+      },
+      "sameAs": [
+        "https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "WebSite",
+      "name": "Vatahari Ayurveda",
+      "url": "{{ url('/') }}",
+      "description": "Natural ayurvedic solutions for joint pain, arthritis, and ortho care",
+      "potentialAction": {
+        "@@type": "SearchAction",
+        "target": "{{ url('/') }}?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    @if (!empty($products) && count($products) > 0)
+        <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "ItemList",
+      "name": "Ayurvedic Joint Pain Relief Products",
+      "description": "Natural herbal products for joint pain and arthritis relief",
+      "numberOfItems": {{ count($products) }},
+      "itemListElement": [
+        @foreach($products as $index => $product)
+        {
+          "@@type": "ListItem",
+          "position": {{ $index + 1 }},
+          "item": {
+            "@@type": "Product",
+            "name": "{{ $product->title }}",
+            "description": "Natural ayurvedic solution for joint pain relief",
+            "image": "{{ asset($product->thumbnail) }}",
+            "url": "{{ route('product-detail', $product->id) }}",
+            "brand": {
+              "@@type": "Brand",
+              "name": "Vatahari"
+            },
+            "offers": {
+              "@@type": "Offer",
+              "price": "{{ $product->price }}",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@@type": "Organization",
+                "name": "Vatahari Ayurveda"
+              }
+            }
+          }
+        }@if(!$loop->last),@endif
+        @endforeach
+      ]
+    }
+    </script>
+    @endif
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -389,10 +503,33 @@
     </nav>
 
     <section class="banner-section">
-        <img src="{{ asset('cdn/001.png') }}" alt="Joint Pain Relief Banner">
+        <img src="{{ asset('cdn/001.png') }}" alt="Vatahari Ayurvedic Joint Pain Relief - Natural Ortho Care Solutions"
+            loading="eager">
     </section>
 
-    <section class="container py-5">
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ url('/') }}"
+        },
+        {
+          "@@type": "ListItem",
+          "position": 2,
+          "name": "Ayurvedic Products",
+          "item": "{{ url('/') }}#products"
+        }
+      ]
+    }
+    </script>
+
+    <section class="container py-5" id="products">
 
         <div class="limited-offer-bar">
             ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
@@ -433,7 +570,8 @@
     </section>
 
     <section class="banner-section my-5">
-        <img src="{{ asset('cdn/002.png') }}" alt="Quality Banner">
+        <img src="{{ asset('cdn/002.png') }}" alt="Vatahari Quality Assurance - Premium Ayurvedic Products"
+            loading="lazy">
     </section>
 
     <section class="container py-5">
@@ -441,6 +579,90 @@
             <h2 class="fw-bold">Smart Combo Offers</h2>
             <p class="text-muted">High Attraction + Higher Cart Value</p>
         </div>
+
+        <!-- Structured Data for Combo Offers -->
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "ItemList",
+          "name": "Vatahari Combo Offers",
+          "description": "Special combo packs for ayurvedic joint pain relief products",
+          "itemListElement": [
+            {
+              "@@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@@type": "Product",
+                "name": "Vatahari Pack of 1 - Trial Pack",
+                "description": "Best for first-time users trying ayurvedic joint pain relief",
+                "brand": {"@@type": "Brand", "name": "Vatahari"},
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "600",
+                  "priceCurrency": "INR",
+                  "priceValidUntil": "{{ date('Y-m-d', strtotime('+30 days')) }}",
+                  "availability": "https://schema.org/InStock",
+                  "url": "https://www.flipkart.com/ytm-vatahari-vati-original-tablet-pack-1-arthritis-sciatica-joint-pain-tablets/p/itm18780af6afda0?pid=BPRGA4FGMMZGCR9Z"
+                }
+              }
+            },
+            {
+              "@@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@@type": "Product",
+                "name": "Vatahari Pack of 2 - Most Popular",
+                "description": "Perfect for couples or 1 month regular use",
+                "brand": {"@@type": "Brand", "name": "Vatahari"},
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "1099",
+                  "priceCurrency": "INR",
+                  "priceValidUntil": "{{ date('Y-m-d', strtotime('+30 days')) }}",
+                  "availability": "https://schema.org/InStock",
+                  "url": "https://www.flipkart.com/ytm-vatahari-vati-ayurvedic-tablets-joints-pain-2-x-30-units/p/itm01296c4901bcb?pid=BPRGRZTETYFET8VJ"
+                }
+              }
+            },
+            {
+              "@@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@@type": "Product",
+                "name": "Vatahari Pack of 3 - Best Value",
+                "description": "Family pack for 2-3 months use",
+                "brand": {"@@type": "Brand", "name": "Vatahari"},
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "1499",
+                  "priceCurrency": "INR",
+                  "priceValidUntil": "{{ date('Y-m-d', strtotime('+30 days')) }}",
+                  "availability": "https://schema.org/InStock",
+                  "url": "https://www.flipkart.com/ytm-watahari-wati-cartilage-bone-joint-support-supplement-collagen-glucosamine/p/itm975ad3d38b0d7?pid=AYDHJFPKTYNFSUMB"
+                }
+              }
+            },
+            {
+              "@@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@@type": "Product",
+                "name": "Vatahari Pack of 5 - Maximum Savings",
+                "description": "Long-term health users pack with maximum savings",
+                "brand": {"@@type": "Brand", "name": "Vatahari"},
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "2299",
+                  "priceCurrency": "INR",
+                  "priceValidUntil": "{{ date('Y-m-d', strtotime('+30 days')) }}",
+                  "availability": "https://schema.org/InStock",
+                  "url": "https://www.flipkart.com/ytm-watahari-wati-jodo-ghutnon-aur-nason-ke-dard-arthritis-pain-ki-ayurvedic-dawa/p/itm452a7b807eebb?pid=AYDHJCD8DKEUP3HS"
+                }
+              }
+            }
+          ]
+        }
+        </script>
 
         <div class="row g-4">
 
@@ -611,56 +833,44 @@
         </section>
     @endif
 
-    <footer class="bg-dark text-white pt-5">
+    <footer class="bg-dark text-white pt-5" itemscope itemtype="https://schema.org/Organization">
         <div class="container">
             <div class="row g-4">
 
                 <!-- Brand -->
                 <div class="col-md-8">
-                    <h4 class="fw-bold">VATAHARI</h4>
-                    <p class="text-secondary small">
+                    <h4 class="fw-bold" itemprop="name">VATAHARI</h4>
+                    <p class="text-secondary small" itemprop="description">
                         Natural Ortho Care Solutions for Better Life.
                     </p>
                 </div>
 
                 <!-- Contact Info -->
-                <div class="col-md-4">
+                <div class="col-md-4" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
                     <h5 class="fw-bold mb-3">Contact Us</h5>
-
-                    {{-- <p class="small mb-2">
-                        <i class="bi bi-person me-2"></i> Rohit Kumar
-                    </p> --}}
 
                     <p class="small mb-2">
                         <i class="bi bi-telephone me-2"></i>
-                        <a href="tel:+919691905073" class="text-white text-decoration-none">
+                        <a href="tel:+919691905073" class="text-white text-decoration-none" itemprop="telephone">
                             +91 96919 05073
                         </a>
                     </p>
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto: orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
+                        <a href="mailto:orthosanjeevanilab@gmail.com" class="text-white text-decoration-none"
+                            itemprop="email">
                             orthosanjeevanilab@gmail.com
                         </a>
                     </p>
 
-                    <p class="small">
+                    <div class="small" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                         <i class="bi bi-geo-alt me-2"></i>
-                        Indore, Madhya Pradesh, India
-                    </p>
+                        <span itemprop="addressLocality">Indore</span>,
+                        <span itemprop="addressRegion">Madhya Pradesh</span>,
+                        <span itemprop="addressCountry">India</span>
+                    </div>
                 </div>
-
-                {{-- <!-- Quick Links -->
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3">Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-secondary text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Shop</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
-                    </ul>
-                </div> --}}
 
             </div>
 
@@ -668,10 +878,33 @@
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">
-                    © 2026 Vatahari Ayurveda. All Rights Reserved.
+                    © 2026 <span itemprop="name">Vatahari Ayurveda</span>. All Rights Reserved.
                 </p>
             </div>
         </div>
+
+        <!-- Additional Schema for Local Business -->
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "LocalBusiness",
+          "name": "Vatahari Ayurveda",
+          "description": "Natural Ortho Care Solutions for Better Life",
+          "url": "{{ url('/') }}",
+          "telephone": "+91-96919-05073",
+          "email": "orthosanjeevanilab@gmail.com",
+          "address": {
+            "@@type": "PostalAddress",
+            "addressLocality": "Indore",
+            "addressRegion": "Madhya Pradesh",
+            "addressCountry": "India"
+          },
+          "openingHours": "Mo-Su 09:00-21:00",
+          "priceRange": "₹₹",
+          "paymentAccepted": "Cash, Credit Card, Debit Card, UPI",
+          "currenciesAccepted": "INR"
+        }
+        </script>
     </footer>
 
 
