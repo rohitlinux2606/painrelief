@@ -84,6 +84,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function marketingLinks()
+    {
+        return $this->hasMany(MarketingLink::class);
+    }
+
     /* -------------------------------------------------------------------------- */
     /* ACCESSORS                                 */
     /* -------------------------------------------------------------------------- */

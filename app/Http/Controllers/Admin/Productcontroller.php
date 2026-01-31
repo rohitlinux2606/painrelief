@@ -240,4 +240,49 @@ class Productcontroller extends Controller
         $image->delete();
         return response()->json(['success' => true]);
     }
+
+    public function generateLink(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required|exists:products,id',
+            'platform'   => 'required|string',
+            'campaign_name' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()->first()]);
+        }
+
+        try {
+            $product = Product::findOrFail($request->product_id);
+
+            // UTM Params Build
+            $utmSource = Str::slug($request->platform);
+            $utmMedium = 'cpc'; // Default
+            $utmCampaign = $request->campaign_name ? Str::slug($request->campaign_name) : 'general';
+
+            $baseUrl = route('product-detail', $product->id);
+            $generatedUrl = $baseUrl . "?utm_source={$utmSource}&utm_medium={$utmMedium}&utm_campaign={$utmCampaign}";
+
+            // Creating the link record
+            $link = \App\Models\MarketingLink::create([
+                'product_id'    => $product->id,
+                'platform'      => $request->platform,
+                'campaign_name' => $request->campaign_name,
+                'utm_source'    => $utmSource,
+                'utm_medium'    => $utmMedium,
+                'utm_campaign'  => $utmCampaign,
+                'generated_url' => $generatedUrl,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'link' => $link,
+                'message' => 'Marketing link generated successfully!'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }

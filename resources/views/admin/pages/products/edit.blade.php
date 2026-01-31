@@ -138,6 +138,39 @@
                 </div>
 
                 <div class="col-lg-4">
+
+                    <!-- Marketing Links Section -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
+                            <h5 class="form-section-title fw-bold mb-0">Marketing / Ad Links</h5>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#generateLinkModal">
+                                <i class="bx bx-plus"></i> Create Link
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            @if($product->marketingLinks->count() > 0)
+                                <div class="list-group list-group-flush">
+                                    @foreach($product->marketingLinks as $link)
+                                        <div class="list-group-item px-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <small class="fw-bold text-uppercase">{{ $link->platform }}</small>
+                                                <small class="text-muted">{{ $link->campaign_name }}</small>
+                                            </div>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" value="{{ $link->generated_url }}" readonly id="link-{{ $link->id }}">
+                                                <button class="btn btn-outline-primary copy-btn" type="button" data-clipboard-target="#link-{{ $link->id }}">
+                                                    <i class="bx bx-copy"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-muted small text-center my-3">No marketing links yet.</p>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-transparent py-3">
                             <h5 class="form-section-title fw-bold mb-0">Status</h5>
@@ -209,7 +242,11 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script>
+        // Copy to clipboard init
+        new ClipboardJS('.copy-btn');
+
         $(document).on('click', '.remove-img', function() {
             let id = $(this).data('id');
             let parentDiv = $('.gallery-item-' + id);
@@ -232,5 +269,67 @@
                 });
             }
         });
+
+        // Generate Link AJAX
+        $('#generateLinkForm').on('submit', function(e){
+            e.preventDefault();
+            let formData = $(this).serialize();
+
+            $.ajax({
+                url: "{{ route('admin.product-control.product.generate-link') }}",
+                type: "POST",
+                data: formData,
+                success: function(res) {
+                    if(res.success) {
+                        alert(res.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + res.message);
+                    }
+                },
+                error: function(err) {
+                   alert('Something went wrong');
+                   console.log(err);
+                }
+            });
+        });
     </script>
 @endpush
+
+<!-- Generate Link Modal -->
+<div class="modal fade" id="generateLinkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <form class="modal-content" id="generateLinkForm">
+            <div class="modal-header">
+                <h5 class="modal-title">Generate UTM Link</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                <div class="mb-3">
+                    <label class="form-label">Platform *</label>
+                    <select name="platform" class="form-select" required>
+                        <option value="facebook">Facebook (Meta)</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="google">Google Ads</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="email">Email</option>
+                        <option value="sms">SMS</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Campaign Name</label>
+                    <input type="text" name="campaign_name" class="form-control" placeholder="e.g. Diwali Sale 2026">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Generate & Save</button>
+            </div>
+        </form>
+    </div>
+</div>
