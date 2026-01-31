@@ -16,7 +16,8 @@ class Order extends Model
         'total',
         'status',
         'payment_method',
-        'payment_status'
+        'payment_status',
+        'utm_source'
     ];
 
     public function items()

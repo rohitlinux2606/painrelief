@@ -162,7 +162,19 @@
     </div>
 
     <script>
-        fbq('track', 'Lead');
+        fbq('track', 'Purchase', {
+            value: {{ $order->total }},
+            currency: 'INR',
+            content_ids: [
+                @foreach($order->items as $item)
+                    '{{ $item->product_id }}',
+                @endforeach
+            ],
+            content_type: 'product',
+            num_items: {{ $order->items->sum('quantity') }},
+            order_id: '{{ $order->order_number }}',
+            utm_source: '{{ $order->utm_source }}'
+        });
     </script>
 
     <script>

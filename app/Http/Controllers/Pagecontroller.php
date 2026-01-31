@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 use App\Models\Product;
 use App\Models\Cart;
@@ -34,9 +35,17 @@ class Pagecontroller extends Controller
 
     public function home()
     {
+        // Controller
+        if (request()->has('utm_source')) {
+            $utmSource = request()->get('utm_source');
+            Session::put('utm_source', $utmSource);
+            Log::info('utm_source stored in session: ' . $utmSource);
+        } else {
+            $utmSource = Session::get('utm_source');
+        }
         $products = Product::with('images')->get();
         $videos = ProductVideos::all();
-        return view('index', compact('products', 'videos'));
+        return view('index', compact('products', 'videos', 'utmSource'));
     }
 
     public function productDetail($id)
@@ -248,6 +257,7 @@ class Pagecontroller extends Controller
             'status'         => 'pending',
             'payment_method' => 'COD',
             'payment_status' => 'unpaid',
+            'utm_source'     => Session::get('utm_source'),
         ]);
 
         // 5. Save Order Items
@@ -266,6 +276,9 @@ class Pagecontroller extends Controller
         $cart->items()->delete();
         $cart->delete();
 
+        // 7. Send CAPI Event (Server-side tracking)
+        $this->sendCapiEvent($order);
+
         return redirect()->route('order-success', $order->order_number);
     }
 
@@ -279,5 +292,50 @@ class Pagecontroller extends Controller
         }
 
         return view('order-success', compact('order'));
+    }
+
+    private function sendCapiEvent($order)
+    {
+        try {
+            $pixelId = '774268225654141';
+            // TODO: Replace with your actual Meta Conversions API Access Token
+            $accessToken = 'REPLACE_THIS_WITH_YOUR_ACCESS_TOKEN';
+
+            if ($accessToken === 'REPLACE_THIS_WITH_YOUR_ACCESS_TOKEN') {
+                Log::warning('CAPI Access Token not set. skipping server-side event.');
+                return;
+            }
+
+            $data = [
+                'data' => [
+                    [
+                        'event_name' => 'Purchase',
+                        'event_time' => time(),
+                        'action_source' => 'website',
+                        'user_data' => [
+                            'em' => [hash('sha256', strtolower($order->customer->email))],
+                            'ph' => [hash('sha256', $order->customer->phone)],
+                        ],
+                        'custom_data' => [
+                            'currency' => 'INR',
+                            'value' => $order->total,
+                            'order_id' => $order->order_number,
+                            'utm_source' => $order->utm_source,
+                        ],
+                    ]
+                ]
+            ];
+
+            $response = Http::post("https://graph.facebook.com/v19.0/{$pixelId}/events?access_token={$accessToken}", $data);
+
+            if ($response->successful()) {
+                Log::info('CAPI Event Sent Successfully: Purchase', ['order_id' => $order->order_number]);
+            } else {
+                Log::error('CAPI Failed: ' . $response->body());
+            }
+
+        } catch (\Exception $e) {
+            Log::error('CAPI Error: ' . $e->getMessage());
+        }
     }
 }
