@@ -389,7 +389,7 @@
     </nav>
 
     <section class="banner-section">
-        <img src="{{ asset('cdn/001.png') }}" alt="Joint Pain Relief Banner">
+        <img src="{{ asset('banner/flipkart.jpeg') }}" alt="Joint Pain Relief Banner">
     </section>
 
     <section class="container py-5">
