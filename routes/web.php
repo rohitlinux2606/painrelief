@@ -19,6 +19,8 @@ Route::view('/product', 'product-detail');
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\Pagecontroller::class, 'home'])->name('page.home');
+Route::get('/about-us', [App\Http\Controllers\Pagecontroller::class, 'about'])->name('page.about');
+Route::get('/contact-us', [App\Http\Controllers\Pagecontroller::class, 'contact'])->name('page.contact');
 Route::get('/product/{id}', [App\Http\Controllers\Pagecontroller::class, 'productDetail'])->name('product-detail');
 Route::get('/cart/add/{id}', [App\Http\Controllers\Pagecontroller::class, 'addToCart'])->name('add-to-cart');
 Route::get('/cart/show', [App\Http\Controllers\Pagecontroller::class, 'showCart'])->name('show-cart');

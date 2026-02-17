@@ -39,6 +39,16 @@ class Pagecontroller extends Controller
         return view('index', compact('products', 'videos'));
     }
 
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
     public function productDetail($id)
     {
         $product = Product::find($id);

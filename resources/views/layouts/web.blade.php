@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Vatahari – Natural Ortho Care Solutions')</title>
+    <title>@yield('title', 'Sanjeevani Ortho Lab – Home of Vatahari Ayurveda')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -178,7 +178,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('page.home') }}">VATAHARI AYURVEDA</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">SANJEEVANI ORTHO LAB</a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navMenu">
@@ -187,9 +187,10 @@
 
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav mx-auto">
-                        {{-- <li class="nav-item"><a class="nav-link px-3" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Shop All</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Ayurvedic Tips</a></li> --}}
+                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.about') }}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.contact') }}">Contact Us</a>
+                        </li>
                     </ul>
                     <div class="d-flex align-items-center gap-4">
                         {{-- <i class="bi bi-search fs-5" style="cursor:pointer"></i>
@@ -207,7 +208,7 @@
     @else
         <nav class="navbar navbar-light bg-white border-bottom py-3">
             <div class="container justify-content-center">
-                <a class="navbar-brand" href="{{ route('page.home') }}">VATAHARI AYURVEDA</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">SANJEEVANI ORTHO LAB</a>
             </div>
         </nav>
     @endif
@@ -222,9 +223,9 @@
 
                 <!-- Brand -->
                 <div class="col-md-8">
-                    <h4 class="fw-bold">VATAHARI AYURVEDA</h4>
+                    <h4 class="fw-bold">SANJEEVANI ORTHO LAB</h4>
                     <p class="text-secondary small">
-                        Natural Ortho Care Solutions for Better Life.
+                        Home of Vatahari Ayurveda. Natural Ortho Care Solutions for Better Life.
                     </p>
                 </div>
 
@@ -245,14 +246,19 @@
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto: orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
-                            orthosanjeevanilab@gmail.com
+                        <a href="mailto:info@vatahari.in" class="text-white text-decoration-none">
+                            info@vatahari.in
                         </a>
                     </p>
 
                     <p class="small">
                         <i class="bi bi-geo-alt me-2"></i>
-                        Indore, Madhya Pradesh, India
+                        Building No./Flat No.: HANUMANT PALACE INDORE, BLOCK-C,<br>
+                        Road/Street: 2-A,<br>
+                        City/Town/Village: Indore,<br>
+                        District: Indore,<br>
+                        State: Madhya Pradesh,<br>
+                        PIN Code: 452002
                     </p>
                 </div>
 
@@ -273,7 +279,7 @@
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">
-                    © 2026 Vatahari Ayurveda. All Rights Reserved.
+                    © 2026 Sanjeevani Ortho Lab. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
                 </p>
             </div>
         </div>

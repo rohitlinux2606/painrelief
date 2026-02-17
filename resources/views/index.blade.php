@@ -11,7 +11,7 @@
             ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
         </div>
 
-        <h2 class="h1 fw-bold mb-5">Featured Products</h2>
+        <h2 class="h1 fw-bold mb-5">Featured Products by Sanjeevani Ortho Lab</h2>
         <div class="row g-4">
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
