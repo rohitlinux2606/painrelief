@@ -19,7 +19,7 @@
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/assets//vendor/css/core.css') }}"
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}"
         class="template-customizer-core-css" />
 </head>
 
