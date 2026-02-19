@@ -225,8 +225,7 @@
                 <!-- Brand -->
                 <div class="col-md-8">
                     <h4 class="fw-bold">SANJEEVANI ORTHO LAB</h4>
-                    <p class="text-secondary small">
-                        Home of Vatahari Ayurveda. Natural Ortho Care Solutions for Better Life.
+                    <p class="text-secondary small"> Natural Ortho Care Solutions for Better Life.
                     </p>
                 </div>
 
