@@ -237,9 +237,9 @@ class Pagecontroller extends Controller
     {
         // 1. Validation
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'first_name' => 'required',
-            'last_name' => 'required',
+            'last_name' => 'nullable',
             'phone' => 'required',
             'address' => 'required',
             'city' => 'required',

@@ -22,24 +22,23 @@
                         <span class="form-label-custom mb-0">Contact Information</span>
                     </div>
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control shopify-input" placeholder="Email"
-                            required>
+                        <input type="email" name="email" class="form-control shopify-input" placeholder="Email">
                     </div>
                     <div class="mb-4">
                         <input type="tel" name="phone" class="form-control shopify-input"
-                            placeholder="Phone number (for delivery updates)" required>
+                            placeholder="Phone number (for delivery updates)">
                     </div>
 
                     <span class="form-label-custom">Shipping Address</span>
                     <div class="row g-2">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <input type="text" name="first_name" class="form-control shopify-input"
-                                placeholder="First name" required>
+                                placeholder="Your name" required>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <input type="text" name="last_name" class="form-control shopify-input"
-                                placeholder="Last name" required>
-                        </div>
+                                placeholder="Last name">
+                        </div> --}}
                         <div class="col-12">
                             <input type="text" name="address" class="form-control shopify-input"
                                 placeholder="Complete Address (House No, Street, Area)" required>
@@ -159,9 +158,9 @@
         }
 
         /* .navbar {
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 0;
-        } */
+                                            border-bottom: 1px solid var(--border-color);
+                                            padding: 15px 0;
+                                        } */
 
         .main-wrapper {
             max-width: 1100px;
