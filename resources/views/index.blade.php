@@ -55,132 +55,77 @@
         </div>
 
         <div class="row g-4">
+            @foreach ($products as $product)
+                @php
+                    // Map loop index to original static designs
+                    $isMostPopular = $loop->index == 1;
+                    $badge = null;
+                    $badgeClass = '';
+                    $description = $product->short_description;
 
-            <!-- Pack 1 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold">Pack of 1</h5>
-                        <p class="text-muted small">Best for first-time users</p>
+                    if ($loop->index == 0) {
+                        $badge = 'Trial Pack';
+                        $badgeClass = 'bg-secondary';
+                    } elseif ($loop->index == 1) {
+                        $badge = 'Most Popular';
+                        $badgeClass = 'bg-success';
+                    } elseif ($loop->index == 2) {
+                        $badge = 'Best Value';
+                        $badgeClass = 'bg-warning text-dark';
+                    } elseif ($loop->index == 3) {
+                        $badge = 'Maximum Savings';
+                        $badgeClass = 'bg-danger';
+                    }
+                @endphp
 
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹700</span>
-                            <span class="fs-3 fw-bold ms-2">₹600</span>
-                        </div>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card h-100 {{ $isMostPopular ? 'shadow border-2 border-success' : 'shadow-sm border-0' }}">
+                        <div class="card-body text-center position-relative">
+                            @if ($badge)
+                                @if ($isMostPopular)
+                                    <span
+                                        class="badge {{ $badgeClass }} position-absolute top-0 start-50 translate-middle">{{ $badge }}</span>
+                                @else
+                                    <span class="badge {{ $badgeClass }} mb-2">{{ $badge }}</span>
+                                @endif
+                            @endif
 
-                        <p class="text-danger fw-bold small">You Save ₹100</p>
+                            <h5 class="fw-bold {{ $isMostPopular ? 'mt-3' : '' }}">{{ $product->title }}</h5>
+                            <p class="text-muted small">{{ $description ?? 'Quality Care Product' }}</p>
 
-                        <span class="badge bg-secondary mb-3">Trial Pack</span>
+                            <div class="my-3">
+                                @if ($product->compare_at_price)
+                                    <span
+                                        class="text-decoration-line-through text-muted">₹{{ number_format($product->compare_at_price, 0) }}</span>
+                                @endif
+                                <span class="fs-3 fw-bold ms-2">₹{{ number_format($product->price, 0) }}</span>
+                            </div>
 
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-vatahari-vati-original-tablet-pack-1-arthritis-sciatica-joint-pain-tablets/p/itm18780af6afda0?pid=BPRGA4FGMMZGCR9Z"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            @if ($product->compare_at_price && $product->compare_at_price > $product->price)
+                                <p class="{{ $isMostPopular ? 'text-success' : 'text-danger' }} fw-bold small">
+                                    You Save ₹{{ number_format($product->compare_at_price - $product->price, 0) }}
+                                </p>
+                            @endif
 
-            <!-- Pack 2 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow border-2 border-success">
-                    <div class="card-body text-center position-relative">
+                            @php
+                                // Attempt to calculate "Per product" if it's a pack
+preg_match('/Pack of (\d+)/i', $product->title, $matches);
+                                $packCount = isset($matches[1]) ? (int) $matches[1] : 1;
+                            @endphp
 
-                        <span class="badge bg-success position-absolute top-0 start-50 translate-middle">Most
-                            Popular</span>
+                            @if ($packCount > 1)
+                                <p class="small text-muted">(Per product:
+                                    ₹{{ number_format($product->price / $packCount, 0) }})</p>
+                            @endif
 
-                        <h5 class="fw-bold mt-3">Pack of 2</h5>
-                        <p class="text-muted small">Couple / 1 Month Regular Use</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹1400</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,099</span>
-                        </div>
-
-                        <p class="text-success fw-bold small">You Save ₹301</p>
-                        <p class="small text-muted">(Per product: ₹549)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-vatahari-vati-ayurvedic-tablets-joints-pain-2-x-30-units/p/itm01296c4901bcb?pid=BPRGRZTETYFET8VJ"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pack 3 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-warning text-dark mb-2">Best Value</span>
-
-                        <h5 class="fw-bold">Pack of 3</h5>
-                        <p class="text-muted small">Family Pack / 2–3 Months Use</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹2100</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,499</span>
-                        </div>
-
-                        <p class="text-danger fw-bold small">You Save ₹601</p>
-                        <p class="small text-muted">(Per product: ₹499)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-watahari-wati-cartilage-bone-joint-support-supplement-collagen-glucosamine/p/itm975ad3d38b0d7?pid=AYDHJFPKTYNFSUMB"
-                                class="btn btn-dark">Buy Now</a>
+                            <div class="d-grid mt-3">
+                                <a href="{{ route('buy-now', $product->id) }}" class="btn btn-dark"
+                                    onclick="buyNowEvent()">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Pack 5 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-danger mb-2">Maximum Savings</span>
-
-                        <h5 class="fw-bold">Pack of 5</h5>
-                        <p class="text-muted small">Long-Term Health Users</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹3500</span>
-                            <span class="fs-3 fw-bold ms-2">₹2,299</span>
-                        </div>
-
-                        <p class="text-danger fw-bold small">You Save ₹1,201</p>
-                        <p class="small text-muted">(Per product: ₹459)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-watahari-wati-jodo-ghutnon-aur-nason-ke-dard-arthritis-pain-ki-ayurvedic-dawa/p/itm452a7b807eebb?pid=AYDHJCD8DKEUP3HS"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- <!-- Pack 10 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-primary mb-2">Wholesale Pack</span>
-
-                        <h5 class="fw-bold">Pack of 10</h5>
-                        <p class="text-muted small">Big Families / Resellers</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹7000</span>
-                            <span class="fs-3 fw-bold ms-2">₹3,999</span>
-                        </div>
-
-                        <p class="text-success fw-bold small">You Save ₹3,001</p>
-                        <p class="small text-muted">(Per product: ₹399)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="#" class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
+            @endforeach
         </div>
     </section>
 
