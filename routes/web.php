@@ -22,6 +22,7 @@ Route::get('/about-us', [App\Http\Controllers\Pagecontroller::class, 'about'])->
 Route::get('/contact-us', [App\Http\Controllers\Pagecontroller::class, 'contact'])->name('page.contact');
 Route::get('/product/{id}', [App\Http\Controllers\Pagecontroller::class, 'productDetail'])->name('product-detail');
 Route::get('/cart/add/{id}', [App\Http\Controllers\Pagecontroller::class, 'addToCart'])->name('add-to-cart');
+Route::get('/buy-now/{id}', [App\Http\Controllers\Pagecontroller::class, 'buyNow'])->name('buy-now');
 Route::get('/cart/show', [App\Http\Controllers\Pagecontroller::class, 'showCart'])->name('show-cart');
 Route::post('/cart/update', [App\Http\Controllers\Pagecontroller::class, 'updateQuantity'])->name('update-cart');
 Route::get('/cart/delete-item/{id}', [App\Http\Controllers\Pagecontroller::class, 'removeItem'])->name('cart.delete-item');

@@ -95,7 +95,49 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        return redirect()->route('checkout')->with('success', 'Product added to cart!');
+        return redirect()->route('show-cart')->with('success', 'Product added to cart!');
+    }
+
+    public function buyNow($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
+
+        // CART FETCH / CREATE
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })->first();
+
+        if (! $cart) {
+            $cart = Cart::create([
+                'user_id' => $userId,
+                'session_id' => $sessionId,
+            ]);
+        }
+
+        // CART ITEM LOGIC
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $id)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->increment('quantity');
+        } else {
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $id,
+                'quantity' => 1,
+                'price' => $product->price,
+            ]);
+        }
+
+        return redirect()->route('checkout')->with('success', 'Proceeding to checkout!');
     }
 
     public function updateQuantity(Request $request)
