@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Admin\Productcontroller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return redirect()->to('/index.html');
@@ -38,8 +37,9 @@ Route::get('/register', function () {
 
 Route::get('clear-session', function (Request $request) {
     $request->session()->flush();
-});
 
+    return redirect()->back();
+});
 
 Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
