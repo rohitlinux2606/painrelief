@@ -331,4 +331,24 @@ class Pagecontroller extends Controller
 
         return view('order-success', compact('order'));
     }
+
+    public function privacyPolicy()
+    {
+        return view('policies.privacy-policy');
+    }
+
+    public function termsConditions()
+    {
+        return view('policies.terms-conditions');
+    }
+
+    public function refundPolicy()
+    {
+        return view('policies.refund-policy');
+    }
+
+    public function returnPolicy()
+    {
+        return view('policies.return-policy');
+    }
 }

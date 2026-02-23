@@ -223,10 +223,30 @@
             <div class="row g-4">
 
                 <!-- Brand -->
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <h4 class="fw-bold">SANJEEVANI ORTHO LAB</h4>
                     <p class="text-secondary small"> Natural Ortho Care Solutions for Better Life.
                     </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="{{ route('page.home') }}" class="text-secondary text-decoration-none">Home</a></li>
+                        <li><a href="{{ route('page.about') }}" class="text-secondary text-decoration-none">About Us</a>
+                        </li>
+                        <li><a href="{{ route('page.contact') }}" class="text-secondary text-decoration-none">Contact
+                                Us</a></li>
+                        <li><a href="{{ route('page.privacy') }}" class="text-secondary text-decoration-none">Privacy
+                                Policy</a></li>
+                        <li><a href="{{ route('page.terms') }}" class="text-secondary text-decoration-none">Terms and
+                                Conditions</a></li>
+                        <li><a href="{{ route('page.refund') }}" class="text-secondary text-decoration-none">Refund
+                                Policy</a></li>
+                        <li><a href="{{ route('page.return') }}" class="text-secondary text-decoration-none">Return
+                                Policy</a></li>
+                    </ul>
                 </div>
 
                 <!-- Contact Info -->
@@ -261,17 +281,6 @@
                         PIN Code: 452002
                     </p>
                 </div>
-
-                {{-- <!-- Quick Links -->
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3">Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-secondary text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Shop</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
-                    </ul>
-                </div> --}}
 
             </div>
 

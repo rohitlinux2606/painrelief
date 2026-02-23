@@ -29,6 +29,11 @@ Route::get('/cart/delete-item/{id}', [App\Http\Controllers\Pagecontroller::class
 Route::get('/checkout', [App\Http\Controllers\Pagecontroller::class, 'checkout'])->name('checkout');
 Route::post('/place-order', [App\Http\Controllers\Pagecontroller::class, 'placeOrder'])->name('place-order');
 Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller::class, 'orderSuccess'])->name('order-success');
+
+Route::get('/privacy-policy', [App\Http\Controllers\Pagecontroller::class, 'privacyPolicy'])->name('page.privacy');
+Route::get('/terms-and-conditions', [App\Http\Controllers\Pagecontroller::class, 'termsConditions'])->name('page.terms');
+Route::get('/refund-policy', [App\Http\Controllers\Pagecontroller::class, 'refundPolicy'])->name('page.refund');
+Route::get('/return-policy', [App\Http\Controllers\Pagecontroller::class, 'returnPolicy'])->name('page.return');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // if try register then redirect login
