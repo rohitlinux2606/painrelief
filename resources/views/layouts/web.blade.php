@@ -240,12 +240,12 @@
                                 Us</a></li>
                         <li><a href="{{ route('page.privacy') }}" class="text-secondary text-decoration-none">Privacy
                                 Policy</a></li>
-                        <li><a href="{{ route('page.terms') }}" class="text-secondary text-decoration-none">Terms and
+                        {{-- <li><a href="{{ route('page.terms') }}" class="text-secondary text-decoration-none">Terms and
                                 Conditions</a></li>
                         <li><a href="{{ route('page.refund') }}" class="text-secondary text-decoration-none">Refund
                                 Policy</a></li>
                         <li><a href="{{ route('page.return') }}" class="text-secondary text-decoration-none">Return
-                                Policy</a></li>
+                                Policy</a></li> --}}
                     </ul>
                 </div>
 
