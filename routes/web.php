@@ -69,3 +69,6 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
     });
 });
+
+// add admin route file
+require __DIR__.'/admin.php';

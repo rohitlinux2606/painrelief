@@ -2,18 +2,19 @@
 
 namespace App\Services;
 
-use SellingPartnerApi\SellingPartnerApi;
 use SellingPartnerApi\Enums\Endpoint;
+use SellingPartnerApi\SellingPartnerApi;
 
 class AmazonSpApiService
 {
     protected $config;
+
     protected $client;
 
     /**
      * AmazonSpApiService constructor.
      *
-     * @param array|null $customCredentials If provided, these will override default config.
+     * @param  array|null  $customCredentials  If provided, these will override default config.
      */
     public function __construct(?array $customCredentials = null)
     {
@@ -42,7 +43,6 @@ class AmazonSpApiService
     /**
      * Get the correct Endpoint enum based on string.
      *
-     * @param string $endpoint
      * @return Endpoint
      */
     protected function getEndpoint(string $endpoint)
@@ -67,13 +67,13 @@ class AmazonSpApiService
     /**
      * Dynamically update credentials and re-initialize client.
      *
-     * @param array $credentials
      * @return $this
      */
     public function setCredentials(array $credentials)
     {
         $this->config = array_merge($this->config, $credentials);
         $this->initializeClient();
+
         return $this;
     }
 }
