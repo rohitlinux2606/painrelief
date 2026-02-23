@@ -158,9 +158,9 @@
         }
 
         /* .navbar {
-                                            border-bottom: 1px solid var(--border-color);
-                                            padding: 15px 0;
-                                        } */
+                                                        border-bottom: 1px solid var(--border-color);
+                                                        padding: 15px 0;
+                                                    } */
 
         .main-wrapper {
             max-width: 1100px;
@@ -272,7 +272,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                value: 00 // Provide actual value if available, or fetch from DOM
+                value: 00
             });
         });
 
