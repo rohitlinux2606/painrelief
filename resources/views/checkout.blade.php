@@ -46,13 +46,13 @@
 
                         <div class="col-md-4">
                             <select name="state" id="state-select" class="form-select select2" required>
-                                <option value="" selected disabled>Loading States...</option>
+                                <option value="" selected disabled>Select State</option>
                             </select>
                         </div>
 
                         <div class="col-md-4">
                             <select name="city" id="city-select" class="form-select select2" required disabled>
-                                <option value="" selected disabled>Select State First</option>
+                                <option value="" selected disabled>Select City</option>
                             </select>
                         </div>
 
@@ -158,9 +158,9 @@
         }
 
         /* .navbar {
-                                                        border-bottom: 1px solid var(--border-color);
-                                                        padding: 15px 0;
-                                                    } */
+                                    border-bottom: 1px solid var(--border-color);
+                                    padding: 15px 0;
+                                } */
 
         .main-wrapper {
             max-width: 1100px;
@@ -272,14 +272,20 @@
         document.addEventListener("DOMContentLoaded", function() {
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                value: 00
+                value: {{ $subtotal }}
             });
         });
 
         $(document).ready(function() {
             // 1. Initialize Select2
-            $('.select2').select2({
-                placeholder: "Select an option",
+            $('#state-select').select2({
+                placeholder: "Select State",
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#city-select').select2({
+                placeholder: "Select City",
                 allowClear: true,
                 width: '100%'
             });
@@ -315,7 +321,7 @@
                 if (!stateName) return;
 
                 citySelect.prop('disabled', true).empty().append(
-                    '<option value="">Loading Cities...</option>');
+                    '<option value="" selected disabled>Select City</option>');
 
                 fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
                         method: 'POST',
