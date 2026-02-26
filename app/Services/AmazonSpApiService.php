@@ -48,7 +48,7 @@ class AmazonSpApiService
     protected function getEndpoint(string $endpoint)
     {
         return match (strtoupper($endpoint)) {
-            'EU' => Endpoint::EU,
+            'EU', 'EU-WEST-1' => Endpoint::EU,
             'FE' => Endpoint::FE,
             default => Endpoint::NA,
         };
@@ -62,6 +62,51 @@ class AmazonSpApiService
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Get orders.
+     */
+    public function getOrders(array $params = [])
+    {
+        $mergedParams = array_merge([
+            'marketplaceIds' => [$this->config['marketplace_id']],
+            'createdAfter' => now()->subDays(7)->toRfc3339String(),
+        ], $params);
+
+        return $this->client->ordersV0()->getOrders(...$mergedParams);
+    }
+
+    /**
+     * Get order details by ID.
+     */
+    public function getOrder(string $orderId)
+    {
+        return $this->client->ordersV0()->getOrder($orderId);
+    }
+
+    /**
+     * Get pricing for ASINs.
+     */
+    public function getPricing(array $asins)
+    {
+        return $this->client->productPricingV0()->getPricing(
+            marketplaceId: $this->config['marketplace_id'],
+            itemType: 'Asin',
+            asins: $asins
+        );
+    }
+
+    /**
+     * Get listing item details.
+     */
+    public function getListingItem(string $sku)
+    {
+        return $this->client->listingsItemsV20210801()->getListingsItem(
+            sellerId: $this->config['seller_id'],
+            sku: $sku,
+            marketplaceIds: [$this->config['marketplace_id']]
+        );
     }
 
     /**

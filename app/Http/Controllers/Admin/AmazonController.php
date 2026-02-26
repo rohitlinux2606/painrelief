@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\AmazonSpApiService;
-use Illuminate\Support\Facades\Log;
 
 class AmazonController extends Controller
 {
@@ -17,46 +16,63 @@ class AmazonController extends Controller
 
     public function index()
     {
-        $client = $this->amazonService->getClient();
-
-        // Example of dynamic credentials if needed:
-        // $this->amazonService->setCredentials(['refreshToken' => '...'])->getClient();
+        return view('admin.amazon.index');
     }
 
-    /**
-     * सैंडबॉक्स में प्रोडक्ट लिस्ट (Listings Items) फेच करने का उदाहरण
-     */
     public function fetchProducts()
     {
-        Log::info('Fetch Products');
-        $client = $this->amazonService->getClient();
-
-        // भारत/EU के लिए Marketplace ID (अमेज़न इंडिया के लिए: A21TJRUUN4KGV)
-        $marketplaceIds = ['A21TJRUUN4KGV'];
-
-        // यह आपके सेलर अकाउंट की ID है
-        $sellerId = 'SiddhiHerbals';
-
         try {
-            // Listings Items API का उपयोग करके डेटा फेच करना
-            // नोट: सैंडबॉक्स में यह सिर्फ मॉक डेटा देगा
-            $listingsApi = $client->listingsItems();
+            // Simplified example: Fetching by a specific SKU for testing
+            // In a real app, you might loop through your DB products
+            $sku = request('sku');
+            if (! $sku) {
+                return response()->json(['error' => 'SKU is required'], 400);
+            }
 
-            // यहाँ हम एक टेस्ट SKU का उपयोग कर रहे हैं
-            $testSku = 'goodhealth_pack01';
+            $response = $this->amazonService->getListingItem($sku);
 
-            $response = $listingsApi->getListingsItem(
-                $sellerId,
-                $testSku,
-                $marketplaceIds
-            );
-
-            return $response->json();
+            return response()->json($response->data());
         } catch (\Exception $e) {
-            return [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ];
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getPricing()
+    {
+        try {
+            $asins = explode(',', request('asins', ''));
+            if (empty($asins)) {
+                return response()->json(['error' => 'ASINs are required'], 400);
+            }
+
+            $response = $this->amazonService->getPricing($asins);
+
+            return response()->json($response->data());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function listOrders()
+    {
+        try {
+            $params = request()->all();
+            $response = $this->amazonService->getOrders($params);
+
+            return response()->json($response->data());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function trackOrder($orderId)
+    {
+        try {
+            $response = $this->amazonService->getOrder($orderId);
+
+            return response()->json($response->data());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
