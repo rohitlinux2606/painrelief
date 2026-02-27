@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use SellingPartnerApi\Enums\Endpoint;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CreateFulfillmentOrderRequest;
+use SellingPartnerApi\Seller\ReportsV20210630\Dto\CreateReportSpecification;
 use SellingPartnerApi\SellingPartnerApi;
 
 class AmazonSpApiService
@@ -107,6 +109,50 @@ class AmazonSpApiService
             sku: $sku,
             marketplaceIds: [$this->config['marketplace_id']]
         );
+    }
+
+    /**
+     * Create a report.
+     * Report types: GET_MERCHANT_LISTINGS_DATA, GET_FBA_MYI_UNSUPPRESSED_INVENTORY_DATA, etc.
+     */
+    public function createReport(string $reportType, ?string $startTime = null, ?string $endTime = null)
+    {
+        $spec = new CreateReportSpecification(
+            reportType: $reportType,
+            marketplaceIds: [$this->config['marketplace_id']],
+            dataStartTime: $startTime ? new \DateTime($startTime) : null,
+            dataEndTime: $endTime ? new \DateTime($endTime) : null,
+        );
+
+        return $this->client->reportsV20210630()->createReport($spec);
+    }
+
+    /**
+     * Get report details and status.
+     */
+    public function getReport(string $reportId)
+    {
+        return $this->client->reportsV20210630()->getReport($reportId);
+    }
+
+    /**
+     * Get report document details (including download URL).
+     */
+    public function getReportDocument(string $documentId, string $reportType = 'GET_MERCHANT_LISTINGS_DATA')
+    {
+        return $this->client->reportsV20210630()->getReportDocument($documentId, $reportType);
+    }
+
+    /**
+     * Create FBA Outbound Fulfillment Order (MCF).
+     */
+    public function createFulfillmentOrder(array $data)
+    {
+        // In a real implementation, you would map $data to CreateFulfillmentOrderRequest
+        // For now, we'll assume the caller provides compatible structure
+        $request = CreateFulfillmentOrderRequest::deserialize($data);
+
+        return $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
     }
 
     /**
