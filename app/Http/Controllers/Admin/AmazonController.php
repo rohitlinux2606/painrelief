@@ -24,8 +24,8 @@ class AmazonController extends Controller
         try {
             // Simplified example: Fetching by a specific SKU for testing
             // In a real app, you might loop through your DB products
-            // $sku = request('sku');
-            $sku = '1C3V-KT2M-8EX9';
+            $sku = request('sku');
+            // $sku = '1C3V-KT2M-8EX9';
             if (! $sku) {
                 return response()->json(['error' => 'SKU is required'], 400);
             }
