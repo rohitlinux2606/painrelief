@@ -133,6 +133,70 @@ class AmazonController extends Controller
     }
 
     /**
+     * Step 4: Import products from the downloaded report into the database
+     */
+    public function importProducts($documentId)
+    {
+        try {
+            $reportType = request('report_type', 'GET_MERCHANT_LISTINGS_DATA');
+            $response = $this->amazonService->getReportDocument($documentId, $reportType);
+            $document = $response->dto();
+            $contents = $document->download($reportType);
+
+            if (empty($contents)) {
+                return response()->json(['error' => 'Report is empty or could not be downloaded'], 400);
+            }
+
+            $importedCount = 0;
+            $updatedCount = 0;
+
+            foreach ($contents as $item) {
+                // Map Amazon fields to Product model fields
+                // Using amazon_sku as the unique identifier
+                $sku = $item['seller-sku'] ?? null;
+                if (! $sku) {
+                    continue;
+                }
+
+                $title = $item['item-name'] ?? 'Amazon Product';
+                $productData = [
+                    'title' => $title,
+                    'slug' => \Illuminate\Support\Str::slug($title.'-'.$sku),
+                    'price' => $item['price'] ?? 0,
+                    'stock_quantity' => $item['quantity'] ?? 0,
+                    'amazon_product_id' => $item['product-id'] ?? null,
+                    'amazon_asin' => $item['asin1'] ?? null,
+                    'amazon_sku' => $sku,
+                    'amazon_price' => $item['price'] ?? 0,
+                    'amazon_quantity' => $item['quantity'] ?? 0,
+                    'amazon_image' => $item['image-url'] ?? null,
+                    'status' => 'active',
+                ];
+
+                $product = \App\Models\Product::updateOrCreate(
+                    ['amazon_sku' => $sku],
+                    $productData
+                );
+
+                if ($product->wasRecentlyCreated) {
+                    $importedCount++;
+                } else {
+                    $updatedCount++;
+                }
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Successfully processed products.',
+                'imported' => $importedCount,
+                'updated' => $updatedCount,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
      * Create an outbound fulfillment order
      */
     public function createOutboundOrder()

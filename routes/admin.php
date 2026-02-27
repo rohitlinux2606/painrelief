@@ -11,5 +11,6 @@ Route::middleware(['web', 'auth'])->prefix('amazon')->name('amazon.')->group(fun
     Route::get('/request-report', [App\Http\Controllers\Admin\AmazonController::class, 'requestReport'])->name('request-report');
     Route::get('/report-status/{reportId}', [App\Http\Controllers\Admin\AmazonController::class, 'checkReportStatus'])->name('report-status');
     Route::get('/download-report/{documentId}', [App\Http\Controllers\Admin\AmazonController::class, 'downloadReport'])->name('download-report');
+    Route::get('/import-products/{documentId}', [App\Http\Controllers\Admin\AmazonController::class, 'importProducts'])->name('import-products');
     Route::post('/outbound-order', [App\Http\Controllers\Admin\AmazonController::class, 'createOutboundOrder'])->name('outbound-order');
 });

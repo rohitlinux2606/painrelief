@@ -36,7 +36,13 @@ class Product extends Model
         'thumbnail',
         'meta_title',
         'meta_description',
-        'external_link'
+        'external_link',
+        'amazon_product_id',
+        'amazon_asin',
+        'amazon_sku',
+        'amazon_price',
+        'amazon_quantity',
+        'amazon_image',
     ];
 
     /**
@@ -49,6 +55,8 @@ class Product extends Model
         'continue_selling_out_of_stock' => 'boolean',
         'is_physical' => 'boolean',
         'stock_quantity' => 'integer',
+        'amazon_price' => 'decimal:2',
+        'amazon_quantity' => 'integer',
     ];
 
     /**
@@ -65,7 +73,7 @@ class Product extends Model
     }
 
     /* -------------------------------------------------------------------------- */
-    /* RELATIONSHIPS                               */
+    /* RELATIONSHIPS */
     /* -------------------------------------------------------------------------- */
 
     // /**
@@ -85,7 +93,7 @@ class Product extends Model
     }
 
     /* -------------------------------------------------------------------------- */
-    /* ACCESSORS                                 */
+    /* ACCESSORS */
     /* -------------------------------------------------------------------------- */
 
     /**
@@ -96,8 +104,10 @@ class Product extends Model
     {
         if ($this->compare_at_price > $this->price) {
             $discount = (($this->compare_at_price - $this->price) / $this->compare_at_price) * 100;
+
             return round($discount);
         }
+
         return 0;
     }
 }
