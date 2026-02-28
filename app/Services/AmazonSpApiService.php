@@ -198,8 +198,9 @@ class AmazonSpApiService
             shippingSpeedCategory: 'Standard', // Can be Standard, Expedited, Priority
             destinationAddress: $destinationAddress,
             fulfillmentAction: 'Ship', // Ship or Hold
+            fulfillmentPolicy: 'FillOrKill', // Common default
             items: $items,
-            marketplaceId: $this->config['marketplace_id'],
+            paymentInformation: [], // Explicitly send empty array to avoid "Value null" error
         );
 
         return $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
