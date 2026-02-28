@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\Productcontroller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -55,7 +57,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
     Route::name('product-control.')->group(function () {
         Route::resource('product', Productcontroller::class);
         Route::resource('product-videos', App\Http\Controllers\Admin\ProductVideoController::class);
-        Route::post('product-image/delete', [ProductController::class, 'deleteImage'])->name('image.delete');
+        Route::post('product-image/delete', [Productcontroller::class, 'deleteImage'])->name('image.delete');
     });
 
     Route::name('customer-control.')->group(function () {
@@ -69,6 +71,20 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
     });
 });
+
+// Migration command
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate', ['--force' => true]);
+
+    return 'Migrations have been run!';
+})->name('run-migrations');
+
+// seed specific class name data
+Route::get('/seed-data', function () {
+    Artisan::call('db:seed', ['--force' => true]);
+
+    return 'Seeders have been run!';
+})->name('seed-data');
 
 // add admin route file
 require __DIR__.'/admin.php';
