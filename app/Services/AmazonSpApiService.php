@@ -5,8 +5,11 @@ namespace App\Services;
 use App\Models\Order;
 use SellingPartnerApi\Enums\Endpoint;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\Address as AmazonAddress;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CodSettings;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CreateFulfillmentOrderItem;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CreateFulfillmentOrderRequest;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\Money;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\PaymentInformation;
 use SellingPartnerApi\Seller\ReportsV20210630\Dto\CreateReportSpecification;
 use SellingPartnerApi\SellingPartnerApi;
 
@@ -172,6 +175,8 @@ class AmazonSpApiService
 
         // 2. Prepare Items
         $items = [];
+        $isCodOrder = ($order->payment_method === 'COD');
+
         foreach ($order->items as $item) {
             $product = $item->product;
 
@@ -181,6 +186,10 @@ class AmazonSpApiService
                     sellerSku: $product->amazon_sku,
                     sellerFulfillmentOrderItemId: (string) $item->id,
                     quantity: (int) $item->quantity,
+                    perUnitDeclaredValue: $isCodOrder ? new Money(
+                        currencyCode: 'INR',
+                        value: (string) number_format((float) $item->price, 2, '.', '')
+                    ) : null,
                 );
             }
         }
@@ -189,7 +198,24 @@ class AmazonSpApiService
             throw new \Exception('No Amazon SKUs found in order items.');
         }
 
-        // 3. Create Request
+        // 3. Prepare Payment Information and COD Settings
+        $paymentInformation = [];
+        $codSettings = null;
+
+        if ($isCodOrder) {
+            $paymentInformation[] = new PaymentInformation(
+                paymentTransactionId: $order->order_number,
+                paymentMode: 'COD', // Required value for India COD
+                paymentDate: $order->created_at,
+            );
+
+            $codSettings = new CodSettings(
+                isCodRequired: true,
+                // Note: codCharge and other fields must be null for India
+            );
+        }
+
+        // 4. Create Request
         $request = new CreateFulfillmentOrderRequest(
             sellerFulfillmentOrderId: $order->order_number,
             displayableOrderId: $order->order_number,
@@ -200,7 +226,9 @@ class AmazonSpApiService
             fulfillmentAction: 'Ship', // Ship or Hold
             fulfillmentPolicy: 'FillOrKill', // Common default
             items: $items,
-            paymentInformation: [], // Explicitly send empty array to avoid "Value null" error
+            marketplaceId: $this->config['marketplace_id'],
+            codSettings: $codSettings,
+            paymentInformation: ! empty($paymentInformation) ? $paymentInformation : null,
         );
 
         return $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
