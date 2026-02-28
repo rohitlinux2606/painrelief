@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Order;
 use SellingPartnerApi\Enums\Endpoint;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\Address as AmazonAddress;
+use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CreateFulfillmentOrderItem;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CreateFulfillmentOrderRequest;
 use SellingPartnerApi\Seller\ReportsV20210630\Dto\CreateReportSpecification;
 use SellingPartnerApi\SellingPartnerApi;
@@ -141,6 +144,65 @@ class AmazonSpApiService
     public function getReportDocument(string $documentId, string $reportType = 'GET_MERCHANT_LISTINGS_DATA')
     {
         return $this->client->reportsV20210630()->getReportDocument($documentId, $reportType);
+    }
+
+    /**
+     * Create FBA Outbound Fulfillment Order (MCF) from local Order model.
+     */
+    public function createMcfOrder(Order $order)
+    {
+        $address = $order->address;
+        $customer = $order->customer;
+
+        // 1. Prepare Destination Address (split into max 60 chars per line)
+        $fullAddress = trim($address->address_line1.' '.($address->address_line2 ?? ''));
+        $addressLines = explode("\n", wordwrap($fullAddress, 60, "\n", true));
+
+        $destinationAddress = new AmazonAddress(
+            name: $address->name ?? ($customer->first_name.' '.$customer->last_name),
+            addressLine1: $addressLines[0] ?? substr($fullAddress, 0, 60),
+            postalCode: $address->postal_code,
+            countryCode: $address->country ?? 'IN', // Default to India if not set
+            addressLine2: $addressLines[1] ?? null,
+            addressLine3: $addressLines[2] ?? null,
+            city: $address->city,
+            stateOrRegion: $address->state,
+            phone: $address->phone ?? $customer->phone,
+        );
+
+        // 2. Prepare Items
+        $items = [];
+        foreach ($order->items as $item) {
+            $product = $item->product;
+
+            // Only add items that have an Amazon SKU
+            if ($product && $product->amazon_sku) {
+                $items[] = new CreateFulfillmentOrderItem(
+                    sellerSku: $product->amazon_sku,
+                    sellerFulfillmentOrderItemId: (string) $item->id,
+                    quantity: (int) $item->quantity,
+                );
+            }
+        }
+
+        if (empty($items)) {
+            throw new \Exception('No Amazon SKUs found in order items.');
+        }
+
+        // 3. Create Request
+        $request = new CreateFulfillmentOrderRequest(
+            sellerFulfillmentOrderId: $order->order_number,
+            displayableOrderId: $order->order_number,
+            displayableOrderDate: $order->created_at,
+            displayableOrderComment: 'Order from Website: '.$order->order_number,
+            shippingSpeedCategory: 'Standard', // Can be Standard, Expedited, Priority
+            destinationAddress: $destinationAddress,
+            fulfillmentAction: 'Ship', // Ship or Hold
+            items: $items,
+            marketplaceId: $this->config['marketplace_id'],
+        );
+
+        return $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
     }
 
     /**

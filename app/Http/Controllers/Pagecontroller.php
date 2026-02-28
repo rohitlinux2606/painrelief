@@ -10,13 +10,22 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductVideos;
+use App\Services\AmazonSpApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class Pagecontroller extends Controller
 {
+    protected $amazonService;
+
+    public function __construct(AmazonSpApiService $amazonService)
+    {
+        $this->amazonService = $amazonService;
+    }
+
     /* =========================
        SESSION HELPER (IMPORTANT)
     ========================== */
@@ -235,6 +244,8 @@ class Pagecontroller extends Controller
 
     public function placeOrder(Request $request)
     {
+        Log::info($request->all());
+
         // 1. Validation
         $request->validate([
             'email' => 'nullable|email',
@@ -285,7 +296,7 @@ class Pagecontroller extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'postal_code' => $request->pincode,
-            'country' => 'India',
+            'country' => 'IN',
         ]);
 
         // 4. CREATE ORDER (customer_id aur address_id ke saath)
@@ -313,6 +324,14 @@ class Pagecontroller extends Controller
             ]);
         }
 
+        // 🚀 Create Amazon MCF Order
+        try {
+            $this->amazonService->createMcfOrder($order);
+        } catch (\Exception $e) {
+            // Log the error but don't fail the local order creation
+            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+        }
+
         // 6. Cleanup
         $cart->items()->delete();
         $cart->delete();
@@ -326,7 +345,7 @@ class Pagecontroller extends Controller
         $order = Order::with('customer', 'items')->where('order_number', $orderNumber)->first();
 
         if (! $order) {
-            return redirect()->route('home');
+            return redirect()->route('page.home');
         }
 
         return view('order-success', compact('order'));
