@@ -261,6 +261,8 @@ class Pagecontroller extends Controller
         $sessionId = Session::getId();
         $cart = Cart::where('session_id', $sessionId)->first();
 
+        Log::info($cart);
+
         if (! $cart || $cart->items->count() == 0) {
             return redirect()->route('show-cart')->with('error', 'Cart is empty');
         }

@@ -118,6 +118,19 @@ class AmazonSpApiService
     }
 
     /**
+     * Get FBA inventory summaries.
+     */
+    public function getInventorySummaries(array $sellerSkus = [])
+    {
+        return $this->client->fbaInventoryV1()->getInventorySummaries(
+            granularityType: 'Marketplace',
+            granularityId: $this->config['marketplace_id'],
+            marketplaceIds: [$this->config['marketplace_id']],
+            sellerSkus: $sellerSkus
+        );
+    }
+
+    /**
      * Create a report.
      * Report types: GET_MERCHANT_LISTINGS_DATA, GET_FBA_MYI_UNSUPPRESSED_INVENTORY_DATA, etc.
      */
@@ -161,6 +174,12 @@ class AmazonSpApiService
         $fullAddress = trim($address->address_line1.' '.($address->address_line2 ?? ''));
         $addressLines = explode("\n", wordwrap($fullAddress, 60, "\n", true));
 
+        // Sanitize Phone Number: Remove non-numeric, strip leading zero for India
+        $phone = preg_replace('/\D/', '', $address->phone ?? $customer->phone ?? '');
+        if (str_starts_with($phone, '0')) {
+            $phone = ltrim($phone, '0');
+        }
+
         $destinationAddress = new AmazonAddress(
             name: $address->name ?? ($customer->first_name.' '.$customer->last_name),
             addressLine1: $addressLines[0] ?? substr($fullAddress, 0, 60),
@@ -170,7 +189,7 @@ class AmazonSpApiService
             addressLine3: $addressLines[2] ?? null,
             city: $address->city,
             stateOrRegion: $address->state,
-            phone: $address->phone ?? $customer->phone,
+            phone: $phone,
         );
 
         // 2. Prepare Items
@@ -179,6 +198,7 @@ class AmazonSpApiService
 
         foreach ($order->items as $item) {
             $product = $item->product;
+            // \Log::info($product);
 
             // Only add items that have an Amazon SKU
             if ($product && $product->amazon_sku) {
@@ -257,5 +277,13 @@ class AmazonSpApiService
         $this->initializeClient();
 
         return $this;
+    }
+
+    /**
+     * List fulfillment orders.
+     */
+    public function listFulfillmentOrders(?\DateTimeInterface $queryStartDate = null, ?string $nextToken = null)
+    {
+        return $this->client->fbaOutboundV20200701()->listAllFulfillmentOrders($queryStartDate, $nextToken);
     }
 }
