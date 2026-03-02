@@ -193,30 +193,53 @@ class AmazonSpApiService
             phone: $phone,
         );
 
-        // 2. Prepare Items
+        // 2. Prepare Items & Check FBA Inventory
+        $skusInOrder = $order->items->pluck('product.amazon_sku')->filter()->unique()->toArray();
+        $fbaInventory = [];
+
+        try {
+            $inventoryResponse = $this->getInventorySummaries($skusInOrder);
+            $summaries = $inventoryResponse->json()['payload']['inventorySummaries'] ?? [];
+            foreach ($summaries as $summary) {
+                $fbaInventory[$summary['sellerSku']] = $summary['totalQuantity'] ?? 0;
+            }
+        } catch (\Exception $e) {
+            Log::warning('Could not fetch FBA inventory for SKUs: '.implode(', ', $skusInOrder).'. Proceeding with caution. Error: '.$e->getMessage());
+        }
+
         $items = [];
+        $skippedItems = [];
         $isCodOrder = ($order->payment_method === 'COD');
 
         foreach ($order->items as $item) {
             $product = $item->product;
-            // \Log::info($product);
 
-            // Only add items that have an Amazon SKU
+            // Only add items that have an Amazon SKU and ARE in FBA
             if ($product && $product->amazon_sku) {
-                $items[] = new CreateFulfillmentOrderItem(
-                    sellerSku: $product->amazon_sku,
-                    sellerFulfillmentOrderItemId: (string) $item->id,
-                    quantity: (int) $item->quantity,
-                    perUnitDeclaredValue: $isCodOrder ? new Money(
-                        currencyCode: 'INR',
-                        value: (string) number_format((float) $item->price, 2, '.', '')
-                    ) : null,
-                );
+                if (isset($fbaInventory[$product->amazon_sku])) {
+                    $items[] = new CreateFulfillmentOrderItem(
+                        sellerSku: $product->amazon_sku,
+                        sellerFulfillmentOrderItemId: (string) $item->id,
+                        quantity: (int) $item->quantity,
+                        perUnitDeclaredValue: $isCodOrder ? new Money(
+                            currencyCode: 'INR',
+                            value: (string) number_format((float) $item->price, 2, '.', '')
+                        ) : null,
+                    );
+                } else {
+                    $skippedItems[] = $product->amazon_sku;
+                }
             }
         }
 
+        if (! empty($skippedItems)) {
+            Log::warning("Skipping MCF for Order #{$order->order_number}: The following SKUs are not FBA-active or have no inventory: ".implode(', ', $skippedItems));
+        }
+
         if (empty($items)) {
-            throw new \Exception('No Amazon SKUs found in order items.');
+            Log::warning("MCF Fulfillment skipped for Order #{$order->order_number}: No FBA-active items found.");
+
+            return null;
         }
 
         // 3. Prepare Payment Information and COD Settings
