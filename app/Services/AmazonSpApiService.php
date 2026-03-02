@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Log;
 use SellingPartnerApi\Enums\Endpoint;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\Address as AmazonAddress;
 use SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\CodSettings;
@@ -251,7 +252,27 @@ class AmazonSpApiService
             paymentInformation: ! empty($paymentInformation) ? $paymentInformation : null,
         );
 
-        return $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
+        Log::info('Creating Amazon MCF Order:', [
+            'order_number' => $order->order_number,
+            'marketplace_id' => $this->config['marketplace_id'],
+            'address' => $destinationAddress,
+            'items_count' => count($items),
+            'is_cod' => $isCodOrder,
+        ]);
+
+        try {
+            $response = $this->client->fbaOutboundV20200701()->createFulfillmentOrder($request);
+            Log::info("Amazon MCF Order Created Successfully for Order #{$order->order_number}");
+
+            return $response;
+        } catch (\Exception $e) {
+            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage(), [
+                'request' => $request,
+                'response' => method_exists($e, 'getResponse') ? $e->getResponse()?->body() : 'N/A',
+                'trace' => $e->getTraceAsString(),
+            ]);
+            throw $e;
+        }
     }
 
     /**
