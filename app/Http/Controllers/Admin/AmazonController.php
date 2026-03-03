@@ -162,14 +162,14 @@ class AmazonController extends Controller
                 $productData = [
                     'title' => $title,
                     'slug' => \Illuminate\Support\Str::slug($title.'-'.$sku),
-                    'price' => $item['price'] ?? 0,
-                    'stock_quantity' => $item['quantity'] ?? 0,
+                    'price' => (float) ($item['price'] ?? 0),
+                    'stock_quantity' => (int) ($item['quantity'] ?? 0),
                     'amazon_product_id' => $item['product-id'] ?? null,
                     'amazon_asin' => $item['asin1'] ?? null,
                     'amazon_sku' => $sku,
-                    'amazon_price' => $item['price'] ?? 0,
-                    'amazon_quantity' => $item['quantity'] ?? 0,
-                    'amazon_image' => $item['image-url'] ?? null,
+                    'amazon_price' => (float) ($item['price'] ?? 0),
+                    'amazon_quantity' => (int) ($item['quantity'] ?? 0),
+                    'amazon_image' => ! empty($item['image-url']) ? $item['image-url'] : null,
                     'status' => 'active',
                 ];
 
