@@ -539,12 +539,12 @@
         <div class="row g-4">
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
+                    <div class="product-card ">
                         <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
                             <div class="product-img-container">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
                             </div>
-                            <h4 class="product-title">{{ $product->title }}</h4>
+                            <h4 class="product-title text-center">{{ $product->title }}</h4>
                         </a>
                         <div class="price-wrapper my-2">
                             <span class="price-sale">₹{{ number_format($product->price, 2) }}</span>
