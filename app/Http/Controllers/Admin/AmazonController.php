@@ -158,6 +158,12 @@ class AmazonController extends Controller
                     continue;
                 }
 
+                // Only import Fulfilled by Amazon (FBA) products
+                $fulfillmentChannel = $item['fulfillment-channel'] ?? null;
+                if ($fulfillmentChannel === 'DEFAULT') {
+                    continue;
+                }
+
                 $title = $item['item-name'] ?? 'Amazon Product';
                 $productData = [
                     'title' => $title,
