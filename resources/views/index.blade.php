@@ -444,7 +444,7 @@
                             <div class="product-img-wrapper">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
                             </div>
-                            <h4 class="product-name">{{ $product->title }}</h4>
+                            <h4 class="product-name text-center">{{ $product->title }}</h4>
                         </a>
                         <div class="mb-3">
                             <span class="price-curr">₹{{ number_format($product->price, 2) }}</span>

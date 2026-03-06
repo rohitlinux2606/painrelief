@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Productcontroller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,3 +50,17 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
     });
 });
+
+// Migration command
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate', ['--force' => true]);
+
+    return 'Migrations have been run!';
+})->name('run-migrations');
+
+// Seed the database
+Route::get('/run-seeder', function () {
+    Artisan::call('db:seed', ['--force' => true]);
+
+    return 'Database seeding completed!';
+})->name('run-seeder');
