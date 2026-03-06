@@ -375,7 +375,28 @@
 
             .whatsapp-float,
             .support-float {
-                padding: 12px;
+                width: 55px;
+                height: 55px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                right: 15px;
+            }
+
+            .whatsapp-float {
+                bottom: 85px;
+            }
+
+            .support-float {
+                bottom: 20px;
+            }
+
+            .whatsapp-float i,
+            .support-float i {
+                margin: 0 !important;
+                font-size: 1.5rem !important;
             }
         }
     </style>
@@ -467,7 +488,7 @@
 
     @if (!empty($videos) && count($videos) > 0)
         <div class="section-heading">
-            OUR CUSTOMERS SAYS
+            Customer's Feedback
         </div>
 
         <section class="shorts-section bg-light">
@@ -542,11 +563,11 @@
     </footer>
 
     <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
-        <i class="bi bi-whatsapp me-2 fs-4"></i> <span class="float-text">Join Community</span>
+        <i class="bi bi-whatsapp fs-4"></i> <span class="float-text ms-2">Join Community</span>
     </a>
 
     <a href="tel:+919691905073" class="support-float">
-        <i class="bi bi-headset me-2 fs-4"></i> <span class="float-text">Customer Support</span>
+        <i class="bi bi-headset fs-4"></i> <span class="float-text ms-2">Customer Support</span>
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
