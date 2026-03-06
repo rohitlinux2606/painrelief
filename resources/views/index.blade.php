@@ -503,7 +503,7 @@
     </nav>
 
     <section class="banner-section">
-        <img src="{{ asset('admin/sliders/amazon.jpg.jpeg') }}"
+        <img src="{{ asset('admin/sliders/amazon.webp') }}"
             alt="Vatahari Ayurvedic Joint Pain Relief - Natural Ortho Care Solutions" loading="eager">
     </section>
 
