@@ -405,12 +405,12 @@
         <div class="container">
             <h1 class="question-title">
                 <span class="text-danger" style="font-size: 2rem !important">पुराने से पुराने</span> <br>
-                <span class="text-dark" style="font-size: 2.5rem !important">जोड़ों के दर्द से परेशान
-                    हैं
-                    ?</span>
+                <span class="text-black" style="font-size: 2.5rem !important">
+                    जोड़ों के दर्द से परेशान हैं ?
+                </span>
             </h1>
             <img src="{{ asset('assets/images/landingpage/3-bottles.png') }}" alt="Vatahari Bottles"
-                class="bottles-img">
+                class="bottles-img px-5">
         </div>
     </section>
 
