@@ -1,20 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Admin\Productcontroller;
-
-// Route::get('/', function () {
-//     return redirect()->to('/index.html');
-// });
-Route::view('/c', 'checkout');
-Route::view('/cart', 'cart');
-Route::view('/product', 'product-detail');
-// Route::get('/{any}', function () {
-//     return redirect()->to('/index.html');
-// })->where('any', '.*');
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
@@ -37,7 +26,6 @@ Route::get('/register', function () {
 Route::get('clear-session', function (Request $request) {
     $request->session()->flush();
 });
-
 
 Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
