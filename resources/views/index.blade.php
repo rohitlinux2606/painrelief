@@ -583,7 +583,7 @@
                             <div class="shorts-card">
                                 <div class="video-wrapper">
                                     <iframe
-                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=1&loop=1&playlist={{ $video->getYoutubeId() }}"
+                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
                                         loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
                                         allowfullscreen>
                                     </iframe>
