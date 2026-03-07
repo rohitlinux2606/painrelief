@@ -1,20 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Admin\Productcontroller;
-
-// Route::get('/', function () {
-//     return redirect()->to('/index.html');
-// });
-Route::view('/c', 'checkout');
-Route::view('/cart', 'cart');
-Route::view('/product', 'product-detail');
-// Route::get('/{any}', function () {
-//     return redirect()->to('/index.html');
-// })->where('any', '.*');
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
@@ -38,7 +28,6 @@ Route::get('clear-session', function (Request $request) {
     $request->session()->flush();
 });
 
-
 Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.pages.dashboard.dashboard');
@@ -61,3 +50,17 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
     });
 });
+
+// Migration command
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate', ['--force' => true]);
+
+    return 'Migrations have been run!';
+})->name('run-migrations');
+
+// Seed the database
+Route::get('/run-seeder', function () {
+    Artisan::call('db:seed', ['--force' => true]);
+
+    return 'Database seeding completed!';
+})->name('run-seeder');
