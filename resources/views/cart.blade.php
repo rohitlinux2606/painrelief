@@ -1,84 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.web')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Shopping Cart - Vatahari</title>
+@section('title', 'Your Shopping Cart - Vatahari')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+@section('content')
+    <div class="container cart-container">
+        <h2 class="fw-bold mb-4">Your Cart</h2>
 
-    {{-- <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code --> --}}
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card p-4" id="cart-items-container">
+                    @if ($cart && $cart->items->count() > 0)
+                        @foreach ($cart->items as $item)
+                            <div class="row align-items-center g-3 mb-4 cart-item" data-item-id="{{ $item->id }}">
+                                <div class="col-auto">
+                                    <img src="{{ asset($item->product->thumbnail) }}" class="cart-item-img" alt="Product">
+                                </div>
+                                <div class="col">
+                                    <h6 class="fw-bold mb-1">{{ $item->product->title }}</h6>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center border rounded px-1">
+                                            <button class="qty-btn"
+                                                onclick="updateCartDB('{{ $item->id }}', 'decrease', this.nextElementSibling, this.closest('.cart-item-row'))">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                            <input type="text" class="qty-input" value="{{ $item->quantity }}" readonly>
+                                            <button class="qty-btn"
+                                                onclick="updateCartDB('{{ $item->id }}', 'increase', this.previousElementSibling, this.closest('.cart-item-row'))">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </div>
+                                        <a href="{{ route('cart.delete-item', $item->id) }}"
+                                            class="remove-link remove-item"><i class="bi bi-trash me-1"></i>Remove
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-md-end">
+                                    <span class="fw-bold item-total" data-unit-price="{{ $item->price }}">
+                                        Rs. {{ number_format($item->price * $item->quantity, 2) }}
+                                    </span>
+                                </div>
+                            </div>
+                            <hr class="text-muted opacity-25">
+                        @endforeach
+                    @else
+                        <div class="text-center p-5">
+                            <i class="bi bi-cart-x style font-size: 3rem; opacity: 0.2;"></i>
+                            <p class="mt-3">Your cart is empty!</p>
+                            <a href="/" class="btn btn-dark btn-sm">Start Shopping</a>
+                        </div>
+                    @endif
+                </div>
+            </div>
 
+            <div class="col-lg-6">
+                <div class="summary-box shadow-sm">
+                    <h5 class="fw-bold mb-4">Order Summary</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Subtotal (<span id="total-qty-count">0</span> items)</span>
+                        <span id="subtotal-display">Rs. 0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Estimated Shipping</span>
+                        <span class="text-success fw-bold">FREE</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h5 class="fw-bold">Estimated Total</h5>
+                        <h5 class="fw-bold" id="grand-total-display">Rs. 0.00</h5>
+                    </div>
+                    <a href="{{ route('checkout') }}" class="btn-checkout">
+                        Checkout Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-
+@push('styles')
     <style>
         body {
             background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .navbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
         }
 
         .cart-container {
@@ -156,90 +158,9 @@
             cursor: pointer;
         }
     </style>
-</head>
+@endpush
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand text-black" href="{{ route('page.home') }}">VATAHARI</a>
-        </div>
-    </nav>
-
-    <div class="container cart-container">
-        <h2 class="fw-bold mb-4">Your Cart</h2>
-
-        <div class="row g-4">
-            <div class="col-lg-6">
-                <div class="card p-4" id="cart-items-container">
-                    @if ($cart && $cart->items->count() > 0)
-                        @foreach ($cart->items as $item)
-                            <div class="row align-items-center g-3 mb-4 cart-item" data-item-id="{{ $item->id }}">
-                                <div class="col-auto">
-                                    <img src="{{ asset($item->product->thumbnail) }}" class="cart-item-img"
-                                        alt="Product">
-                                </div>
-                                <div class="col">
-                                    <h6 class="fw-bold mb-1">{{ $item->product->title }}</h6>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="d-flex align-items-center border rounded px-1">
-                                            <button class="qty-btn"
-                                                onclick="updateCartDB('{{ $item->id }}', 'decrease', this.nextElementSibling, this.closest('.cart-item-row'))">
-                                                <i class="bi bi-dash"></i>
-                                            </button>
-                                            <input type="text" class="qty-input" value="{{ $item->quantity }}"
-                                                readonly>
-                                            <button class="qty-btn"
-                                                onclick="updateCartDB('{{ $item->id }}', 'increase', this.previousElementSibling, this.closest('.cart-item-row'))">
-                                                <i class="bi bi-plus"></i>
-                                            </button>
-                                        </div>
-                                        <a href="{{ route('cart.delete-item', $item->id) }}"
-                                            class="remove-link remove-item"><i class="bi bi-trash me-1"></i>Remove
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 text-md-end">
-                                    <span class="fw-bold item-total" data-unit-price="{{ $item->price }}">
-                                        Rs. {{ number_format($item->price * $item->quantity, 2) }}
-                                    </span>
-                                </div>
-                            </div>
-                            <hr class="text-muted opacity-25">
-                        @endforeach
-                    @else
-                        <div class="text-center p-5">
-                            <i class="bi bi-cart-x style font-size: 3rem; opacity: 0.2;"></i>
-                            <p class="mt-3">Your cart is empty!</p>
-                            <a href="/" class="btn btn-dark btn-sm">Start Shopping</a>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="summary-box shadow-sm">
-                    <h5 class="fw-bold mb-4">Order Summary</h5>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Subtotal (<span id="total-qty-count">0</span> items)</span>
-                        <span id="subtotal-display">Rs. 0.00</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Estimated Shipping</span>
-                        <span class="text-success fw-bold">FREE</span>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between mb-4">
-                        <h5 class="fw-bold">Estimated Total</h5>
-                        <h5 class="fw-bold" id="grand-total-display">Rs. 0.00</h5>
-                    </div>
-                    <a href="{{ route('checkout') }}" class="btn-checkout">
-                        Checkout Now
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+@push('scripts')
     <script>
         // 1. updateCartDB ko bahar rakhein taaki onclick ise dhund sake
         function updateCartDB(itemId, action, inputElement, rowElement) {
@@ -327,8 +248,4 @@
             window.refreshAllTotals();
         });
     </script>
-
-    <script src="{{ asset('meta/pixel.js') }}"></script>
-</body>
-
-</html>
+@endpush

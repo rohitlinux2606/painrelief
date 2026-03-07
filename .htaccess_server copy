@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect all requests from public_html to the live folder
+    RewriteCond %{REQUEST_URI} !^/live/
+    RewriteRule ^(.*)$ /live/$1 [L]
+
+    # If the live folder is the application root, apply further rules
+    <IfModule mod_rewrite.c>
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /live/index.php [L]
+    </IfModule>
+
+</IfModule>

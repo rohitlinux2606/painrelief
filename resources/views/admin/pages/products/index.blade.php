@@ -118,7 +118,8 @@
                                             class="product-img me-3">
                                         <div class="d-flex flex-column">
                                             <span class="fw-bold text-dark">{{ $product->title }}</span>
-                                            <small class="text-muted">SKU: {{ $product->sku ?? 'No SKU' }}</small>
+                                            <small class="text-muted">SKU:
+                                                {{ $product->sku ?? ($product->amazon_sku ?? 'No SKU') }}</small>
                                         </div>
                                     </div>
                                 </td>
