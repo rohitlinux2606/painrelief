@@ -40,6 +40,7 @@
     <style>
         :root {
             --primary-green: #1a4d2e;
+            --accent-green: #28a745;
             --text-dark: #121212;
             --font-main: 'Assistant', sans-serif;
         }
@@ -48,142 +49,216 @@
             font-family: var(--font-main);
             color: var(--text-dark);
             overflow-x: hidden;
+            background-color: #f9f9f9;
         }
 
         /* Announcement Bar */
         .announcement-bar {
-            background: #f8f9fa;
-            font-size: 13px;
-            letter-spacing: 1px;
-            padding: 8px 0;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 0;
             border-bottom: 1px solid #eee;
+            text-transform: uppercase;
         }
 
         /* Navbar Styling */
+        .navbar {
+            padding: 15px 0;
+        }
+
         .navbar-brand {
             font-weight: 800;
-            font-size: 24px;
+            font-size: 28px;
             color: #000 !important;
+            letter-spacing: 1px;
         }
 
-        .nav-link {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #333 !important;
-        }
-
-        /* Banner Style */
-        .banner-section img {
+        /* Hero Banner */
+        .hero-banner img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Product Card Styling */
-        .product-card {
-            border: none;
+        /* Question Section */
+        .question-section {
             background: #fff;
-            transition: transform 0.3s ease;
-            height: 100%;
-        }
-
-        .product-img-container {
-            background: #f3f3f3;
-            aspect-ratio: 1/1;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        .product-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .product-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-top: 15px;
-            color: #121212;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-decoration: none;
-            min-height: 40px;
-        }
-
-        .price-sale {
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: #000;
-        }
-
-        .price-old {
-            text-decoration: line-through;
-            color: #888;
-            margin-left: 8px;
-            font-size: 1.3rem;
-        }
-
-        /* Buttons Custom */
-        .btn-custom {
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 4px;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: block;
-            width: 100%;
+            padding: 60px 0;
             text-align: center;
         }
 
-        .btn-atc {
-            border: 1.5px solid #000;
+        .question-title {
+            color: #d32f2f;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .bottles-img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Trusted Solutions Green Bar */
+        .trusted-bar {
+            background: #1a8a44;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Certification Section */
+        .cert-section {
+            background: #fff;
+            padding: 30px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .cert-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Discount Bar */
+        .discount-bar {
+            background: #1a8a44;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            font-weight: 900;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Timer Bar */
+        .timer-bar {
+            background: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .timer-title {
+            font-weight: 800;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .timer-display {
+            font-weight: 900;
+        }
+
+        /* Product Cards */
+        .product-card {
+            border: 1px solid #eee;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img-wrapper {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+            height: 45px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-curr {
+            font-weight: 800;
+            font-size: 1.4rem;
             color: #000;
-            background: transparent;
+        }
+
+        .price-orig {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+
+        .btn-atc {
+            border: 1px solid #000;
+            color: #000;
+            background: #fff;
+            font-weight: 700;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-atc:hover {
+            background: #f8f9fa;
         }
 
         .btn-buy {
             background: #000;
             color: #fff;
-            border: 1.5px solid #000;
-        }
-
-        .btn-atc:hover {
-            background: #f0f0f0;
+            font-weight: 700;
+            padding: 10px;
+            transition: 0.3s;
         }
 
         .btn-buy:hover {
             background: #333;
         }
 
-        /* Shorts Slider Styling */
+        /* Sections Headings */
+        .section-heading {
+            background: #1a8a44;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            font-weight: 800;
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        /* Shorts Section */
         .shorts-section {
             padding: 60px 0;
-            background: #fff;
         }
 
         .shorts-card {
             border-radius: 12px;
-            border: 1px solid #eee;
             overflow: hidden;
             background: #fff;
-            height: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .video-wrapper {
             position: relative;
             padding-top: 177.77%;
             background: #000;
-            cursor: pointer;
         }
 
         .video-wrapper iframe {
@@ -195,140 +270,179 @@
             border: none;
         }
 
-        .short-product-info {
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none !important;
-        }
-
-        .short-product-info img {
-            width: 45px;
-            height: 45px;
-            border-radius: 6px;
-            object-fit: cover;
-        }
-
-        .short-product-info h4 {
-            margin: 0;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #000;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Swiper Custom Arrows */
-        .swiper-button-next,
-        .swiper-button-prev {
-            background: #fff;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            color: #000;
-        }
-
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-
-        .limited-offer-bar {
-            background: #fff;
-            color: #000;
-            border: 2px solid #000;
+        /* Order Now CTA */
+        .order-now-section {
+            padding: 60px 0;
             text-align: center;
-            padding: 16px 20px;
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 0.5px;
-            border-radius: 8px;
-            margin-bottom: 30px;
+            background: #fff;
         }
 
-        .limited-offer-bar .time {
+        .click-here-text {
             font-weight: 900;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 20px;
         }
-    </style>
 
-    <style>
-        /* WhatsApp Float Button */
+        .btn-order-premium {
+            display: inline-block;
+            background: linear-gradient(135deg, #d32f2f, #ff5252);
+            color: #fff !important;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+            animation: pulse-red 2s infinite;
+            margin-bottom: -20px;
+        }
+
+        .btn-order-premium:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.6);
+            background: linear-gradient(135deg, #ff5252, #d32f2f);
+        }
+
+        .btn-order-premium::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .btn-order-premium:hover::after {
+            left: 100%;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+
+        footer h4 {
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Floating Buttons */
         .whatsapp-float {
             position: fixed;
-            bottom: 110px;
-            /* सपोर्ट बटन के ऊपर रखने के लिए */
+            bottom: 100px;
             right: 25px;
             background: #25D366;
             color: #fff;
             border-radius: 50px;
             padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
+            z-index: 1000;
             text-decoration: none;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Support Float Button */
         .support-float {
             position: fixed;
-            bottom: 25px;
+            bottom: 30px;
             right: 25px;
             background: #000;
             color: #fff;
             border-radius: 50px;
             padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 9999;
+            z-index: 1000;
             text-decoration: none;
-            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .whatsapp-float:hover {
-            background: #1ebe5d;
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        .support-float:hover {
-            background: #333;
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        /* Mobile Responsive Design (यही सबसे जरूरी है) */
         @media (max-width: 768px) {
+            .question-title {
+                font-size: 1.8rem;
+            }
+
+            .discount-bar {
+                font-size: 1.4rem;
+            }
+
+            .timer-title {
+                font-size: 1.3rem;
+            }
+
+            .click-here-text {
+                font-size: 1.5rem;
+                margin: 10px;
+            }
+
+            .order-now-badge {
+                max-width: 140px;
+            }
+
+            .btn-order-premium {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+
             .float-text {
                 display: none;
-                /* मोबाइल पर टेक्स्ट छुप जाएगा */
             }
 
             .whatsapp-float,
             .support-float {
-                padding: 0;
                 width: 55px;
-                /* बटन गोल हो जाएगा */
                 height: 55px;
+                padding: 0;
+                display: flex;
+                align-items: center;
                 justify-content: center;
                 border-radius: 50%;
                 right: 15px;
-                /* मोबाइल पर थोड़ी जगह कम */
             }
 
             .whatsapp-float {
-                bottom: 90px;
+                bottom: 85px;
             }
 
             .support-float {
@@ -337,54 +451,25 @@
 
             .whatsapp-float i,
             .support-float i {
-                font-size: 1.6rem !important;
-                /* आइकॉन थोड़ा बड़ा दिखेगा */
+                margin: 0 !important;
+                font-size: 1.5rem !important;
             }
         }
     </style>
 </head>
 
-<a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank"
-    onclick="trackJoinCommunity(event)">
-    <i class="bi bi-whatsapp fs-4"></i>
-    <span class="float-text">Join Community</span>
-</a>
-
-<a href="tel:+919691905073" class="support-float">
-    <i class="bi bi-headset fs-4"></i>
-    <span class="float-text">Customer Support</span>
-</a>
-
 <body>
 
-    <div class="announcement-bar text-center">
+    {{-- <div class="announcement-bar text-center">
         WELCOME TO OUR STORE
-    </div>
+    </div> --}}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">VATAHARI</a>
-
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                <i class="bi bi-list fs-1"></i>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav mx-auto">
-                    {{-- <li class="nav-item"><a class="nav-link px-3" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Shop All</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Ayurvedic Tips</a></li> --}}
-                </ul>
-                <div class="d-flex align-items-center gap-4">
-                    <i class="bi bi-search fs-5" style="cursor:pointer"></i>
-                    <i class="bi bi-person fs-5" style="cursor:pointer"></i>
-                    {{-- <div class="position-relative">
-                        <a href="{{ route('checkout') }}" class="text-black"><i class="bi bi-bag fs-5"
-                                style="cursor:pointer"></i></a>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark"
-                            style="font-size: 9px;">0</span>
-                    </div> --}}
-                </div>
+            <a class="navbar-brand" href="/">VATAHARI</a>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <i class="bi bi-search fs-5"></i>
+                <i class="bi bi-person fs-5"></i>
             </div>
         </div>
     </nav>
@@ -393,188 +478,62 @@
         <img src="{{ asset('slider/meesho.webp') }}" alt="Joint Pain Relief Banner">
     </section>
 
-    <section class="container py-5">
+    <div class="discount-bar">
+        GET EXTRA UPTO 30% DISCOUNT
+    </div>
 
-        <div class="limited-offer-bar">
-            ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
+    <section class="timer-bar">
+        <div class="container">
+            <h2 class="timer-title">LIMITED TIME OFFER - <span class="timer-display text-danger"
+                    id="offerTimer">00:00:00</span></h2>
         </div>
+    </section>
 
-        <h2 class="h1 fw-bold mb-5">Featured Products</h2>
+    <section class="order-now-section py-4">
+        <div class="container text-center">
+            <span class="click-here-text">CLICK HERE</span>
+            <a href="{{ $products->first()->external_link ?? '#products' }}" class="btn-order-premium">
+                ORDER NOW
+            </a>
+            <span class="click-here-text">CLICK HERE</span>
+        </div>
+    </section>
+
+    <section class="container py-5" id="products">
         <div class="row g-4">
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
+                    <div class="product-card text-center">
                         <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
-                            <div class="product-img-container">
+                            <div class="product-img-wrapper">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
                             </div>
                             <h4 class="product-title text-center">{{ $product->title }}</h4>
                         </a>
-                        <div class="price-wrapper my-2">
-                            <span class="price-sale">₹{{ number_format($product->price, 2) }}</span>
+                        <div class="mb-3">
+                            <span class="price-curr">₹{{ number_format($product->price, 2) }}</span>
                             @if ($product->compare_at_price)
-                                <span class="price-old">₹{{ number_format($product->compare_at_price, 2) }}</span>
+                                <span class="price-orig">₹{{ number_format($product->compare_at_price, 2) }}</span>
                             @endif
                         </div>
-                        <div class="d-grid gap-2 mt-3">
-                            {{-- <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
-                                onclick="addToCartEvent()">Add & Checkout</a> --}}
-
-                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add & Checkout</a>
-                            <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy"
-                                onclick="buyNowEvent()">Buy
-                                Now</a>
+                        <div class="d-grid gap-2">
+                            <a href="{{ $product->external_link }}" class="btn btn-atc">ADD & CHECKOUT</a>
+                            <a href="{{ $product->external_link }}" target="_blank" class="btn btn-buy"
+                                onclick="fbq('track', 'AddToCart')">BUY NOW</a>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-12 text-center text-muted py-5">No products found.</div>
+                <div class="col-12 text-center py-5">No products available.</div>
             @endforelse
         </div>
     </section>
 
-    <section class="banner-section my-5">
-        <img src="{{ asset('cdn/002.png') }}" alt="Quality Banner">
-    </section>
-
-    <section class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Smart Combo Offers</h2>
-            <p class="text-muted">High Attraction + Higher Cart Value</p>
-        </div>
-
-        <div class="row g-4">
-
-            <!-- Pack 1 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold">Pack of 1</h5>
-                        <p class="text-muted small">Best for first-time users</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹700</span>
-                            <span class="fs-3 fw-bold ms-2">₹600</span>
-                        </div>
-
-                        <p class="text-danger fw-bold small">You Save ₹100</p>
-
-                        <span class="badge bg-secondary mb-3">Trial Pack</span>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-vatahari-vati-original-tablet-pack-1-arthritis-sciatica-joint-pain-tablets/p/itm18780af6afda0?pid=BPRGA4FGMMZGCR9Z"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pack 2 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow border-2 border-success">
-                    <div class="card-body text-center position-relative">
-
-                        <span class="badge bg-success position-absolute top-0 start-50 translate-middle">Most
-                            Popular</span>
-
-                        <h5 class="fw-bold mt-3">Pack of 2</h5>
-                        <p class="text-muted small">Couple / 1 Month Regular Use</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹1400</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,099</span>
-                        </div>
-
-                        <p class="text-success fw-bold small">You Save ₹301</p>
-                        <p class="small text-muted">(Per product: ₹549)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-vatahari-vati-ayurvedic-tablets-joints-pain-2-x-30-units/p/itm01296c4901bcb?pid=BPRGRZTETYFET8VJ"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pack 3 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-warning text-dark mb-2">Best Value</span>
-
-                        <h5 class="fw-bold">Pack of 3</h5>
-                        <p class="text-muted small">Family Pack / 2–3 Months Use</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹2100</span>
-                            <span class="fs-3 fw-bold ms-2">₹1,499</span>
-                        </div>
-
-                        <p class="text-danger fw-bold small">You Save ₹601</p>
-                        <p class="small text-muted">(Per product: ₹499)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-watahari-wati-cartilage-bone-joint-support-supplement-collagen-glucosamine/p/itm975ad3d38b0d7?pid=AYDHJFPKTYNFSUMB"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pack 5 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-danger mb-2">Maximum Savings</span>
-
-                        <h5 class="fw-bold">Pack of 5</h5>
-                        <p class="text-muted small">Long-Term Health Users</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹3500</span>
-                            <span class="fs-3 fw-bold ms-2">₹2,299</span>
-                        </div>
-
-                        <p class="text-danger fw-bold small">You Save ₹1,201</p>
-                        <p class="small text-muted">(Per product: ₹459)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="https://www.flipkart.com/ytm-watahari-wati-jodo-ghutnon-aur-nason-ke-dard-arthritis-pain-ki-ayurvedic-dawa/p/itm452a7b807eebb?pid=AYDHJCD8DKEUP3HS"
-                                class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- <!-- Pack 10 -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <span class="badge bg-primary mb-2">Wholesale Pack</span>
-
-                        <h5 class="fw-bold">Pack of 10</h5>
-                        <p class="text-muted small">Big Families / Resellers</p>
-
-                        <div class="my-3">
-                            <span class="text-decoration-line-through text-muted">₹7000</span>
-                            <span class="fs-3 fw-bold ms-2">₹3,999</span>
-                        </div>
-
-                        <p class="text-success fw-bold small">You Save ₹3,001</p>
-                        <p class="small text-muted">(Per product: ₹399)</p>
-
-                        <div class="d-grid mt-3">
-                            <a href="#" class="btn btn-dark">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
-        </div>
-    </section>
-
-
     @if (!empty($videos) && count($videos) > 0)
+        <div class="section-heading">
+            Customer's Feedback
+        </div>
+
         <section class="shorts-section bg-light">
             <div class="container">
                 <h2 class="h1 fw-bold text-center mb-5">Shop by Shorts</h2>
@@ -612,142 +571,66 @@
         </section>
     @endif
 
+    <section class="order-now-section">
+        <div class="container">
+            <span class="click-here-text">CLICK HERE</span>
+            <a href="{{ $products->first()->external_link ?? '#products' }}">
+                <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
+                    class="order-now-badge">
+            </a>
+            <span class="click-here-text">CLICK HERE</span>
+        </div>
+    </section>
+
     <footer class="bg-dark text-white pt-5">
         <div class="container">
             <div class="row g-4">
-
-                <!-- Brand -->
                 <div class="col-md-8">
                     <h4 class="fw-bold">VATAHARI</h4>
-                    <p class="text-secondary small">
-                        Natural Ortho Care Solutions for Better Life.
-                    </p>
+                    <p class="text-secondary">Natural Ortho Care Solutions for Better Life. Dedicated to providing
+                        authentic Ayurvedic solutions for joint and muscle pain relief.</p>
                 </div>
-
-                <!-- Contact Info -->
                 <div class="col-md-4">
-                    <h5 class="fw-bold mb-3">Contact Us</h5>
-
-                    {{-- <p class="small mb-2">
-                        <i class="bi bi-person me-2"></i> Rohit Kumar
-                    </p> --}}
-
-                    <p class="small mb-2">
-                        <i class="bi bi-telephone me-2"></i>
-                        <a href="tel:+919691905073" class="text-white text-decoration-none">
-                            +91 96919 05073
-                        </a>
-                    </p>
-
-                    <p class="small mb-2">
-                        <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto: orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
-                            orthosanjeevanilab@gmail.com
-                        </a>
-                    </p>
-
-                    <p class="small">
-                        <i class="bi bi-geo-alt me-2"></i>
-                        Indore, Madhya Pradesh, India
-                    </p>
-                </div>
-
-                {{-- <!-- Quick Links -->
-                <div class="col-md-4">
-                    <h5 class="fw-bold mb-3">Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-secondary text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Shop</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                    <h5 class="fw-bold mb-4">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-telephone me-3"></i><a href="tel:+919691905073">+91 96919
+                                05073</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-3"></i><a
+                                href="mailto:orthosanjeevanilab@gmail.com">orthosanjeevanilab@gmail.com</a></li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-3"></i>Indore, Madhya Pradesh, India</li>
                     </ul>
-                </div> --}}
-
+                </div>
             </div>
-
-            <hr class="border-secondary my-4">
-
-            <div class="text-center pb-4">
-                <p class="text-secondary small mb-0">
-                    © 2026 Vatahari Ayurveda. All Rights Reserved.
-                </p>
-            </div>
+            <hr class="border-secondary mt-5 mb-4">
+            <p class="text-center text-secondary small mb-0">© 2026 Vatahari Ayurveda. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+        <i class="bi bi-whatsapp fs-4"></i> <span class="float-text ms-2">Join Community</span>
+    </a>
+
+    <a href="tel:+919691905073" class="support-float">
+        <i class="bi bi-headset fs-4"></i> <span class="float-text ms-2">Customer Support</span>
+    </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper('.myShortsSwiper', {
-                slidesPerView: 2,
-                spaceBetween: 15,
-                loop: false,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    750: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                    990: {
-                        slidesPerView: 5,
-                        spaceBetween: 25
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        function startCountdown(duration, display) {
-            let timer = duration,
-                hours, minutes, seconds;
-
-            setInterval(function() {
-                hours = parseInt(timer / 3600, 10);
-                minutes = parseInt((timer % 3600) / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-
-                hours = hours < 10 ? "0" + hours : hours;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    timer = 0;
-                }
+            // Timer Logic
+            let time = 3600; // 1 hour
+            setInterval(() => {
+                let h = Math.floor(time / 3600);
+                let m = Math.floor((time % 3600) / 60);
+                let s = time % 60;
+                document.getElementById('offerTimer').innerText =
+                    (h < 10 ? '0' : '') + h + ":" + (m < 10 ? '0' : '') + m + ":" + (s < 10 ? '0' : '') + s;
+                if (time > 0) time--;
             }, 1000);
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            let oneHour = 60 * 60; // 1 hour = 3600 seconds
-            let display = document.querySelector('#offerTimer');
-            startCountdown(oneHour, display);
         });
     </script>
-    <script>
-        function trackJoinCommunity(event) {
-            event.preventDefault();
-
-            fbq('trackCustom', 'JoinCommunity', {
-                platform: 'WhatsApp',
-                page: 'Welcome'
-            });
-
-            setTimeout(function() {
-                window.open(
-                    'https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD',
-                    '_blank'
-                );
-            }, 300);
-        }
-    </script>
-
 </body>
 
 </html>
