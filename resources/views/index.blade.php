@@ -474,8 +474,49 @@
         </div>
     </nav>
 
-    <section class="banner-section">
-        <img src="{{ asset('slider/meesho.webp') }}" alt="Joint Pain Relief Banner">
+    <section class="hero-banner">
+        <img src="{{ asset('assets/images/landingpage/banner.jpeg') }}" alt="Vatahari Relief" class="img-fluid">
+    </section>
+
+    <section class="order-now-section py-4">
+        <div class="container text-center">
+            <a href="{{ $products->first()->external_link ?? '#products' }}" class="btn-order-premium">
+                ORDER NOW
+            </a>
+        </div>
+    </section>
+
+    <section class="question-section">
+        <div class="container">
+            <h1 class="question-title">
+                <span class="text-danger" style="font-size: 2rem !important">पुराने से पुराने</span> <br>
+                <span class="text-black" style="font-size: 2.5rem !important">
+                    जोड़ों के दर्द से परेशान हैं ?
+                </span>
+            </h1>
+            <img src="{{ asset('assets/images/landingpage/3-bottles.png') }}" alt="Vatahari Bottles"
+                class="bottles-img px-5">
+        </div>
+    </section>
+
+    <div class="trusted-bar">
+        “हजारों लोगों का भरोसेमंद आयुर्वेदिक समाधान”
+    </div>
+
+    <section class="cert-section">
+        <div class="container text-center">
+            <img src="{{ asset('assets/images/landingpage/certification.png') }}" alt="Certifications" class="cert-img">
+            {{-- <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ asset('assets/images/landingpage/certification-1.webp') }}" alt="Certifications"
+                        class="cert-img">
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ asset('assets/images/landingpage/certification-3.webp') }}" alt="Certifications"
+                        class="cert-img">
+                </div>
+            </div> --}}
+        </div>
     </section>
 
     <div class="discount-bar">
@@ -508,7 +549,7 @@
                             <div class="product-img-wrapper">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
                             </div>
-                            <h4 class="product-title text-center">{{ $product->title }}</h4>
+                            <h4 class="product-name text-center">{{ $product->title }}</h4>
                         </a>
                         <div class="mb-3">
                             <span class="price-curr">₹{{ number_format($product->price, 2) }}</span>
@@ -536,36 +577,31 @@
 
         <section class="shorts-section bg-light">
             <div class="container">
-                <h2 class="h1 fw-bold text-center mb-5">Shop by Shorts</h2>
-
-                <div class="swiper myShortsSwiper">
-                    <div class="swiper-wrapper">
-                        @foreach ($videos as $video)
-                            <div class="swiper-slide">
-                                <div class="shorts-card shadow-sm">
-                                    <div class="video-wrapper" onclick="this.style.pointerEvents='auto'">
-                                        <iframe
-                                            src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
-                                            loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
-                                            allowfullscreen>
-                                        </iframe>
-
-                                    </div>
-                                    <a href="{{ route('product-detail', $video->product->id) }}"
-                                        class="short-product-info">
-                                        <img src="{{ asset($video->product->thumbnail) }}" alt="product">
-                                        <div class="w-100 overflow-hidden">
-                                            <h4>{{ $video->product->title }}</h4>
-                                            <div class="text-muted small fw-bold">
-                                                ₹{{ number_format($video->product->price, 2) }}</div>
-                                        </div>
-                                    </a>
+                <div class="row g-3">
+                    @foreach ($videos as $video)
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="shorts-card">
+                                <div class="video-wrapper">
+                                    <iframe
+                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=1&loop=1&playlist={{ $video->getYoutubeId() }}"
+                                        loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
+                                        allowfullscreen>
+                                    </iframe>
                                 </div>
+                                <a href="{{ route('product-detail', $video->product->id) }}"
+                                    class="p-3 d-flex align-items-center gap-3 text-decoration-none border-top">
+                                    <img src="{{ asset($video->product->thumbnail) }}" width="45" height="45"
+                                        style="border-radius:5px; object-fit:cover;">
+                                    <div class="overflow-hidden">
+                                        <h6 class="mb-0 text-dark fw-bold text-truncate">
+                                            {{ $video->product->title }}</h6>
+                                        <small
+                                            class="text-muted">₹{{ number_format($video->product->price, 2) }}</small>
+                                    </div>
+                                </a>
                             </div>
-                        @endforeach
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
