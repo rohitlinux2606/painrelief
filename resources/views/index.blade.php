@@ -422,6 +422,15 @@
         <img src="{{ asset('assets/images/landingpage/banner.jpeg') }}" alt="Vatahari Relief" class="img-fluid">
     </section>
 
+    <section class="order-now-section py-4">
+        <div class="container text-center">
+            <a href="{{ $products->first()->external_link ?? '#products' }}">
+                <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
+                    class="order-now-badge">
+            </a>
+        </div>
+    </section>
+
     <section class="question-section">
         <div class="container">
             <h1 class="question-title">
@@ -456,7 +465,18 @@
         </div>
     </section>
 
-    <section class="container py-5">
+    <section class="order-now-section py-4">
+        <div class="container text-center">
+            <span class="click-here-text">CLICK HERE</span>
+            <a href="{{ $products->first()->external_link ?? '#products' }}">
+                <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
+                    class="order-now-badge">
+            </a>
+            <span class="click-here-text">CLICK HERE</span>
+        </div>
+    </section>
+
+    <section class="container py-5" id="products">
         <div class="row g-4">
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
@@ -526,7 +546,7 @@
     <section class="order-now-section">
         <div class="container">
             <span class="click-here-text">CLICK HERE</span>
-            <a href="#products">
+            <a href="{{ $products->first()->external_link ?? '#products' }}">
                 <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
                     class="order-now-badge">
             </a>
