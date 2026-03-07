@@ -451,11 +451,21 @@
     <section class="cert-section">
         <div class="container text-center">
             <img src="{{ asset('assets/images/landingpage/certification.png') }}" alt="Certifications" class="cert-img">
+            {{-- <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ asset('assets/images/landingpage/certification-1.webp') }}" alt="Certifications"
+                        class="cert-img">
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ asset('assets/images/landingpage/certification-3.webp') }}" alt="Certifications"
+                        class="cert-img">
+                </div>
+            </div> --}}
         </div>
     </section>
 
     <div class="discount-bar">
-        GET EXTRA 15% DISCOUNT
+        GET EXTRA UPTO 15% DISCOUNT
     </div>
 
     <section class="timer-bar">
