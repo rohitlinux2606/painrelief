@@ -286,14 +286,65 @@
             margin: 0 20px;
         }
 
-        .order-now-badge {
-            max-width: 200px;
+        .btn-order-premium {
+            display: inline-block;
+            background: linear-gradient(135deg, #d32f2f, #ff5252);
+            color: #fff !important;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
             cursor: pointer;
-            transition: transform 0.3s;
+            letter-spacing: 1px;
+            animation: pulse-red 2s infinite;
+            margin-bottom: -20px;
         }
 
-        .order-now-badge:hover {
-            transform: scale(1.1);
+        .btn-order-premium:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.6);
+            background: linear-gradient(135deg, #ff5252, #d32f2f);
+        }
+
+        .btn-order-premium::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .btn-order-premium:hover::after {
+            left: 100%;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+            }
         }
 
         /* Footer */
@@ -369,6 +420,11 @@
                 max-width: 140px;
             }
 
+            .btn-order-premium {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+
             .float-text {
                 display: none;
             }
@@ -424,9 +480,8 @@
 
     <section class="order-now-section py-4">
         <div class="container text-center">
-            <a href="{{ $products->first()->external_link ?? '#products' }}">
-                <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
-                    class="order-now-badge">
+            <a href="{{ $products->first()->external_link ?? '#products' }}" class="btn-order-premium">
+                ORDER NOW
             </a>
         </div>
     </section>
@@ -465,7 +520,7 @@
     </section>
 
     <div class="discount-bar">
-        GET EXTRA UPTO 15% DISCOUNT
+        GET EXTRA UPTO 30% DISCOUNT
     </div>
 
     <section class="timer-bar">
@@ -478,9 +533,8 @@
     <section class="order-now-section py-4">
         <div class="container text-center">
             <span class="click-here-text">CLICK HERE</span>
-            <a href="{{ $products->first()->external_link ?? '#products' }}">
-                <img src="{{ asset('assets/images/landingpage/order-btn.png') }}" alt="Order Now"
-                    class="order-now-badge">
+            <a href="{{ $products->first()->external_link ?? '#products' }}" class="btn-order-premium">
+                ORDER NOW
             </a>
             <span class="click-here-text">CLICK HERE</span>
         </div>
