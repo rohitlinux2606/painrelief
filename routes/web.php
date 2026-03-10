@@ -4,18 +4,7 @@ use App\Http\Controllers\Admin\Productcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/', function () {
-//     return redirect()->to('/index.html');
-// });
-Route::view('/c', 'checkout');
-Route::view('/cart', 'cart');
-Route::view('/product', 'product-detail');
-// Route::get('/{any}', function () {
-//     return redirect()->to('/index.html');
-// })->where('any', '.*');
 
 Auth::routes();
 
