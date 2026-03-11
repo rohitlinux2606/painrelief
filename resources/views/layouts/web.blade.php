@@ -7,6 +7,9 @@
     <title>@yield('title', 'Sanjeevani Ortho Lab – Home of Vatahari Ayurveda')</title>
     <meta name="facebook-domain-verification" content="4n5jhw95om6losg50kplq68f3n0axz" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -41,8 +44,12 @@
     <style>
         :root {
             --primary-green: #1a4d2e;
-            --text-dark: #121212;
-            --font-main: 'Assistant', sans-serif;
+            --accent-green: #2d7a4d;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --font-main: 'Outfit', sans-serif;
+            --premium-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body {
@@ -64,17 +71,45 @@
         }
 
         /* Navbar Styling */
+        .navbar {
+            padding: 1.25rem 0;
+            transition: var(--transition-smooth);
+        }
+
         .navbar-brand {
             font-weight: 800;
-            font-size: 24px;
+            font-size: 22px;
+            letter-spacing: -0.5px;
             color: #000 !important;
         }
 
         .nav-link {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: 500;
             color: #333 !important;
+            padding: 0.5rem 1rem !important;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: var(--primary-green);
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green) !important;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
         }
 
         /* WhatsApp Float Button */
