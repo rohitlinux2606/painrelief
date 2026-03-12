@@ -481,7 +481,7 @@
 
     <section class="cert-section">
         <div class="container text-center">
-            <img src="{{ asset('assets/images/landingpage/certification.png') }}" alt="Certifications" class="cert-img">
+            <img src="{{ asset('assets/images/landingpage/e1.png') }}" alt="Certifications" class="cert-img">
             {{-- <div class="row">
                 <div class="col-md-6">
                     <img src="{{ asset('assets/images/landingpage/certification-1.webp') }}" alt="Certifications"
