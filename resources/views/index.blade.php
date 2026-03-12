@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <meta name="facebook-domain-verification" content="0uw3nh3iuth7wlzhzmz8afwyxb5eid" />
+
     <style>
         :root {
             --primary-green: #1a4d2e;
