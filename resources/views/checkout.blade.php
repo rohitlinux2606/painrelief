@@ -38,11 +38,17 @@
             src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
+    @php
+        $subtotal = 0;
+        foreach ($cart->items as $item) {
+            $subtotal += $item->price * $item->quantity;
+        }
+    @endphp
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                value: 00
+                value: {{ $subtotal }}
             });
         });
     </script>
