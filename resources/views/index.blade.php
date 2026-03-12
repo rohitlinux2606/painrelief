@@ -166,36 +166,33 @@
                     <p class="text-muted">Real results, real transformations</p>
                 </div>
 
-                <div class="swiper myShortsSwiper pb-5">
-                    <div class="swiper-wrapper">
-                        @foreach ($videos as $video)
-                            <div class="swiper-slide h-auto">
-                                <div class="shorts-card h-100 shadow-sm border-0">
-                                    <div class="video-wrapper">
-                                        <iframe
-                                            src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
-                                            loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
-                                            allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                    <a href="{{ route('product-detail', $video->product->id) }}"
-                                        class="d-flex align-items-center p-3 text-decoration-none border-top">
-                                        <div class="flex-shrink-0">
-                                            <img src="{{ asset($video->product->thumbnail) }}" alt="product"
-                                                class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
-                                        </div>
-                                        <div class="ms-3 overflow-hidden">
-                                            <h6 class="mb-0 text-dark text-truncate small fw-bold">
-                                                {{ $video->product->title }}</h6>
-                                            <div class="text-primary-green small fw-bold mt-1">
-                                                ₹{{ number_format($video->product->price, 0) }}</div>
-                                        </div>
-                                    </a>
+                <div class="row row-cols-2 row-cols-lg-5 g-3 g-lg-4">
+                    @foreach ($videos as $video)
+                        <div class="col">
+                            <div class="shorts-card h-100 shadow-sm border-0">
+                                <div class="video-wrapper">
+                                    <iframe
+                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
+                                        loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
+                                        allowfullscreen>
+                                    </iframe>
                                 </div>
+                                <a href="{{ route('product-detail', $video->product->id) }}"
+                                    class="d-flex align-items-center p-2 p-md-3 text-decoration-none border-top">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ asset($video->product->thumbnail) }}" alt="product"
+                                            class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                    </div>
+                                    <div class="ms-2 ms-md-3 overflow-hidden">
+                                        <h6 class="mb-0 text-dark text-truncate small fw-bold">
+                                            {{ $video->product->title }}</h6>
+                                        <div class="text-primary-green small fw-bold mt-1">
+                                            ₹{{ number_format($video->product->price, 0) }}</div>
+                                    </div>
+                                </a>
                             </div>
-                        @endforeach
-                    </div>
-                    <div class="swiper-pagination mt-4"></div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -593,26 +590,6 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper('.myShortsSwiper', {
-                slidesPerView: 2,
-                spaceBetween: 15,
-                loop: false,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    750: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                    990: {
-                        slidesPerView: 5,
-                        spaceBetween: 25
-                    }
-                }
-            });
-
             var testimonialSwiper = new Swiper('.testimonial-swiper', {
                 slidesPerView: 1,
                 spaceBetween: 30,
