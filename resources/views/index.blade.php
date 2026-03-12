@@ -6,10 +6,12 @@
             <div class="hero-content">
                 <span class="hero-badge">Purely Ayurvedic • Natural Relief</span>
                 <h1 class="hero-title">Experience Life Without Joint Pain</h1>
-                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted to rejuvenate your joints and restore mobility naturally.</p>
+                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted
+                    to rejuvenate your joints and restore mobility naturally.</p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="#products" class="btn-premium btn-primary-premium text-decoration-none">Shop Products</a>
-                    <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn More</a>
+                    <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn
+                        More</a>
                 </div>
             </div>
         </div>
@@ -120,35 +122,35 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-md-2 col-6">
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
-                        <img src="{{ asset('cdn/icons/ayurvedic.png') }}" alt="Authentic" class="img-fluid mb-3"
+                        <img src="{{ asset('cdn/images/ayurvedic.webp') }}" alt="Authentic" class="img-fluid mb-3"
                             style="width: 60px;">
                         <h6 class="fw-bold">AUTHENTIC & AYURVEDIC</h6>
                     </div>
                 </div>
                 <div class="col-md-2 col-6">
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
-                        <img src="{{ asset('cdn/icons/safe.png') }}" alt="Safe" class="img-fluid mb-3"
+                        <img src="{{ asset('cdn/images/safe.webp') }}" alt="Safe" class="img-fluid mb-3"
                             style="width: 60px;">
                         <h6 class="fw-bold">100% SAFE & EFFECTIVE</h6>
                     </div>
                 </div>
                 <div class="col-md-2 col-6">
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
-                        <img src="{{ asset('cdn/icons/gmp.png') }}" alt="GMP" class="img-fluid mb-3"
+                        <img src="{{ asset('cdn/images/gmp.webp') }}" alt="GMP" class="img-fluid mb-3"
                             style="width: 60px;">
                         <h6 class="fw-bold">GMP CERTIFIED PRODUCTS</h6>
                     </div>
                 </div>
                 <div class="col-md-2 col-6">
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
-                        <img src="{{ asset('cdn/icons/chemical-free.png') }}" alt="Chemical Free" class="img-fluid mb-3"
+                        <img src="{{ asset('cdn/images/chemical-free.webp') }}" alt="Chemical Free" class="img-fluid mb-3"
                             style="width: 60px;">
                         <h6 class="fw-bold">CHEMICAL FREE PRODUCTS</h6>
                     </div>
                 </div>
                 <div class="col-md-2 col-12">
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
-                        <img src="{{ asset('cdn/icons/customers.png') }}" alt="Customers" class="img-fluid mb-3"
+                        <img src="{{ asset('cdn/images/customers.webp') }}" alt="Customers" class="img-fluid mb-3"
                             style="width: 60px;">
                         <h6 class="fw-bold">20 LAKHS+ HAPPY CUSTOMERS</h6>
                     </div>
@@ -173,8 +175,7 @@
                                 <div class="video-wrapper">
                                     <iframe
                                         src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
-                                        loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
-                                        allowfullscreen>
+                                        loading="lazy" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
                                     </iframe>
                                 </div>
                                 <a href="{{ route('product-detail', $video->product->id) }}"
@@ -210,7 +211,9 @@
                     <div class="swiper-slide">
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
-                            <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My knee pain has significantly reduced, and I can finally walk without support. Truly life-changing!"</p>
+                            <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My
+                                knee pain has significantly reduced, and I can finally walk without support. Truly
+                                life-changing!"</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -223,7 +226,8 @@
                     <div class="swiper-slide">
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
-                            <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
+                            <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart
+                                Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -236,7 +240,9 @@
                     <div class="swiper-slide">
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
-                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic treatments."</p>
+                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil
+                                is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
+                                treatments."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -561,14 +567,17 @@
                 align-items: center;
                 min-height: auto;
             }
+
             .hero-content {
                 max-width: 100%;
                 margin: 0 auto;
                 order: 1;
             }
+
             .hero-title {
                 font-size: 2.8rem;
             }
+
             .hero-image-wrapper {
                 position: relative;
                 width: 100%;
@@ -579,6 +588,7 @@
                 right: auto;
                 top: auto;
             }
+
             .hero-image-wrapper img {
                 mask-image: none;
                 object-fit: contain;
