@@ -14,6 +14,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('fevicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('fevicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('fevicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('fevicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('fevicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('fevicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('fevicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('fevicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('fevicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('fevicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('fevicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('fevicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('fevicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('fevicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#1a4d2e">
+    <meta name="msapplication-TileImage" content="{{ asset('fevicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#1a4d2e">
+
     <!-- Meta Pixel Code -->
     <script>
         ! function(f, b, e, v, n, t, s) {
@@ -224,8 +242,10 @@
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.about') }}">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.contact') }}">Contact Us</a>
+                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.about') }}">About Us</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link px-3" href="{{ route('page.contact') }}">Contact
+                                Us</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center gap-4">
@@ -268,8 +288,10 @@
                 <div class="col-md-4">
                     <h5 class="fw-bold mb-3">Quick Links</h5>
                     <ul class="list-unstyled small">
-                        <li><a href="{{ route('page.home') }}" class="text-secondary text-decoration-none">Home</a></li>
-                        <li><a href="{{ route('page.about') }}" class="text-secondary text-decoration-none">About Us</a>
+                        <li><a href="{{ route('page.home') }}" class="text-secondary text-decoration-none">Home</a>
+                        </li>
+                        <li><a href="{{ route('page.about') }}" class="text-secondary text-decoration-none">About
+                                Us</a>
                         </li>
                         <li><a href="{{ route('page.contact') }}" class="text-secondary text-decoration-none">Contact
                                 Us</a></li>
