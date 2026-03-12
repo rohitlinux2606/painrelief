@@ -40,9 +40,15 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            @php
+                $pixelSubtotal = 0;
+                foreach ($cart->items as $item) {
+                    $pixelSubtotal += $item->price * $item->quantity;
+                }
+            @endphp
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                value: 00
+                value: {{ $pixelSubtotal }}
             });
         });
     </script>
