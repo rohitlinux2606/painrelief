@@ -32,7 +32,7 @@
     <meta name="twitter:description" content="Natural ayurvedic solutions for joint pain and arthritis relief.">
     <meta name="twitter:image" content="{{ asset('cdn/001.png') }}">
 
-    <meta name="facebook-domain-verification" content="xwa0v65oqko6flrktbx7bj5ziywezt" />
+    <meta name="facebook-domain-verification" content="5i45zracreqwqll5x1lou3eiotopgj" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
