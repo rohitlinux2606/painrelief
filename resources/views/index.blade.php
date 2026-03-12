@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint Pain Relief</title>
+    <title>Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint relief</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
         content="Vatahari offers natural ayurvedic solutions for joint pain, arthritis, and ortho care. Get effective pain relief with our herbal tablets and traditional remedies.">
     <meta name="keywords"
-        content="joint pain relief, ayurvedic medicine, arthritis treatment, ortho care, natural pain relief, herbal tablets, vatahari, ayurveda">
+        content="Joint relief, ayurvedic medicine, arthritis treatment, ortho care, natural pain relief, herbal tablets, vatahari, ayurveda">
     <meta name="author" content="Vatahari Ayurveda">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint Pain Relief">
+    <meta property="og:title" content="Vatahari – Natural Ortho Care Solutions | Ayurvedic Joint relief">
     <meta property="og:description"
         content="Discover natural ayurvedic solutions for joint pain and arthritis. Effective herbal remedies for better ortho care and pain relief.">
     <meta property="og:type" content="website">
@@ -86,7 +86,7 @@
     {
       "@@context": "https://schema.org",
       "@@type": "ItemList",
-      "name": "Ayurvedic Joint Pain Relief Products",
+      "name": "Ayurvedic Joint relief Products",
       "description": "Natural herbal products for joint pain and arthritis relief",
       "numberOfItems": {{ count($products) }},
       "itemListElement": [
@@ -97,7 +97,7 @@
           "item": {
             "@@type": "Product",
             "name": "{{ $product->title }}",
-            "description": "Natural ayurvedic solution for joint pain relief",
+            "description": "Natural ayurvedic solution for Joint relief",
             "image": "{{ asset($product->thumbnail) }}",
             "url": "{{ route('product-detail', $product->id) }}",
             "brand": {
