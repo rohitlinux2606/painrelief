@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <meta name="facebook-domain-verification" content="xwa0v65oqko6flrktbx7bj5ziywezt" />
+
     <!-- Meta Pixel Code -->
     <script>
         ! function(f, b, e, v, n, t, s) {
