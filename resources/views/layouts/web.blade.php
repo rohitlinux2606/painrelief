@@ -48,7 +48,7 @@
             --text-dark: #1a1a1a;
             --text-muted: #666666;
             --font-main: 'Outfit', sans-serif;
-            --premium-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --premium-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
@@ -208,9 +208,9 @@
     </a>
 
     @if (!request()->is('checkout'))
-        <div class="announcement-bar text-center">
+        {{-- <div class="announcement-bar text-center">
             WELCOME TO OUR STORE
-        </div>
+        </div> --}}
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
