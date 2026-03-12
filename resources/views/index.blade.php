@@ -11,34 +11,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <meta name="facebook-domain-verification" content="xwa0v65oqko6flrktbx7bj5ziywezt" />
+    <meta name="facebook-domain-verification" content="0uw3nh3iuth7wlzhzmz8afwyxb5eid" />
 
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
     <style>
         :root {
             --primary-green: #1a4d2e;
@@ -507,7 +481,7 @@
 
     <section class="cert-section">
         <div class="container text-center">
-            <img src="{{ asset('assets/images/landingpage/certification.png') }}" alt="Certifications" class="cert-img">
+            <img src="{{ asset('assets/images/landingpage/e1.png') }}" alt="Certifications" class="cert-img">
             {{-- <div class="row">
                 <div class="col-md-6">
                     <img src="{{ asset('assets/images/landingpage/certification-1.webp') }}" alt="Certifications"
@@ -585,7 +559,7 @@
                             <div class="shorts-card">
                                 <div class="video-wrapper">
                                     <iframe
-                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=1&loop=1&playlist={{ $video->getYoutubeId() }}"
+                                        src="https://www.youtube.com/embed/{{ $video->getYoutubeId() }}?autoplay=0&mute=0&loop=1&playlist={{ $video->getYoutubeId() }}"
                                         loading="lazy" frameborder="0" allow="autoplay; encrypted-media"
                                         allowfullscreen>
                                     </iframe>
