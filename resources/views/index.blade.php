@@ -1,23 +1,20 @@
 @extends('layouts.web')
 
 @section('content')
-    <section class="hero-section text-center">
+    <section class="hero-section">
         <div class="container">
-            <div class="hero-content mx-auto">
+            <div class="hero-content">
                 <span class="hero-badge">Purely Ayurvedic • Natural Relief</span>
-                <h1 class="hero-title">Goodness of Purity & Authenticity of Ayurveda</h1>
-                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted
-                    to rejuvenate your joints and restore mobility naturally.</p>
-                <div class="d-flex gap-3 justify-content-center">
+                <h1 class="hero-title">Experience Life Without Joint Pain</h1>
+                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted to rejuvenate your joints and restore mobility naturally.</p>
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="#products" class="btn-premium btn-primary-premium text-decoration-none">Shop Products</a>
-                    <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn
-                        More</a>
+                    <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn More</a>
                 </div>
             </div>
-            <div class="hero-banner-image mt-5">
-                <img src="{{ asset('banner/hero-banner.png') }}" alt="Natural Healing"
-                    class="img-fluid rounded-4 shadow-sm">
-            </div>
+        </div>
+        <div class="hero-image-wrapper d-none d-lg-block">
+            <img src="{{ asset('banner/hero-banner.png') }}" alt="Natural Healing">
         </div>
     </section>
 
@@ -204,55 +201,58 @@
         </section>
     @endif
 
-    <section class="testimonial-section">
-        <div class="container">
-            <div class="text-center mb-5">
+    <section class="testimonial-section py-5">
+        <div class="container text-center">
+            <div class="mb-5">
                 <h2 class="display-6 fw-bold">Happy Customers</h2>
                 <p class="text-muted">Join thousands who found relief with our Ayurvedic care</p>
             </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="mb-4">"I've been using Vatahari Vati for 3 months now. My knee pain has significantly
-                            reduced, and I can finally walk without support. Truly life-changing!"</p>
-                        <div class="d-flex align-items-center">
-                            <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
-                            <div>
-                                <h6 class="mb-0 fw-bold">Rajesh Kumar</h6>
-                                <small class="text-muted">Verified Customer</small>
+
+            <div class="swiper testimonial-swiper pb-5">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My knee pain has significantly reduced, and I can finally walk without support. Truly life-changing!"</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Rajesh Kumar</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Anita Sharma</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic treatments."</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Suresh G.</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="mb-4">"The combo packs are great value. I bought the Smart Combo 2 and it's much more
-                            effective than regular painkillers. No side effects at all."</p>
-                        <div class="d-flex align-items-center">
-                            <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
-                            <div>
-                                <h6 class="mb-0 fw-bold">Anita Sharma</h6>
-                                <small class="text-muted">Verified Customer</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="mb-4">"Fast delivery and genuine products. The ortho oil is very soothing for back
-                            pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic treatments."</p>
-                        <div class="d-flex align-items-center">
-                            <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
-                            <div>
-                                <h6 class="mb-0 fw-bold">Suresh G.</h6>
-                                <small class="text-muted">Verified Customer</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="swiper-pagination mt-4"></div>
+                <div class="swiper-button-next d-none d-md-flex"></div>
+                <div class="swiper-button-prev d-none d-md-flex"></div>
             </div>
         </div>
     </section>
@@ -263,27 +263,62 @@
         /* Hero Section Styling */
         .hero-section {
             position: relative;
-            background: #fff;
-            padding: 80px 0;
+            background: #f8f9fa;
+            padding: 100px 0;
             overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
         }
 
         .hero-content {
-            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(26, 77, 46, 0.1);
             color: var(--primary-green);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 20px;
         }
 
-        .hero-banner-image img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+        }
+
+        .hero-image-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mask-image: linear-gradient(to right, transparent, black 20%);
         }
 
         /* Trust Badges */
@@ -455,16 +490,24 @@
 
         /* Testimonials */
         .testimonial-section {
-            padding: 100px 0;
-            background: #fefefe;
+            background: #fff;
         }
 
         .testimonial-card {
-            padding: 30px;
+            padding: 40px;
             background: #fff;
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
-            border: 1px solid #f9f9f9;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .testimonial-swiper .swiper-button-next,
+        .testimonial-swiper .swiper-button-prev {
+            color: var(--primary-green);
+        }
+
+        .testimonial-swiper .swiper-pagination-bullet-active {
+            background: var(--primary-green);
         }
 
         .quote-icon {
@@ -516,25 +559,32 @@
             .hero-section {
                 padding: 60px 0;
                 text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: auto;
             }
-
             .hero-content {
                 max-width: 100%;
+                margin: 0 auto;
+                order: 1;
             }
-
             .hero-title {
                 font-size: 2.8rem;
             }
-
             .hero-image-wrapper {
                 position: relative;
                 width: 100%;
                 height: 300px;
                 margin-top: 40px;
+                display: block !important;
+                order: 2;
+                right: auto;
+                top: auto;
             }
-
             .hero-image-wrapper img {
                 mask-image: none;
+                object-fit: contain;
             }
         }
     </style>
@@ -559,6 +609,30 @@
                     990: {
                         slidesPerView: 5,
                         spaceBetween: 25
+                    }
+                }
+            });
+
+            var testimonialSwiper = new Swiper('.testimonial-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
                     }
                 }
             });
