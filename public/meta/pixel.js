@@ -8,13 +8,13 @@ function addToCartEvent() {
     });
 }
 
-function buyNowEvent() {
-    fbq('track', 'InitiateCheckout', {
-        content_name: 'Vatahari Vati',
-        value: 1,
-        currency: 'INR'
-    });
-}
+// function buyNowEvent() {
+//     fbq('track', 'InitiateCheckout', {
+//         content_name: 'Vatahari Vati',
+//         value: 1,
+//         currency: 'INR'
+//     });
+// }
 
 
 function trackAndSubmit(e) {

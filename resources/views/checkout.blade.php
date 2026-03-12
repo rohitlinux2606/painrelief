@@ -1,3 +1,8 @@
+@php
+    $totalValue = $cart->items->sum(function ($item) {
+        return $item->price * $item->quantity;
+    });
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +47,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             fbq('track', 'InitiateCheckout', {
                 currency: "INR",
-                value: 00
+                value: {{ $totalValue }}
             });
         });
     </script>
