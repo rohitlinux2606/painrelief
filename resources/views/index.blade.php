@@ -419,7 +419,7 @@
                             {{-- <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
                                 onclick="addToCartEvent()">Add & Checkout</a> --}}
 
-                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add & Checkout</a>
+                            {{-- <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add & Checkout</a> --}}
                             <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy"
                                 onclick="buyNowEvent()">Buy
                                 Now</a>
