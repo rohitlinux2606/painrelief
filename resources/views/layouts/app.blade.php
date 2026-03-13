@@ -13,39 +13,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
 
     <style>
         :root {
@@ -97,17 +71,45 @@
             transition: 0.3s ease;
         }
 
-        .whatsapp-float:hover { background: #1ebe5d; color: #fff; transform: scale(1.05); }
-        .support-float:hover { background: #333; color: #fff; transform: scale(1.05); }
+        .whatsapp-float:hover {
+            background: #1ebe5d;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .support-float:hover {
+            background: #333;
+            color: #fff;
+            transform: scale(1.05);
+        }
 
         @media (max-width: 768px) {
-            .float-text { display: none; }
-            .whatsapp-float, .support-float {
-                padding: 0; width: 55px; height: 55px; justify-content: center; border-radius: 50%; right: 15px;
+            .float-text {
+                display: none;
             }
-            .whatsapp-float { bottom: 90px; }
-            .support-float { bottom: 20px; }
-            .whatsapp-float i, .support-float i { font-size: 1.6rem !important; }
+
+            .whatsapp-float,
+            .support-float {
+                padding: 0;
+                width: 55px;
+                height: 55px;
+                justify-content: center;
+                border-radius: 50%;
+                right: 15px;
+            }
+
+            .whatsapp-float {
+                bottom: 90px;
+            }
+
+            .support-float {
+                bottom: 20px;
+            }
+
+            .whatsapp-float i,
+            .support-float i {
+                font-size: 1.6rem !important;
+            }
         }
 
         /* Announcement Bar */
@@ -121,8 +123,18 @@
         }
 
         /* Navbar Styling */
-        .navbar-brand { font-weight: 800; font-size: 24px; color: #000 !important; }
-        .nav-link { font-size: 14px; font-weight: 600; text-transform: uppercase; color: #333 !important; }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            color: #000 !important;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #333 !important;
+        }
     </style>
     @stack('styles')
 </head>
@@ -146,7 +158,8 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('page.home') }}">VATAHARI</a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navMenu">
                     <i class="bi bi-list fs-1"></i>
                 </button>
 
@@ -179,7 +192,8 @@
                         </p>
                         <p class="small mb-2">
                             <i class="bi bi-envelope me-2"></i>
-                            <a href="mailto:orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">orthosanjeevanilab@gmail.com</a>
+                            <a href="mailto:orthosanjeevanilab@gmail.com"
+                                class="text-white text-decoration-none">orthosanjeevanilab@gmail.com</a>
                         </p>
                         <p class="small">
                             <i class="bi bi-geo-alt me-2"></i> Indore, Madhya Pradesh, India
