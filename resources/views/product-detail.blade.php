@@ -1,59 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vatahari Vati - Product Detail Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+@section('title', 'Vatahari Vati - Product Detail Page')
 
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
+@push('styles')
     <style>
-        body {
-            font-family: 'Assistant', sans-serif;
-            color: #121212;
-            line-height: 1.6;
-        }
-
-        .announcement-bar {
-            background-color: #f3f3f3;
-            font-size: 13px;
-            padding: 8px 0;
-            text-align: center;
-        }
-
-        .navbar-brand {
-            font-size: 24px;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
         /* Shopify Style Slider CSS */
         .product-image-container {
             position: sticky;
@@ -227,18 +177,9 @@
             font-weight: bold;
         }
     </style>
-</head>
+@endpush
 
-<body>
-
-    <div class="announcement-bar">Welcome to our store</div>
-
-    <nav class="navbar navbar-light bg-white py-3 border-bottom">
-        <div class="container text-center">
-            <a class="navbar-brand mx-auto" href="{{ route('page.home') }}">VATAHARI</a>
-        </div>
-    </nav>
-
+@section('content')
     <div class="container my-5">
         <div class="row g-5">
             <div class="col-md-7">
@@ -289,18 +230,12 @@
                     <span class="badge badge-sale">Sale</span>
                 </div>
 
-                {{-- <a href="{{ route('add-to-cart', $product->id) }}" class="btn-add-to-cart"
-                    onclick="addToCartEvent()">Add to cart</a> --}}
-
-                <a href="{{ $product->external_link }}" class="btn-add-to-cart" onclick="addToCartEvent()">Add to
-                    cart</a>
+                <a href="{{ $product->external_link }}" class="btn-add-to-cart" onclick="addToCartEvent()">Add to cart</a>
 
                 <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank" onclick="buyNowEvent()">
                     <span>BUY NOW</span>
                     <div class="buy-now-subtext">
                         <img src="" alt="" style="height: 12px; filter: brightness(0) invert(1);">
-                        {{-- <span style="font-size: 8px;">& more Powered by</span>
-                        <strong style="font-size: 8px;">Shiprocket</strong> --}}
                     </div>
                 </a>
 
@@ -365,8 +300,9 @@
             </div>
         </div>
     </div>
+@endsection
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@push('scripts')
     <script>
         // Thumbnail click update
         const thumbs = document.querySelectorAll('.thumb-link');
@@ -382,8 +318,4 @@
             content_type: 'product'
         });
     </script>
-
-    <script src="{{ asset('meta/pixel.js') }}"></script>
-</body>
-
-</html>
+@endpush

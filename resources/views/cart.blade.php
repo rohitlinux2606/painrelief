@@ -1,84 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Shopping Cart - Vatahari</title>
+@section('title', 'Your Shopping Cart - Vatahari')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-    {{-- <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code --> --}}
-
-
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '774268225654141');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=774268225654141&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-
+@push('styles')
     <style>
         body {
             background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .navbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
         }
 
         .cart-container {
@@ -129,18 +56,14 @@
         .btn-checkout {
             background-color: #000;
             color: #fff !important;
-            /* Link color override karne ke liye */
             border-radius: 6px;
             padding: 12px;
             font-weight: 600;
             width: 100%;
             border: none;
             display: block;
-            /* Full width lene ke liye */
             text-align: center;
-            /* Text ko beech mein karne ke liye */
             text-decoration: none;
-            /* Underline hatane ke liye */
             transition: background-color 0.3s ease;
         }
 
@@ -156,15 +79,9 @@
             cursor: pointer;
         }
     </style>
-</head>
+@endpush
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand text-black" href="{{ route('page.home') }}">VATAHARI</a>
-        </div>
-    </nav>
-
+@section('content')
     <div class="container cart-container">
         <h2 class="fw-bold mb-4">Your Cart</h2>
 
@@ -239,11 +156,12 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script>
-        // 1. updateCartDB ko bahar rakhein taaki onclick ise dhund sake
         function updateCartDB(itemId, action, inputElement, rowElement) {
-            fetch("{{ route('update-cart') }}", { // Make sure 'update-cart' route exists
+            fetch("{{ route('update-cart') }}", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -258,11 +176,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        // Input box update karein
                         inputElement.value = data.new_qty;
-
-                        // UI totals refresh karein (Jo niche define hai)
-                        // Hum direct function call kar sakte hain calculation ke liye
                         window.refreshAllTotals();
                     }
                 })
@@ -270,25 +184,18 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-
-            // Is function ko window object mein daal dete hain taaki bahar se call ho sake
             window.refreshAllTotals = function updateCartTotals() {
                 let subtotal = 0;
                 let totalItems = 0;
-
                 const cartItems = document.querySelectorAll('.cart-item');
 
                 cartItems.forEach(item => {
                     const qtyInput = item.querySelector('.qty-input');
                     if (!qtyInput) return;
-
                     const qty = parseInt(qtyInput.value);
-                    const unitPrice = parseFloat(item.querySelector('.item-total').getAttribute(
-                        'data-unit-price'));
-
+                    const unitPrice = parseFloat(item.querySelector('.item-total').getAttribute('data-unit-price'));
                     const itemTotalPrice = qty * unitPrice;
 
-                    // Row price update karein
                     item.querySelector('.item-total').innerText =
                         `Rs. ${itemTotalPrice.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
@@ -296,7 +203,6 @@
                     totalItems += qty;
                 });
 
-                // Summary Box update karein
                 document.getElementById('total-qty-count').innerText = totalItems;
                 document.getElementById('subtotal-display').innerText =
                     `Rs. ${subtotal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
@@ -304,31 +210,13 @@
                     `Rs. ${subtotal.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
                 if (cartItems.length === 0) {
-                    document.getElementById('cart-items-container').innerHTML =
-                        `<div class="text-center p-5"><p>Your cart is empty!</p><a href="/" class="btn btn-dark btn-sm">Start Shopping</a></div>`;
+                    const container = document.getElementById('cart-items-container');
+                    if (container) {
+                        container.innerHTML = `<div class="text-center p-5"><p>Your cart is empty!</p><a href="/" class="btn btn-dark btn-sm">Start Shopping</a></div>`;
+                    }
                 }
             }
-
-            // // Handle Item Removal (AJAX ke bina local UI remove)
-            // document.querySelectorAll('.remove-item').forEach(btn => {
-            //     btn.addEventListener('click', function(e) {
-            //         e.preventDefault();
-            //         if (confirm('Are you sure you want to remove this item?')) {
-            //             const row = this.closest('.cart-item');
-            //             const hr = row.nextElementSibling;
-            //             row.remove();
-            //             if (hr && hr.tagName === 'HR') hr.remove();
-            //             window.refreshAllTotals();
-            //         }
-            //     });
-            // });
-
-            // Initial Calculation
             window.refreshAllTotals();
         });
     </script>
-
-    <script src="{{ asset('meta/pixel.js') }}"></script>
-</body>
-
-</html>
+@endpush
