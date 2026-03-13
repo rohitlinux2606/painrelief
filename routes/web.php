@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Admin\Productcontroller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return redirect()->to('/index.html');
@@ -38,7 +37,6 @@ Route::get('clear-session', function (Request $request) {
     $request->session()->flush();
 });
 
-
 Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.pages.dashboard.dashboard');
@@ -47,7 +45,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
     Route::name('product-control.')->group(function () {
         Route::resource('product', Productcontroller::class);
         Route::resource('product-videos', App\Http\Controllers\Admin\ProductVideoController::class);
-        Route::post('product-image/delete', [ProductController::class, 'deleteImage'])->name('image.delete');
+        Route::post('product-image/delete', [Productcontroller::class, 'deleteImage'])->name('image.delete');
     });
 
     Route::name('customer-control.')->group(function () {
