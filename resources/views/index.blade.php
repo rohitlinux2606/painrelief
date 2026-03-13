@@ -529,8 +529,7 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="ingredient-card">
-                        <img src="https://images.unsplash.com/photo-1615485240384-552e4c430932?auto=format&fit=crop&q=80&w=600"
-                            alt="Ashwagandha" class="ingredient-img">
+                        <img src="{{ asset('ingredients/ashwagandha.png') }}" alt="Ashwagandha" class="ingredient-img">
                         <div class="ingredient-overlay">
                             <div class="ingredient-name">Ashwagandha</div>
                             <div class="ingredient-desc">Known for reducing inflammation and strengthening the nervous
@@ -540,8 +539,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="ingredient-card">
-                        <img src="https://images.unsplash.com/photo-1543333995-a2491100f279?auto=format&fit=crop&q=80&w=600"
-                            alt="Rasna" class="ingredient-img">
+                        <img src="{{ asset('ingredients/rasna.png') }}" alt="Rasna" class="ingredient-img">
                         <div class="ingredient-overlay">
                             <div class="ingredient-name">Rasna</div>
                             <div class="ingredient-desc">Possesses anti-inflammatory properties, making it an ideal herb for
@@ -551,8 +549,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="ingredient-card">
-                        <img src="https://images.unsplash.com/photo-1600100397608-f09074099518?auto=format&fit=crop&q=80&w=600"
-                            alt="Eranda" class="ingredient-img">
+                        <img src="{{ asset('ingredients/eranda.png') }}" alt="Eranda" class="ingredient-img">
                         <div class="ingredient-overlay">
                             <div class="ingredient-name">Eranda</div>
                             <div class="ingredient-desc">Powerful Vata-pacifying herb that helps reduce numbness and
