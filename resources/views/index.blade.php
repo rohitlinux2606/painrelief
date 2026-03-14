@@ -455,6 +455,12 @@
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="product-card">
+                        {{-- <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
+                            <div class="product-img-container">
+                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
+                            </div>
+                            <h4 class="product-title text-center">{{ $product->title }}</h4>
+                        </a> --}}
                         <a href="#" class="text-decoration-none">
                             <div class="product-img-container">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">

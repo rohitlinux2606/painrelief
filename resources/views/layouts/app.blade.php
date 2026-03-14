@@ -50,6 +50,7 @@
             src="https://www.facebook.com/tr?id=1641429127233505&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
+
     <style>
         :root {
             --primary-green: #1a4d2e;
@@ -231,6 +232,11 @@
                 </div>
                 <hr class="border-secondary my-4">
                 <div class="text-center pb-4">
+                    <div class="mb-3">
+                        <a href="{{ route('terms') }}" class="text-secondary text-decoration-none small mx-3">Terms & Conditions</a>
+                        <a href="{{ route('shipping') }}" class="text-secondary text-decoration-none small mx-3">Shipping & Return Policy</a>
+                        <a href="{{ route('privacy') }}" class="text-secondary text-decoration-none small mx-3">Privacy Policy</a>
+                    </div>
                     <p class="text-secondary small mb-0">© 2026 Vatahari Ayurveda. All Rights Reserved.</p>
                 </div>
             </div>
