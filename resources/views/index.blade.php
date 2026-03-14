@@ -562,7 +562,7 @@
                         </div>
                         <div class="d-grid gap-2">
                             <a href="{{ $product->external_link }}" class="btn btn-atc">ADD & CHECKOUT</a>
-                            <a href="{{ $product->external_link }}" target="_blank" class="btn btn-buy"
+                            <a href="{{ $product->external_link }}" class="btn btn-buy"
                                 onclick="fbq('track', 'AddToCart')">BUY NOW</a>
                         </div>
                     </div>
