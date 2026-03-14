@@ -516,8 +516,8 @@
                 <div class="col-md-4">
                     <div class="benefit-card">
                         <div class="benefit-icon"><i class="bi bi-shield-check"></i></div>
-                        <h4>Pain Relief</h4>
-                        <p>Provides deep relief from chronic joint pain, stiffness, and inflammatory swelling.</p>
+                        <h4>Joint Health Improvement </h4>
+                        <p>Supports healthy joint function and reduces inflammation, stiffness, and pain.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -725,7 +725,7 @@
         </div>
     </section>
 
-    <!-- Ideal For Section -->
+    {{-- <!-- Ideal For Section -->
     <section class="section-padding text-center">
         <div class="container">
             <div class="section-title-wrapper">
@@ -779,7 +779,7 @@
                 </div>
             </div>
         </section>
-    @endif
+    @endif --}}
 @endsection
 
 @push('scripts')
