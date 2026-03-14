@@ -441,7 +441,7 @@
 @section('content')
     <!-- Hero Banner -->
     <section class="banner-section">
-        <img src="{{ asset('banner/flipkart.webp') }}" alt="Joint Pain Relief Banner">
+        <img src="{{ asset('banner/amazon.webp') }}" alt="Joint Pain Relief Banner">
     </section>
 
     <!-- Featured Products Section -->
@@ -700,7 +700,7 @@
                         </div>
                     </div>
                     <div class="trust-badge">
-                        <i class="bi bi-flask"></i>
+                        <i class="bi bi-slash-circle"></i>
                         <div>
                             <h6 class="fw-bold mb-1">Free from Chemicals</h6>
                             <p class="small mb-0 opacity-75">No steroids or artificial fillers used.</p>

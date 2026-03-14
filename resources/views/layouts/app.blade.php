@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <link rel="shortcut icon" href="{{ asset('fevicon.png') }}" type="image/x-icon">
+
     <style>
         :root {
             --primary-green: #1a4d2e;
