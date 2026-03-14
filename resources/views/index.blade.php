@@ -444,6 +444,41 @@
         <img src="{{ asset('banner/flipkart.webp') }}" alt="Joint Pain Relief Banner">
     </section>
 
+    <!-- Featured Products Section -->
+    <section class="container py-5" id="combo-offers">
+        <div class="limited-offer-bar">
+            ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
+        </div>
+
+        <h2 class="h1 fw-bold mb-5">Featured Products</h2>
+        <div class="row g-4">
+            @forelse ($products as $product)
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="product-card">
+                        <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
+                            <div class="product-img-container">
+                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
+                            </div>
+                            <h4 class="product-title text-center">{{ $product->title }}</h4>
+                        </a>
+                        <div class="price-wrapper my-2">
+                            <span class="price-sale">₹{{ number_format($product->price, 2) }}</span>
+                            @if ($product->compare_at_price)
+                                <span class="price-old">₹{{ number_format($product->compare_at_price, 2) }}</span>
+                            @endif
+                        </div>
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc" target="_blank"
+                                onclick="buyNowEvent()">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center text-muted py-5">No products found.</div>
+            @endforelse
+        </div>
+    </section>
+
     <!-- Ayurvedic Science Section -->
     <section class="science-section section-padding">
         <div class="container">
@@ -709,39 +744,6 @@
         </div>
     </section>
 
-    <section class="container py-5">
-        <div class="limited-offer-bar">
-            ⏰ Limited Time Offer – <span class="time" id="offerTimer">01:00:00</span> Left
-        </div>
-
-        <h2 class="h1 fw-bold mb-5">Featured Products</h2>
-        <div class="row g-4">
-            @forelse ($products as $product)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
-                            <div class="product-img-container">
-                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
-                            </div>
-                            <h4 class="product-title text-center">{{ $product->title }}</h4>
-                        </a>
-                        <div class="price-wrapper my-2">
-                            <span class="price-sale">₹{{ number_format($product->price, 2) }}</span>
-                            @if ($product->compare_at_price)
-                                <span class="price-old">₹{{ number_format($product->compare_at_price, 2) }}</span>
-                            @endif
-                        </div>
-                        <div class="d-grid gap-2 mt-3">
-                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc" target="_blank"
-                                onclick="buyNowEvent()">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12 text-center text-muted py-5">No products found.</div>
-            @endforelse
-        </div>
-    </section>
 
     @if (!empty($videos) && count($videos) > 0)
         <section class="shorts-section bg-light">
