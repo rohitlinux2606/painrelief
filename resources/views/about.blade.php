@@ -14,7 +14,7 @@
                     <p class="lead fw-bold">Vatahari is a wellness-focused Ayurveda brand committed to preserving the purity
                         and wisdom of traditional Ayurveda.</p>
 
-                    <p>Our flagship product, Vatahari, is a 100% pure Ayurveda formulation, developed using time-tested
+                    <p>Our flagship product, Vatahari, is a Ayurveda formulation, developed using time-tested
                         herbs mentioned in classical Ayurveda texts and prepared under strict quality standards.</p>
 
                     <p>We believe Ayurveda is not just a treatment system, but a way of balanced living. In today's
