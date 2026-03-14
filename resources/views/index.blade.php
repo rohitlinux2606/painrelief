@@ -441,7 +441,7 @@
 @section('content')
     <!-- Hero Banner -->
     <section class="banner-section">
-        <img src="{{ asset('banner/amazon.webp') }}" alt="Joint Pain Relief Banner">
+        <img src="{{ asset('banner/flipkart.webp') }}" alt="Joint Pain Relief Banner">
     </section>
 
     <!-- Featured Products Section -->
