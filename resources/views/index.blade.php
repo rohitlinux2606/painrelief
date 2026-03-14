@@ -483,7 +483,7 @@
     <section class="science-section section-padding">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="science-card">
                         <span class="section-subtitle">Ancient Wisdom Meets Modern Life</span>
                         <h2 class="section-main-title mb-4">The Science of Vata Balance</h2>
@@ -497,15 +497,15 @@
                                 Offers</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
+                </div> --}}
+                <div class="col-lg-12">
                     <img src="{{ asset('cdn/002.png') }}" alt="Natural Ayurveda" class="science-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Benefits Section -->
+    {{-- <!-- Key Benefits Section -->
     <section class="section-padding">
         <div class="container">
             <div class="section-title-wrapper">
@@ -723,7 +723,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- <!-- Ideal For Section -->
     <section class="section-padding text-center">
