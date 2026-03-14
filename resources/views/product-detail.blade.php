@@ -242,8 +242,8 @@
                 <div class="offer-box">
                     <span>⚡</span>
                     <p class="mb-0" style="color: #1a5928; font-size: 14px; font-weight: 500;">
-                        Limited Offer: Buy now and get <span
-                            class="offer-highlight">{{ $product->discount_percentage }}% OFF</span>
+                        Limited Offer: Buy now and get <span class="offer-highlight">{{ $product->discount_percentage }}%
+                            OFF</span>
                     </p>
                 </div>
 
@@ -313,9 +313,9 @@
             });
         });
 
-        fbq('track', 'ViewContent', {
-            content_name: 'Vatahari Vati',
-            content_type: 'product'
-        });
+        // fbq('track', 'ViewContent', {
+        //     content_name: 'Vatahari Vati',
+        //     content_type: 'product'
+        // });
     </script>
 @endpush
