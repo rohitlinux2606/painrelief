@@ -505,7 +505,7 @@
                     </div>
                 </div> --}}
                 <div class="col-lg-12">
-                    <img src="{{ asset('cdn/002.png') }}" alt="Natural Ayurveda" class="science-image">
+                    <img src="{{ asset('cdn/03.webp') }}" alt="Natural Ayurveda" class="science-image">
                 </div>
             </div>
         </div>

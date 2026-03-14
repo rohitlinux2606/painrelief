@@ -14,6 +14,7 @@ Route::view('/product', 'product-detail');
 Route::view('/terms-and-conditions', 'terms')->name('terms');
 Route::view('/shipping-and-return-policy', 'shipping')->name('shipping');
 Route::view('/privacy-policy', 'privacy')->name('privacy');
+Route::view('/about-us', 'about')->name('about');
 // Route::get('/{any}', function () {
 //     return redirect()->to('/index.html');
 // })->where('any', '.*');

@@ -11,7 +11,7 @@
     <title>@yield('title', 'Vatahari')</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link rel="dns-prefetch" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -212,7 +212,7 @@
                 <div class="row g-4">
                     <div class="col-md-8">
                         <h4 class="fw-bold">VATAHARI</h4>
-                        <p class="text-secondary small">Natural Ortho Care Solutions for Better Life.</p>
+                        <p class="text-secondary small">Sanjeevani Ortho Lab</p>
                     </div>
                     <div class="col-md-4">
                         <h5 class="fw-bold mb-3">Contact Us</h5>
@@ -233,11 +233,17 @@
                 <hr class="border-secondary my-4">
                 <div class="text-center pb-4">
                     <div class="mb-3">
-                        <a href="{{ route('terms') }}" class="text-secondary text-decoration-none small mx-3">Terms & Conditions</a>
-                        <a href="{{ route('shipping') }}" class="text-secondary text-decoration-none small mx-3">Shipping & Return Policy</a>
-                        <a href="{{ route('privacy') }}" class="text-secondary text-decoration-none small mx-3">Privacy Policy</a>
+                        <a href="{{ route('about') }}" class="text-secondary text-decoration-none small mx-3">About
+                            Us</a>
+                        <a href="{{ route('terms') }}" class="text-secondary text-decoration-none small mx-3">Terms &
+                            Conditions</a>
+                        <a href="{{ route('shipping') }}"
+                            class="text-secondary text-decoration-none small mx-3">Shipping & Return Policy</a>
+                        <a href="{{ route('privacy') }}" class="text-secondary text-decoration-none small mx-3">Privacy
+                            Policy</a>
                     </div>
-                    <p class="text-secondary small mb-0">© 2026 Vatahari Ayurveda. All Rights Reserved.</p>
+                    {{-- <p class="text-secondary small mb-0">© 2026 Vatahari Ayurveda. All Rights Reserved.</p> --}}
+                    <p class="text-secondary small mb-0">© 2026 Vatahari Ayurveda. Powered by Shopify</p>
                 </div>
             </div>
         </footer>
