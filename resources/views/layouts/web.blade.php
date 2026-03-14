@@ -32,7 +32,7 @@
     <meta name="msapplication-TileImage" content="{{ asset('fevicon/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#1a4d2e">
 
-    <!-- Meta Pixel Code -->
+    {{-- <!-- Meta Pixel Code -->
     <script>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
@@ -57,7 +57,7 @@
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1177792100946727&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
+    <!-- End Meta Pixel Code --> --}}
 
     <style>
         :root {
