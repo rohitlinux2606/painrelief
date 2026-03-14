@@ -527,7 +527,8 @@
                     properties.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-4">
+                <!-- Row 1 -->
+                <div class="col-lg-4 col-md-6">
                     <div class="ingredient-card">
                         <img src="{{ asset('ingredients/ashwagandha.png') }}" alt="Ashwagandha" class="ingredient-img">
                         <div class="ingredient-overlay">
@@ -537,7 +538,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6">
                     <div class="ingredient-card">
                         <img src="{{ asset('ingredients/rasna.png') }}" alt="Rasna" class="ingredient-img">
                         <div class="ingredient-overlay">
@@ -547,13 +548,76 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6">
                     <div class="ingredient-card">
                         <img src="{{ asset('ingredients/eranda.png') }}" alt="Eranda" class="ingredient-img">
                         <div class="ingredient-overlay">
                             <div class="ingredient-name">Eranda</div>
                             <div class="ingredient-desc">Powerful Vata-pacifying herb that helps reduce numbness and
                                 swelling.</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/suranjan.png') }}" alt="Sweet Suranjan Soumya"
+                            class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Sweet Suranjan</div>
+                            <div class="ingredient-desc">Highly effective in relieving joint pain, inflammation, and
+                                symptoms of arthritis.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/shankha.png') }}" alt="Shankha Bhasma" class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Shankha Bhasma</div>
+                            <div class="ingredient-desc">A natural, pure source of calcium that strengthens bones and
+                                reduces acidity.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/godanti.png') }}" alt="Godanti Bhasma" class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Godanti Bhasma</div>
+                            <div class="ingredient-desc">Provides essential calcium for bone density and helps relieve
+                                chronic bodily weakness.</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/mocharas.png') }}" alt="Mocharas" class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Mocharas</div>
+                            <div class="ingredient-desc">Strengthens muscles and connective tissues, promoting better joint
+                                stability.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/aruga.png') }}" alt="Aruga" class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Aruga</div>
+                            <div class="ingredient-desc">An excellent natural remedy for stubborn musculoskeletal pain and
+                                swelling.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="ingredient-card">
+                        <img src="{{ asset('ingredients/yograj.png') }}" alt="Yograj Guggulu" class="ingredient-img">
+                        <div class="ingredient-overlay">
+                            <div class="ingredient-name">Yograj Guggulu</div>
+                            <div class="ingredient-desc">A classical Ayurvedic blend that detoxifies joints and beautifully
+                                pacifies Vata dosha.</div>
                         </div>
                     </div>
                 </div>
@@ -578,7 +642,8 @@
                         <div class="step-num">02</div>
                         <div>
                             <h5 class="fw-bold">Lukewarm Water</h5>
-                            <p class="opacity-75">Consume with lukewarm water as it helps in better absorption of herbs.</p>
+                            <p class="opacity-75">Consume with lukewarm water as it helps in better absorption of herbs.
+                            </p>
                         </div>
                     </div>
                     <div class="usage-step">
