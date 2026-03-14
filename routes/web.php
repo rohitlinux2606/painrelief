@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 Route::view('/c', 'checkout');
 Route::view('/cart', 'cart');
 Route::view('/product', 'product-detail');
+Route::view('/terms-and-conditions', 'terms')->name('terms');
+Route::view('/shipping-and-return-policy', 'shipping')->name('shipping');
+Route::view('/privacy-policy', 'privacy')->name('privacy');
 // Route::get('/{any}', function () {
 //     return redirect()->to('/index.html');
 // })->where('any', '.*');

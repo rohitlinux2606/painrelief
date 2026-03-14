@@ -441,7 +441,7 @@
 @section('content')
     <!-- Hero Banner -->
     <section class="banner-section">
-        <img src="{{ asset('banner/amazon.webp') }}" alt="Joint Pain Relief Banner">
+        <img src="{{ asset('banner/flipkart.webp') }}" alt="Joint Pain Relief Banner">
     </section>
 
     <!-- Featured Products Section -->
@@ -455,6 +455,12 @@
             @forelse ($products as $product)
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="product-card">
+                        {{-- <a href="{{ route('product-detail', $product->id) }}" class="text-decoration-none">
+                            <div class="product-img-container">
+                                <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
+                            </div>
+                            <h4 class="product-title text-center">{{ $product->title }}</h4>
+                        </a> --}}
                         <a href="#" class="text-decoration-none">
                             <div class="product-img-container">
                                 <img src="{{ asset($product->thumbnail) }}" alt="{{ $product->title }}">
@@ -517,7 +523,7 @@
                     <div class="benefit-card">
                         <div class="benefit-icon"><i class="bi bi-shield-check"></i></div>
                         <h4>Joint Health Improvement </h4>
-                        <p>Supports healthy joint function and reduces inflammation, stiffness, and pain.</p>
+                        <p>Provides deep relief from chronic joint pain, stiffness, and inflammatory swelling.</p>
                     </div>
                 </div>
                 <div class="col-md-4">

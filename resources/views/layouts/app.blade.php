@@ -43,12 +43,13 @@
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1177792100946727');
+        fbq('init', '1940729423378921');
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1177792100946727&ev=PageView&noscript=1" /></noscript>
+            src="https://www.facebook.com/tr?id=1940729423378921&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
+
 
     <style>
         :root {
@@ -231,6 +232,11 @@
                 </div>
                 <hr class="border-secondary my-4">
                 <div class="text-center pb-4">
+                    <div class="mb-3">
+                        <a href="{{ route('terms') }}" class="text-secondary text-decoration-none small mx-3">Terms & Conditions</a>
+                        <a href="{{ route('shipping') }}" class="text-secondary text-decoration-none small mx-3">Shipping & Return Policy</a>
+                        <a href="{{ route('privacy') }}" class="text-secondary text-decoration-none small mx-3">Privacy Policy</a>
+                    </div>
                     <p class="text-secondary small mb-0">© 2026 Vatahari Ayurveda. All Rights Reserved.</p>
                 </div>
             </div>
