@@ -27,7 +27,7 @@
                     <div class="trust-item">
                         <div class="trust-icon"><i class="bi bi-shield-check"></i></div>
                         <div class="trust-text">
-                            <h5>100% Ayurvedic</h5>
+                            <h5>Ayurvedic</h5>
                             <p>Pure herbal extracts</p>
                         </div>
                     </div>
@@ -113,10 +113,10 @@
     </section>
 
     <section class="banner-section my-5 text-center">
-        <img src="{{ asset('cdn/002.png') }}" alt="Quality Banner" class="img-fluid">
+        <img src="{{ asset('cdn/03.webp') }}" alt="Quality Banner" class="img-fluid">
     </section>
 
-    <section class="ayurvedic-excellence py-5">
+    {{-- <section class="ayurvedic-excellence py-5">
         <div class="container text-center">
             <h2 class="display-6 fw-bold mb-5">Our Ayurvedic Excellence</h2>
             <div class="row g-4 justify-content-center">
@@ -131,7 +131,7 @@
                     <div class="excellence-card h-100 p-4 rounded-4 shadow-sm">
                         <img src="{{ asset('cdn/images/safe.webp') }}" alt="Safe" class="img-fluid mb-3"
                             style="width: 60px;">
-                        <h6 class="fw-bold">100% SAFE & EFFECTIVE</h6>
+                        <h6 class="fw-bold">SAFE & EFFECTIVE</h6>
                     </div>
                 </div>
                 <div class="col-md-2 col-6">
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     @if (!empty($videos) && count($videos) > 0)
@@ -181,8 +181,8 @@
                                 <a href="{{ route('product-detail', $video->product->id) }}"
                                     class="d-flex align-items-center p-2 p-md-3 text-decoration-none border-top">
                                     <div class="flex-shrink-0">
-                                        <img src="{{ asset($video->product->thumbnail) }}" alt="product"
-                                            class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <img src="{{ asset($video->product->thumbnail) }}" alt="product" class="rounded"
+                                            style="width: 40px; height: 40px; object-fit: cover;">
                                     </div>
                                     <div class="ms-2 ms-md-3 overflow-hidden">
                                         <h6 class="mb-0 text-dark text-truncate small fw-bold">
