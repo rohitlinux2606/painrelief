@@ -252,6 +252,51 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Duplicated slides to ensure Swiper loop works with minimum required slides -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My
+                                knee pain has significantly reduced, and I can finally walk without support. Truly
+                                life-changing!"</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Rajesh Kumar</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart
+                                Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Anita Sharma</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card mx-auto" style="max-width: 700px;">
+                            <i class="bi bi-quote quote-icon mb-4 d-block"></i>
+                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil
+                                is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
+                                treatments."</p>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
+                                <div class="text-start">
+                                    <h6 class="mb-0 fw-bold">Suresh G.</h6>
+                                    <small class="text-muted">Verified Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="swiper-pagination mt-4"></div>
                 <div class="swiper-button-next d-none d-md-flex"></div>
@@ -650,7 +695,30 @@
         document.addEventListener("DOMContentLoaded", function() {
             let oneHour = 60 * 60; // 1 hour = 3600 seconds
             let display = document.querySelector('#offerTimer');
-            startCountdown(oneHour, display);
+            if (display) {
+                startCountdown(oneHour, display);
+            }
         });
+
+        function addToCartEvent() {
+            if (typeof fbq === 'function') {
+                fbq('track', 'AddToCart', {
+                    content_name: 'Vatahari Vati',
+                    content_category: 'Ayurvedic Product',
+                    value: 1,
+                    currency: 'INR'
+                });
+            }
+        }
+
+        function buyNowEvent() {
+            if (typeof fbq === 'function') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'Vatahari Vati',
+                    value: 1,
+                    currency: 'INR'
+                });
+            }
+        }
     </script>
 @endpush
