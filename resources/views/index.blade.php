@@ -76,7 +76,7 @@
 
         <div class="row g-4">
             @forelse ($products as $product)
-                <div class="col-6 col-md-4 col-lg-3">
+                <div class="col-12 col-md-4 col-lg-3">
                     <div class="product-card">
                         <div class="product-img-container shadow-sm">
                             <a href="{{ route('product-detail', $product->id) }}">
