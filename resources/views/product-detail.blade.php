@@ -76,56 +76,8 @@
                     </p>
                 </div>
 
-                <div class="mt-4">
-                    <p class="text-muted small">
-                        <strong>Vatahari Vati</strong> is a traditional Ayurvedic formulation designed to support
-                        healthy joints, muscles, and nerves. Enriched with carefully selected herbs, it helps balance
-                        Vata dosha—the root cause of stiffness, pain, and weakness in the body.
-                    </p>
-                </div>
-
-                <div class="content-section">
-                    <div class="section-title text-success">✅ Key Benefits</div>
-                    <ul class="benefit-list text-muted">
-                        <li>Provides relief from <strong>joint pain, stiffness, and swelling</strong></li>
-                        <li>Supports <strong>healthy mobility and flexibility</strong></li>
-                        <li>Helps reduce <strong>muscle cramps, back pain, and sciatica symptoms</strong></li>
-                        <li>Strengthens bones, muscles, and nervous system</li>
-                        <li>Promotes overall <strong>Vata balance</strong> for long-term comfort</li>
-                    </ul>
-                </div>
-
-                <div class="content-section">
-                    <div class="section-title">🌱 Ingredients</div>
-                    <div class="info-card bg-light p-3 rounded small text-muted">
-                        Vatahari Vati is made with a blend of potent Ayurvedic herbs (e.g., <strong>Ashwagandha, Rasna,
-                            Eranda</strong>). Each herb is carefully chosen for its anti-inflammatory, pain-relieving,
-                        and strengthening properties.
-                    </div>
-                </div>
-
-                <div class="content-section">
-                    <div class="section-title">🧾 How to Use</div>
-                    <p class="small text-muted mb-1">Take <strong>1–2 tablets twice daily</strong> with lukewarm water
-                        or as directed by your physician.</p>
-                    <p class="small text-muted"><em>Best results are seen with regular use along with a balanced diet &
-                            lifestyle.</em></p>
-                </div>
-
-                <div class="content-section">
-                    <div class="section-title">⚡ Why Choose Vatahari Vati?</div>
-                    <ul class="benefit-list text-muted small">
-                        <li>100% Ayurvedic formulation</li>
-                        <li>Free from harmful chemicals</li>
-                        <li>Safe for long-term use</li>
-                        <li>Trusted by Ayurvedic practitioners</li>
-                    </ul>
-                </div>
-
-                <div class="mt-4 p-3 border-start border-3 border-dark bg-light small">
-                    👉 Ideal for those suffering from <strong>arthritis, back pain, sciatica, or age-related
-                        stiffness</strong>, Vatahari Vati is your natural companion for active living.
-                </div>
+                <!-- Description -->
+                {!! $product->description !!}
             </div>
         </div>
     </div>
