@@ -295,14 +295,6 @@
                         </li>
                         <li><a href="{{ route('page.contact') }}" class="text-secondary text-decoration-none">Contact
                                 Us</a></li>
-                        <li><a href="{{ route('page.privacy') }}" class="text-secondary text-decoration-none">Privacy
-                                Policy</a></li>
-                        {{-- <li><a href="{{ route('page.terms') }}" class="text-secondary text-decoration-none">Terms and
-                                Conditions</a></li>
-                        <li><a href="{{ route('page.refund') }}" class="text-secondary text-decoration-none">Refund
-                                Policy</a></li>
-                        <li><a href="{{ route('page.return') }}" class="text-secondary text-decoration-none">Return
-                                Policy</a></li> --}}
                     </ul>
                 </div>
 
@@ -342,6 +334,21 @@
             </div>
 
             <hr class="border-secondary my-4">
+
+            <!-- Legal Policies -->
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <div class="d-flex justify-content-center flex-wrap gap-4">
+                        <a href="{{ route('page.privacy') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Privacy Policy</a>
+                        <span class="text-secondary d-none d-md-inline">|</span>
+                        <a href="{{ route('page.terms') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Terms and Conditions</a>
+                        <span class="text-secondary d-none d-md-inline">|</span>
+                        <a href="{{ route('page.refund') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Refund Policy</a>
+                        <span class="text-secondary d-none d-md-inline">|</span>
+                        <a href="{{ route('page.return') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Return Policy</a>
+                    </div>
+                </div>
+            </div>
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">

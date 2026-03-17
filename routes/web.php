@@ -25,7 +25,6 @@ Route::get('/privacy-policy', [App\Http\Controllers\Pagecontroller::class, 'priv
 Route::get('/terms-and-conditions', [App\Http\Controllers\Pagecontroller::class, 'termsConditions'])->name('page.terms');
 Route::get('/refund-policy', [App\Http\Controllers\Pagecontroller::class, 'refundPolicy'])->name('page.refund');
 Route::get('/return-policy', [App\Http\Controllers\Pagecontroller::class, 'returnPolicy'])->name('page.return');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // if try register then redirect login
 Route::get('/register', function () {
