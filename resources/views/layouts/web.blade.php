@@ -343,7 +343,7 @@
                         <span class="text-secondary d-none d-md-inline">|</span>
                         <a href="{{ route('page.terms') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Terms and Conditions</a>
                         <span class="text-secondary d-none d-md-inline">|</span>
-                        <a href="{{ route('page.refund') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Refund Policy</a>
+                        <a href="{{ route('page.refund') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Refund and Cancellation Policy</a>
                         <span class="text-secondary d-none d-md-inline">|</span>
                         <a href="{{ route('page.return') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Return Policy</a>
                     </div>

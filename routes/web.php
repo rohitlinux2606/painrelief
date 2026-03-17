@@ -23,7 +23,7 @@ Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller:
 
 Route::get('/privacy-policy', [App\Http\Controllers\Pagecontroller::class, 'privacyPolicy'])->name('page.privacy');
 Route::get('/terms-and-conditions', [App\Http\Controllers\Pagecontroller::class, 'termsConditions'])->name('page.terms');
-Route::get('/refund-policy', [App\Http\Controllers\Pagecontroller::class, 'refundPolicy'])->name('page.refund');
+Route::get('/refund-and-cancellation-policy', [App\Http\Controllers\Pagecontroller::class, 'refundPolicy'])->name('page.refund');
 Route::get('/return-policy', [App\Http\Controllers\Pagecontroller::class, 'returnPolicy'])->name('page.return');
 
 // if try register then redirect login
