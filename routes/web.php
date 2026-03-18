@@ -21,6 +21,10 @@ Route::get('/checkout', [App\Http\Controllers\Pagecontroller::class, 'checkout']
 Route::post('/place-order', [App\Http\Controllers\Pagecontroller::class, 'placeOrder'])->name('place-order');
 Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller::class, 'orderSuccess'])->name('order-success');
 
+Route::post('cod', [App\Http\Controllers\Admin\PayementController::class, 'cod'])->name('shop.payment.cod');
+
+Route::post('cashfree', [App\Http\Controllers\Admin\PayementController::class, 'cashFree'])->name('shop.payment.cashfree');
+
 Route::get('/privacy-policy', [App\Http\Controllers\Pagecontroller::class, 'privacyPolicy'])->name('page.privacy');
 Route::get('/terms-and-conditions', [App\Http\Controllers\Pagecontroller::class, 'termsConditions'])->name('page.terms');
 Route::get('/refund-and-cancellation-policy', [App\Http\Controllers\Pagecontroller::class, 'refundPolicy'])->name('page.refund');
@@ -57,6 +61,11 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
 
     Route::name('order-control.')->group(function () {
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
+    });
+
+    Route::name('web-setting.')->group(function () {
+        Route::get('web-settings', [App\Http\Controllers\Admin\WebSettingController::class, 'index'])->name('index');
+        Route::post('web-settings', [App\Http\Controllers\Admin\WebSettingController::class, 'store'])->name('store');
     });
 });
 

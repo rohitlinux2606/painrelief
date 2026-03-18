@@ -258,13 +258,24 @@ class Pagecontroller extends Controller
             'pincode' => 'required',
         ]);
 
-        $sessionId = Session::getId();
-        $cart = Cart::where('session_id', $sessionId)->first();
+        $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
 
-        Log::info($cart);
+        $cart = Cart::where(function ($q) use ($userId, $sessionId) {
+            if ($userId) {
+                $q->where('user_id', $userId);
+            } else {
+                $q->where('session_id', $sessionId);
+            }
+        })->with('items.product')->first();
+
+        Log::info('Cart Status: '.($cart ? 'Found with '.$cart->items->count().' items' : 'Not Found'));
 
         if (! $cart || $cart->items->count() == 0) {
-            return redirect()->route('show-cart')->with('error', 'Cart is empty');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Your cart is empty or session expired',
+            ]);
         }
 
         // 2. CUSTOMER LOGIC
@@ -301,14 +312,26 @@ class Pagecontroller extends Controller
             'country' => 'IN',
         ]);
 
-        // 4. CREATE ORDER (customer_id aur address_id ke saath)
-        // Note: Make sure aapke orders table mein address_id ka column ho
+        // 4. PRE-CALCULATE ORDER VARIABLES
+        $master = \App\Models\WebSetting::first();
+        $discount_percentage = $master->discount_percentage ?? 0;
+        $shipping_charge_rate = $master->shipping_charge ?? 0;
+        $free_shipping_amount = $master->free_shipping_amount ?? 0;
+
+        $cart_subtotal = $cart->items->sum(fn ($item) => $item->price * $item->quantity);
+        $effective_shipping = ($cart_subtotal < $free_shipping_amount) ? $shipping_charge_rate : 0;
+        $discount = ($cart_subtotal * $discount_percentage) / 100;
+        $order_total = round($cart_subtotal + $effective_shipping - $discount);
+
+        // 5. CREATE ORDER (customer_id aur address_id ke saath)
         $order = Order::create([
             'customer_id' => $customer->id,
-            'address_id' => $address->id, // Address link kar diya
-            'order_number' => 'ORD-'.strtoupper(Str::random(10)),
-            'subtotal' => $cart->items->sum(fn ($item) => $item->price * $item->quantity),
-            'total' => $cart->items->sum(fn ($item) => $item->price * $item->quantity),
+            'address_id' => $address->id,
+            'order_number' => 'JVN-'.strtoupper(Str::random(10)),
+            'subtotal' => $cart_subtotal,
+            'shipping' => $effective_shipping,
+            'discount' => $discount,
+            'total' => $order_total,
             'status' => 'pending',
             'payment_method' => 'COD',
             'payment_status' => 'unpaid',
@@ -326,19 +349,24 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        // 🚀 Create Amazon MCF Order
-        try {
-            $this->amazonService->createMcfOrder($order);
-        } catch (\Exception $e) {
-            // Log the error but don't fail the local order creation
-            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
-        }
+        // // 🚀 Create Amazon MCF Order
+        // try {
+        //     $this->amazonService->createMcfOrder($order);
+        // } catch (\Exception $e) {
+        //     // Log the error but don't fail the local order creation
+        //     Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+        // }
 
-        // 6. Cleanup
-        $cart->items()->delete();
-        $cart->delete();
-
-        return redirect()->route('order-success', $order->order_number);
+        // 6. Return response to triggering AJAX frontend modal
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'customer' => $customer,
+                'address' => $address,
+                'order_id' => $order->id,
+                'order' => $order,
+            ],
+        ]);
     }
 
     public function orderSuccess($orderNumber)

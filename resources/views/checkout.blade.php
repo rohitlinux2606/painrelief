@@ -142,6 +142,79 @@
             </div>
         </div>
     </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModel" tabindex="-1" aria-labelledby="paymentModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="paymentModelLabel">Payment Methods</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    @php $master = \App\Models\WebSetting::first(); @endphp
+                    <ul class="list-group mb-4 mt-2">
+                        <!-- Online Payment Option -->
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center py-3 border-dark rounded mb-2">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('ecom/web/assets/img/payment/upi.png') }}" alt="UPI"
+                                    width="40" height="40" class="me-3 rounded">
+                                <div>
+                                    <strong class="mb-1 d-block h6">Pay Online</strong>
+                                    @if ($master && $master->discount_percentage > 0)
+                                        <span class="text-success small fw-bold">
+                                            <i class="bi bi-lightning-charge-fill"></i> Get
+                                            {{ $master->discount_percentage }}% discount!
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <button id="fire_cashfree" class="btn btn-dark btn-sm px-3 rounded">Pay Now</button>
+                        </li>
+
+                        <!-- Cash on Delivery Option -->
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center py-3 rounded bg-light">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('ecom/web/assets/img/payment/cod.jpg') }}" alt="COD"
+                                    width="40" height="40" class="me-3 rounded">
+                                <div>
+                                    <strong class="mb-1 d-block h6">Cash on Delivery</strong>
+                                    <span class="text-muted small">Pay when you receive</span>
+                                </div>
+                            </div>
+                            <button id="cod_btn" class="btn btn-outline-dark btn-sm px-3 rounded">COD</button>
+                        </li>
+                    </ul>
+
+                    <form action="" hidden method="POST" id="pay_req">
+                        @csrf
+                        <input type="hidden" name="paymentMethod" id="paymentMethod" value="cod">
+                        <input type="hidden" name="order_id" id="order_id" value="">
+                        <input type="hidden" name="order_number" id="order_number" value="">
+                        <input type="hidden" name="amount" id="amount" value="">
+                        <input type="hidden" name="customer_id" id="customer_id" value="">
+                        <input type="hidden" name="name" id="address_name" value="">
+                        <input type="hidden" name="email" id="address_email" value="">
+                        <input type="hidden" name="mobile" id="address_mobile" value="">
+                        <input type="hidden" name="subtotal" id="subtotal" value="">
+                    </form>
+
+                    <div class="text-center mt-2">
+                        <small class="text-muted" style="font-size: 0.75rem;">
+                            <i>By continuing, you agree to our <br>
+                                <a href="{{ route('page.terms') }}" target="_blank" class="text-dark fw-bold">Terms and
+                                    Conditions</a> &
+                                <a href="{{ route('page.privacy') }}" target="_blank" class="text-dark fw-bold">Privacy
+                                    Policy</a>.
+                            </i>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('styles')
@@ -158,9 +231,9 @@
         }
 
         /* .navbar {
-                                    border-bottom: 1px solid var(--border-color);
-                                    padding: 15px 0;
-                                } */
+                                                border-bottom: 1px solid var(--border-color);
+                                                padding: 15px 0;
+                                            } */
 
         .main-wrapper {
             max-width: 1100px;
@@ -415,11 +488,74 @@
                 window.location.href = `{{ url('/cart/delete-item') }}/${itemId}`;
             });
 
-            // Form Submit Loading
-            $('#checkoutForm').on('submit', function() {
+            // Form Submit Loading & AJAX Payment Popup
+            $('#checkoutForm').on('submit', function(e) {
+                e.preventDefault();
                 const btn = $(this).find('.btn-continue');
+                const originalText = btn.text();
                 btn.html('<span class="spinner-border spinner-border-sm"></span> Processing...').prop(
                     'disabled', true);
+
+                let formData = $(this).serialize();
+
+                $.ajax({
+                    url: "{{ route('place-order') }}",
+                    type: "POST",
+                    data: formData,
+                    success: function(response) {
+                        btn.html(originalText).prop('disabled', false);
+
+                        if (response.status === 'success') {
+                            let customer = response.data.customer;
+                            let address = response.data.address;
+                            let order = response.data.order;
+
+                            $('#order_id').val(order.id);
+                            $('#order_number').val(order.order_number);
+                            $('#customer_id').val(customer.id);
+                            $('#address_name').val(address.name);
+                            $('#address_email').val(customer.email);
+                            $('#address_mobile').val(address.phone);
+                            $('#subtotal').val(order.subtotal);
+                            $('#amount').val(order.total);
+
+                            // Show standard Bootstrap Modal
+                            var paymentModal = new bootstrap.Modal(document.getElementById(
+                                'paymentModel'));
+                            paymentModal.show();
+                        } else if (response.status === 'error') {
+                            alert(response.message || "Something went wrong.");
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.html(originalText).prop('disabled', false);
+
+                        // Parse validation errors if 422
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+                            var errorMsg = "Validation failed:\n";
+                            for (var key in errors) {
+                                errorMsg += errors[key][0] + "\n";
+                            }
+                            alert(errorMsg);
+                        } else {
+                            alert("Failed to submit order. Please try again.");
+                        }
+                    }
+                });
+            });
+
+            // Payment method submission handlers
+            $("#cod_btn").click(function() {
+                $("#pay_req").attr('action', "{{ route('shop.payment.cod') }}");
+                $("#paymentMethod").val('cod');
+                $("#pay_req").submit();
+            });
+
+            $("#fire_cashfree").click(function() {
+                $("#pay_req").attr('action', "{{ route('shop.payment.cashfree') }}");
+                $("#paymentMethod").val('cashfree');
+                $("#pay_req").submit();
             });
         });
     </script>

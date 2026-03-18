@@ -111,5 +111,19 @@
                 </li>
             </ul>
         </li>
+
+        <!-- Setting -->
+        <li class="menu-item {{ request()->routeIs('admin.web-setting.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cog"></i>Settings
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('admin.web-setting.index') ? 'active' : '' }}">
+                    <a href="{{ route('admin.web-setting.index') }}" class="menu-link">
+                        Web Settings
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </aside>
