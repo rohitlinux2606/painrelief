@@ -158,8 +158,8 @@
                         <li
                             class="list-group-item d-flex justify-content-between align-items-center py-3 border-dark rounded mb-2">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('ecom/web/assets/img/payment/upi.png') }}" alt="UPI"
-                                    width="40" height="40" class="me-3 rounded">
+                                <img src="{{ asset('cdn/images/upi.webp') }}" alt="UPI" width="40"
+                                    height="40" class="me-3 rounded">
                                 <div>
                                     <strong class="mb-1 d-block h6">Pay Online</strong>
                                     @if ($master && $master->discount_percentage > 0)
@@ -177,8 +177,8 @@
                         <li
                             class="list-group-item d-flex justify-content-between align-items-center py-3 rounded bg-light">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('ecom/web/assets/img/payment/cod.jpg') }}" alt="COD"
-                                    width="40" height="40" class="me-3 rounded">
+                                <img src="{{ asset('cdn/images/cod.webp') }}" alt="COD" width="40"
+                                    height="40" class="me-3 rounded">
                                 <div>
                                     <strong class="mb-1 d-block h6">Cash on Delivery</strong>
                                     <span class="text-muted small">Pay when you receive</span>
@@ -231,9 +231,9 @@
         }
 
         /* .navbar {
-                                                border-bottom: 1px solid var(--border-color);
-                                                padding: 15px 0;
-                                            } */
+                                                        border-bottom: 1px solid var(--border-color);
+                                                        padding: 15px 0;
+                                                    } */
 
         .main-wrapper {
             max-width: 1100px;
