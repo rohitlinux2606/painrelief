@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sanjeevani Ortho Lab – Home of Vatahari Ayurveda')</title>
+    <title>@yield('title', 'Vatahari – Home of Vatahari Ayurveda')</title>
     <meta name="facebook-domain-verification" content="4n5jhw95om6losg50kplq68f3n0axz" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -232,7 +232,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('page.home') }}">SANJEEVANI ORTHO LAB</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari</a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navMenu">
@@ -264,7 +264,7 @@
     @else
         <nav class="navbar navbar-light bg-white border-bottom py-3">
             <div class="container justify-content-center">
-                <a class="navbar-brand" href="{{ route('page.home') }}">SANJEEVANI ORTHO LAB</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari</a>
             </div>
         </nav>
     @endif
@@ -279,7 +279,7 @@
 
                 <!-- Brand -->
                 <div class="col-md-4">
-                    <h4 class="fw-bold">SANJEEVANI ORTHO LAB</h4>
+                    <h4 class="fw-bold">Vatahari</h4>
                     <p class="text-secondary small"> Natural Ortho Care Solutions for Better Life.
                     </p>
                 </div>
@@ -339,20 +339,24 @@
             <div class="row mb-4">
                 <div class="col-12 text-center">
                     <div class="d-flex justify-content-center flex-wrap gap-4">
-                        <a href="{{ route('page.privacy') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Privacy Policy</a>
+                        <a href="{{ route('page.privacy') }}" class="text-white text-decoration-none fw-semibold"
+                            style="letter-spacing: 0.5px;">Privacy Policy</a>
                         <span class="text-secondary d-none d-md-inline">|</span>
-                        <a href="{{ route('page.terms') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Terms and Conditions</a>
+                        <a href="{{ route('page.terms') }}" class="text-white text-decoration-none fw-semibold"
+                            style="letter-spacing: 0.5px;">Terms and Conditions</a>
                         <span class="text-secondary d-none d-md-inline">|</span>
-                        <a href="{{ route('page.refund') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Refund and Cancellation Policy</a>
+                        <a href="{{ route('page.refund') }}" class="text-white text-decoration-none fw-semibold"
+                            style="letter-spacing: 0.5px;">Refund and Cancellation Policy</a>
                         <span class="text-secondary d-none d-md-inline">|</span>
-                        <a href="{{ route('page.return') }}" class="text-white text-decoration-none fw-semibold" style="letter-spacing: 0.5px;">Return Policy</a>
+                        <a href="{{ route('page.return') }}" class="text-white text-decoration-none fw-semibold"
+                            style="letter-spacing: 0.5px;">Return Policy</a>
                     </div>
                 </div>
             </div>
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">
-                    © 2026 Sanjeevani Ortho Lab. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
+                    © 2026 Vatahari. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
                 </p>
             </div>
         </div>
