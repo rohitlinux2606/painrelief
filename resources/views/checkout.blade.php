@@ -231,9 +231,9 @@
         }
 
         /* .navbar {
-                                                        border-bottom: 1px solid var(--border-color);
-                                                        padding: 15px 0;
-                                                    } */
+                                                                                        border-bottom: 1px solid var(--border-color);
+                                                                                        padding: 15px 0;
+                                                                                    } */
 
         .main-wrapper {
             max-width: 1100px;
@@ -519,9 +519,14 @@
                             $('#subtotal').val(order.subtotal);
                             $('#amount').val(order.total);
 
-                            // Show standard Bootstrap Modal
-                            var paymentModal = new bootstrap.Modal(document.getElementById(
-                                'paymentModel'));
+                            // redirect to order success page
+                            let url = "{{ route('order-success', ':orderNumber') }}";
+                            window.location.href = url.replace(':orderNumber', order
+                                .order_number);
+
+                            // // Show standard Bootstrap Modal
+                            // var paymentModal = new bootstrap.Modal(document.getElementById(
+                            //     'paymentModel'));
                             paymentModal.show();
                         } else if (response.status === 'error') {
                             alert(response.message || "Something went wrong.");
