@@ -97,17 +97,17 @@ class PayementController extends Controller
     {
         try {
             Log::info($request->all());
-            Log::info(env('CASHFREE_API_KEY'));
-            Log::info(env('CASHFREE_API_SECRET'));
+            // Log::info(env('CASHFREE_API_KEY'));
+            // Log::info(env('CASHFREE_API_SECRET'));
 
             // Use cached config values to avoid env() lookups in runtime code (config cache safe)
             $apiKey = config('cashfree.api_key');
             $apiSecret = config('cashfree.api_secret');
             $cashfreeApiUrl = rtrim(config('cashfree.api_url'), '/');
 
-            Log::info('Cashfree API Key: ' . $apiKey);
-            Log::info('Cashfree API Secret: ' . $apiSecret);
-            Log::info('Cashfree API URL: ' . $cashfreeApiUrl);
+            // Log::info('Cashfree API Key: ' . $apiKey);
+            // Log::info('Cashfree API Secret: ' . $apiSecret);
+            // Log::info('Cashfree API URL: ' . $cashfreeApiUrl);
 
             $validated = $request->validate([
                 'name' => 'required|min:3',
@@ -126,8 +126,8 @@ class PayementController extends Controller
             // // Use config values (config cache safe) for API endpoint and credentials
             // $url = $cashfreeApiUrl . '/orders';
 
-            // $url = 'https://api.cashfree.com/pg/orders'; // Prodction Mode
-            $url = 'https://sandbox.cashfree.com/pg/orders'; // for devlopement mode
+            $url = 'https://api.cashfree.com/pg/orders'; // Prodction Mode
+            // $url = 'https://sandbox.cashfree.com/pg/orders'; // for devlopement mode
 
             $headers = [
                 'Content-Type' => 'application/json',
