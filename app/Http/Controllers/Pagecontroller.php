@@ -244,7 +244,7 @@ class Pagecontroller extends Controller
 
     public function placeOrder(Request $request)
     {
-        Log::info($request->all());
+        // Log::info($request->all());
 
         // 1. Validation
         $request->validate([
@@ -269,7 +269,7 @@ class Pagecontroller extends Controller
             }
         })->with('items.product')->first();
 
-        Log::info('Cart Status: '.($cart ? 'Found with '.$cart->items->count().' items' : 'Not Found'));
+        // Log::info('Cart Status: '.($cart ? 'Found with '.$cart->items->count().' items' : 'Not Found'));
 
         if (! $cart || $cart->items->count() == 0) {
             return response()->json([
