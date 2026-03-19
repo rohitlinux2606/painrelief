@@ -97,9 +97,17 @@ class PayementController extends Controller
     {
         try {
             Log::info($request->all());
-
             Log::info(env('CASHFREE_API_KEY'));
             Log::info(env('CASHFREE_API_SECRET'));
+
+            // Use cached config values to avoid env() lookups in runtime code (config cache safe)
+            $apiKey = config('cashfree.api_key');
+            $apiSecret = config('cashfree.api_secret');
+            $cashfreeApiUrl = rtrim(config('cashfree.api_url'), '/');
+
+            Log::info('Cashfree API Key: ' . $apiKey);
+            Log::info('Cashfree API Secret: ' . $apiSecret);
+            Log::info('Cashfree API URL: ' . $cashfreeApiUrl);
 
             $validated = $request->validate([
                 'name' => 'required|min:3',
@@ -115,14 +123,17 @@ class PayementController extends Controller
 
             $amount = $order->total;
 
+            // // Use config values (config cache safe) for API endpoint and credentials
+            // $url = $cashfreeApiUrl . '/orders';
+
             // $url = 'https://api.cashfree.com/pg/orders'; // Prodction Mode
             $url = 'https://sandbox.cashfree.com/pg/orders'; // for devlopement mode
 
             $headers = [
                 'Content-Type' => 'application/json',
                 'x-api-version' => '2022-01-01',
-                'x-client-id' => env('CASHFREE_API_KEY'),
-                'x-client-secret' => env('CASHFREE_API_SECRET'),
+                'x-client-id' => $apiKey,
+                'x-client-secret' => $apiSecret,
             ];
 
             $data = [
@@ -139,7 +150,7 @@ class PayementController extends Controller
                 'order_meta' => [
                     // "return_url" => env('APP_URL') . '/order-detail/order_id=' . $request->order_number . '&status=success&payment_method=cash_free&order_number=' . $request->order_id
 
-                    'return_url' => env('APP_URL').'/order-success/'.$request->order_number,
+                    'return_url' => rtrim(config('app.url'), '/') . '/order-success/' . $request->order_number,
                 ],
             ];
 
@@ -249,7 +260,7 @@ class PayementController extends Controller
         $email = $address ? $address->email : $customer->email;
 
         // Sms
-        $message = 'Dear '.$data['name'].', Thank you for your order with Shrivenu Naturals! Your order #'.$data['order_number'].' is confirmed and will be delivered date '.$delivery_date.'. We appreciate your trust in Shrivenu Naturals! Warm regards, Shrivenu Naturals';
+        $message = 'Dear ' . $data['name'] . ', Thank you for your order with Shrivenu Naturals! Your order #' . $data['order_number'] . ' is confirmed and will be delivered date ' . $delivery_date . '. We appreciate your trust in Shrivenu Naturals! Warm regards, Shrivenu Naturals';
         // $result = sendSms($phone, $message);
         // if ($result != 'sent') {
         //     throw new Exception('Failed to send SMS.');

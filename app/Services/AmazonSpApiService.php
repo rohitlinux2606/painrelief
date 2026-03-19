@@ -172,7 +172,7 @@ class AmazonSpApiService
         $customer = $order->customer;
 
         // 1. Prepare Destination Address (split into max 60 chars per line)
-        $fullAddress = trim($address->address_line1.' '.($address->address_line2 ?? ''));
+        $fullAddress = trim($address->address_line1 . ' ' . ($address->address_line2 ?? ''));
         $addressLines = explode("\n", wordwrap($fullAddress, 60, "\n", true));
 
         // Sanitize Phone Number: Remove non-numeric, strip leading zero for India
@@ -182,7 +182,7 @@ class AmazonSpApiService
         }
 
         $destinationAddress = new AmazonAddress(
-            name: $address->name ?? ($customer->first_name.' '.$customer->last_name),
+            name: $address->name ?? ($customer->first_name . ' ' . $customer->last_name),
             addressLine1: $addressLines[0] ?? substr($fullAddress, 0, 60),
             postalCode: $address->postal_code,
             countryCode: $address->country ?? 'IN', // Default to India if not set
@@ -204,7 +204,7 @@ class AmazonSpApiService
                 $fbaInventory[$summary['sellerSku']] = $summary['totalQuantity'] ?? 0;
             }
         } catch (\Exception $e) {
-            Log::warning('Could not fetch FBA inventory for SKUs: '.implode(', ', $skusInOrder).'. Proceeding with caution. Error: '.$e->getMessage());
+            Log::warning('Could not fetch FBA inventory for SKUs: ' . implode(', ', $skusInOrder) . '. Proceeding with caution. Error: ' . $e->getMessage());
         }
 
         $items = [];
@@ -233,7 +233,7 @@ class AmazonSpApiService
         }
 
         if (! empty($skippedItems)) {
-            Log::warning("Skipping MCF for Order #{$order->order_number}: The following SKUs are not FBA-active or have no inventory: ".implode(', ', $skippedItems));
+            Log::warning("Skipping MCF for Order #{$order->order_number}: The following SKUs are not FBA-active or have no inventory: " . implode(', ', $skippedItems));
         }
 
         if (empty($items)) {
@@ -264,7 +264,7 @@ class AmazonSpApiService
             sellerFulfillmentOrderId: $order->order_number,
             displayableOrderId: $order->order_number,
             displayableOrderDate: $order->created_at,
-            displayableOrderComment: 'Order from Website: '.$order->order_number,
+            displayableOrderComment: 'Order from Website: ' . $order->order_number,
             shippingSpeedCategory: 'Standard', // Can be Standard, Expedited, Priority
             destinationAddress: $destinationAddress,
             fulfillmentAction: 'Ship', // Ship or Hold
@@ -289,7 +289,7 @@ class AmazonSpApiService
 
             return $response;
         } catch (\Exception $e) {
-            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage(), [
+            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: " . $e->getMessage(), [
                 'request' => $request,
                 'response' => method_exists($e, 'getResponse') ? $e->getResponse()?->body() : 'N/A',
                 'trace' => $e->getTraceAsString(),
