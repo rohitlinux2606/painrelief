@@ -5,7 +5,9 @@
         <div class="container">
             <div class="hero-content">
                 <span class="hero-badge">Purely Ayurvedic • Natural Relief</span>
-                <h1 class="hero-title">Experience Life Without Joint Pain</h1>
+                {{-- <h1 class="hero-title">Experience Life Without Joint Pain</h1> --}}
+                <h1 class="hero-title">Experience Life With Ayurveda</h1>
+
                 <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted
                     to rejuvenate your joints and restore mobility naturally.</p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
