@@ -474,7 +474,7 @@
                             @endif
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc" onclick="buyNowEvent()">Buy
+                            <a href="{{ $product->external_link }}" class="btn-custom btn-atc" onclick="buyNowEvent('{{ $product->title }}', {{ $product->price }})">Buy
                                 Now</a>
                         </div>
                     </div>

@@ -230,9 +230,9 @@
                     <span class="badge badge-sale">Sale</span>
                 </div>
 
-                <a href="{{ $product->external_link }}" class="btn-add-to-cart" onclick="addToCartEvent()">Add to cart</a>
-
-                <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank" onclick="buyNowEvent()">
+                <a href="{{ $product->external_link }}" class="btn-add-to-cart" onclick="addToCartEvent('{{ $product->title }}', {{ $product->price }})">Add to cart</a>
+ 
+                <a href="{{ $product->external_link }}" class="btn-buy-now" target="_blank" onclick="buyNowEvent('{{ $product->title }}', {{ $product->price }})">
                     <span>BUY NOW</span>
                     <div class="buy-now-subtext">
                         <img src="" alt="" style="height: 12px; filter: brightness(0) invert(1);">

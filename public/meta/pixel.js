@@ -1,17 +1,17 @@
 
-function addToCartEvent() {
+function addToCartEvent(productName, value) {
     fbq('track', 'AddToCart', {
-        content_name: 'Vatahari Vati',
-        content_category: 'Ayurvedic Product',
-        value: 1,
+        content_name: productName || 'Vatahari Vati',
+        // content_category: 'Ayurvedic Product',
+        value: value || 0,
         currency: 'INR'
     });
 }
 
-function buyNowEvent() {
+function buyNowEvent(productName, value) {
     fbq('track', 'InitiateCheckout', {
-        content_name: 'Vatahari Vati',
-        value: 1,
+        content_name: productName || 'Vatahari Vati',
+        value: value || 0,
         currency: 'INR'
     });
 }

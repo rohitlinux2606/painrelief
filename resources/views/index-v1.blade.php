@@ -415,9 +415,9 @@
                         </div>
                         <div class="d-grid gap-2 mt-3">
                             <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
-                                onclick="addToCartEvent()">Add & Checkout</a>
+                                onclick="addToCartEvent('{{ $product->title }}', {{ $product->price }})">Add & Checkout</a>
                             <a href="{{ $product->external_link }}" target="_blank" class="btn-custom btn-buy"
-                                onclick="buyNowEvent()">Buy
+                                onclick="buyNowEvent('{{ $product->title }}', {{ $product->price }})">Buy
                                 Now</a>
                         </div>
                     </div>

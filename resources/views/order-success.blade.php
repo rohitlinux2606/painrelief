@@ -55,9 +55,7 @@
             display: inline-block;
         }
     </style>
-</head>
-
-<body>
+@section('content')
 
     <div class="container">
         <div class="success-card">
@@ -108,9 +106,17 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script>
-        fbq('track', 'Lead');
+        fbq('track', 'Purchase', {
+            value: {{ $order->total }},
+            currency: 'INR',
+            num_items: {{ $order->items->sum('quantity') }},
+            content_type: 'product',
+            content_name: 'Order Purchase'
+        });
     </script>
 
     <script>
@@ -122,6 +128,4 @@
         }
     </script>
     <script src="{{ asset('meta/pixel.js') }}"></script>
-</body>
-
-</html>
+@endpush
