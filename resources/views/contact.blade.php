@@ -50,8 +50,8 @@
                                 <div class="me-3 text-primary fs-4"><i class="bi bi-envelope"></i></div>
                                 <div>
                                     <h6 class="fw-bold mb-1">Email Us</h6>
-                                    <a href="mailto:info@vatahari.in"
-                                        class="text-decoration-none text-muted">info@vatahari.in</a>
+                                    <a href="mailto:orthosanjeevanilab@gmail.com"
+                                        class="text-decoration-none text-muted">orthosanjeevanilab@gmail.com</a>
                                 </div>
                             </div>
 

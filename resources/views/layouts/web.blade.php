@@ -315,8 +315,8 @@
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto:info@vatahari.in" class="text-white text-decoration-none">
-                            info@vatahari.in
+                        <a href="mailto:orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
+                            orthosanjeevanilab@gmail.com
                         </a>
                     </p>
 
