@@ -280,7 +280,7 @@
                 <!-- Brand -->
                 <div class="col-md-4">
                     <h4 class="fw-bold">Vatahari</h4>
-                    <p class="text-secondary small"> Natural Ortho Care Solutions for Better Life.
+                    <p class="text-secondary small"> Natural Wellness Solutions for Better Life.
                     </p>
                 </div>
 

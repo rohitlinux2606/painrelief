@@ -13,15 +13,15 @@
                     <div class="card-body p-4 p-md-5">
                         <p class="lead text-muted mb-4">
                             Welcome to <strong>Sanjeevani Ortho Lab</strong>, a premier organization dedicated to holistic
-                            orthopaedic care and traditional Ayurvedic solutions. Based in the heart of <strong>Indore,
+                            joint wellness and traditional Ayurvedic solutions. Based in the heart of <strong>Indore,
                                 Madhya Pradesh</strong>, we are committed to bringing the ancient wisdom of Ayurveda to
-                            modern life, ensuring pain-free living for our valued customers.
+                            modern life, ensuring active living for our valued customers.
                         </p>
 
                         <h3 class="fw-bold mt-5 mb-3">Our Mission</h3>
                         <p>
-                            At Sanjeevani Ortho Lab, our mission is to provide natural, effective, and safe remedies for
-                            joint pain, arthritis, and muscular discomfort. We believe in the power of nature to heal and
+                            At Sanjeevani Ortho Lab, our mission is to provide natural, premium, and safe formulations for
+                            joint comfort and muscular support. We believe in the power of nature to assist and
                             restore the body's balance without side effects.
                         </p>
 
@@ -29,7 +29,7 @@
                         <p>
                             We are proud to be the parent organization and exclusive manufacturer of the
                             <strong>Vatahari</strong> product range. Vatahari is our flagship brand, meticulously formulated
-                            using time-tested Ayurvedic herbs to provide relief from chronic joint pain and inflammation.
+                            using time-tested Ayurvedic herbs to provide support for joint comfort and rejuvenation.
                         </p>
                         <p>
                             Under the expert guidance of Sanjeevani Ortho Lab, every Vatahari product undergoes rigorous

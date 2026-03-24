@@ -20,7 +20,7 @@
                             <div class="d-flex mb-3">
                                 <div class="me-3 text-success fs-4"><i class="bi bi-building"></i></div>
                                 <div>
-                                    <h6 class="fw-bold mb-1">Legal Business Name</h6>
+                                    <h6 class="fw-bold mb-1">Business Information</h6>
                                     <p class="mb-0 text-muted">Sanjeevani Ortho Lab</p>
                                 </div>
                             </div>

@@ -27,8 +27,8 @@
                         </ul>
 
                         <h3 class="fw-bold mt-5 mb-3">3. Exempt Items</h3>
-                        <p>Standard grocery items, personalized items, or used health supplements cannot be returned due to
-                            hygiene and safety protocols.</p>
+                        <p>Standard items, personalized items, or used wellness supplements cannot be returned due to
+                            wellness and safety protocols.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">4. Return Shipping</h3>
                         <p>If the return is due to our error (damaged or wrong product), we will arrange for a pickup or

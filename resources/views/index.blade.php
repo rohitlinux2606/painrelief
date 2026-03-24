@@ -4,12 +4,11 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <span class="hero-badge">Purely Ayurvedic • Natural Relief</span>
-                {{-- <h1 class="hero-title">Experience Life Without Joint Pain</h1> --}}
+                <span class="hero-badge">Purely Ayurvedic • Natural Wellness</span>
                 <h1 class="hero-title">Experience Life With Ayurveda</h1>
 
                 <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted
-                    to rejuvenate your joints and restore mobility naturally.</p>
+                    to support joint comfort and restore mobility naturally.</p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="#products" class="btn-premium btn-primary-premium text-decoration-none">Shop Products</a>
                     <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn
@@ -18,7 +17,7 @@
             </div>
         </div>
         <div class="hero-image-wrapper d-none d-lg-block">
-            <img src="{{ asset('banner/hero-banner.png') }}" alt="Natural Healing">
+            <img src="{{ asset('banner/hero-banner.png') }}" alt="Natural Wellness">
         </div>
     </section>
 
@@ -56,8 +55,8 @@
                     <div class="trust-item">
                         <div class="trust-icon"><i class="bi bi-patch-check"></i></div>
                         <div class="trust-text">
-                            <h5>Certified Care</h5>
-                            <p>Expert formulated</p>
+                            <h5>Quality Assured</h5>
+                            <p>Traditional formulation</p>
                         </div>
                     </div>
                 </div>
@@ -72,8 +71,8 @@
         </div>
 
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold mb-3">Featured Solutions</h2>
-            <p class="text-muted">Explore our most effective treatments for permanent relief</p>
+            <h2 class="display-5 fw-bold mb-3">Featured Products</h2>
+            <p class="text-muted">Explore our premium range for daily comfort</p>
         </div>
 
         <div class="row g-4">
@@ -167,7 +166,7 @@
             <div class="container">
                 <div class="text-center mb-5">
                     <h2 class="display-6 fw-bold">Shop by Shorts</h2>
-                    <p class="text-muted">Real results, real transformations</p>
+                    <p class="text-muted">Real experiences, real stories</p>
                 </div>
 
                 <div class="row row-cols-2 row-cols-lg-5 g-3 g-lg-4">
@@ -205,7 +204,7 @@
         <div class="container text-center">
             <div class="mb-5">
                 <h2 class="display-6 fw-bold">Happy Customers</h2>
-                <p class="text-muted">Join thousands who found relief with our Ayurvedic care</p>
+                <p class="text-muted">Join thousands who enjoy our Ayurvedic lifestyle</p>
             </div>
 
             <div class="swiper testimonial-swiper pb-5">
@@ -214,8 +213,8 @@
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
                             <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My
-                                knee pain has significantly reduced, and I can finally walk without support. Truly
-                                life-changing!"</p>
+                                daily comfort has significantly improved, and I feel much more active. Truly
+                                a great lifestyle choice!"</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -229,7 +228,7 @@
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
                             <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart
-                                Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
+                                Combo 2 and it's much more supportive than expectations. No side effects at all."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -242,9 +241,10 @@
                     <div class="swiper-slide">
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
-                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil
-                                is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
-                                treatments."</p>
+                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The wellness
+                                oil
+                                is very soothing. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
+                                wellness."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -259,8 +259,8 @@
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
                             <p class="fs-5 mb-4 italic text-secondary">"I've been using Vatahari Vati for 3 months now. My
-                                knee pain has significantly reduced, and I can finally walk without support. Truly
-                                life-changing!"</p>
+                                daily comfort has significantly improved, and I feel much more active. Truly
+                                a great lifestyle choice!"</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -274,7 +274,7 @@
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
                             <p class="fs-5 mb-4 italic text-secondary">"The combo packs are great value. I bought the Smart
-                                Combo 2 and it's much more effective than regular painkillers. No side effects at all."</p>
+                                Combo 2 and it's much more supportive than expectations. No side effects at all."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">
@@ -287,9 +287,10 @@
                     <div class="swiper-slide">
                         <div class="testimonial-card mx-auto" style="max-width: 700px;">
                             <i class="bi bi-quote quote-icon mb-4 d-block"></i>
-                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The ortho oil
-                                is very soothing for back pain. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
-                                treatments."</p>
+                            <p class="fs-5 mb-4 italic text-secondary">"Fast delivery and genuine products. The wellness
+                                oil
+                                is very soothing. Highly recommend Sanjeevani Ortho Lab for Ayurvedic
+                                wellness."</p>
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="bg-light rounded-circle p-2 me-3"><i class="bi bi-person fs-4"></i></div>
                                 <div class="text-start">

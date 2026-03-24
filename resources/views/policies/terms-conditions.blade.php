@@ -22,8 +22,9 @@
 
                         <h3 class="fw-bold mt-5 mb-3">2. Product Information</h3>
                         <p>We strive to provide accurate information about our Ayurvedic products. However, the information
-                            on this website is for general purposes only and should not replace professional medical advice.
-                            Always consult a healthcare professional before starting any new supplement.</p>
+                            on this website is for general purposes only and should not replace professional wellness
+                            guidance.
+                            Always consult a wellness consultant before starting any new supplement.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">3. Orders and Payment</h3>
                         <p>By placing an order, you agree to provide current, complete, and accurate purchase and account
@@ -43,8 +44,8 @@
 
                         <h3 class="fw-bold mt-5 mb-3">7. Governing Law</h3>
                         <p>These terms are governed by and construed in accordance with the laws of India. Any disputes
-                            relating to these terms shall be subject to the exclusive jurisdiction of the courts in Indore,
-                            Madhya Pradesh.</p>
+                            relating to these terms shall be subject to the exclusive jurisdiction of the courts in Raipur,
+                            Chhattisgarh.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">8. Changes to Terms</h3>
                         <p>We reserve the right to update or modify these Terms and Conditions at any time without prior

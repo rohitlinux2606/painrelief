@@ -12,15 +12,20 @@
                         <p class="text-muted mb-4">Last Updated: {{ date('F d, Y') }}</p>
 
                         <p>At <strong>Sanjeevani Ortho Lab</strong>, we take pride in the quality of our Ayurvedic products.
-                            If you are not entirely satisfied with your purchase, or if you need to cancel your order, we're here to help.</p>
+                            If you are not entirely satisfied with your purchase, or if you need to cancel your order, we're
+                            here to help.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">1. Order Cancellation</h3>
                         <p>You may request a cancellation of your order under the following conditions:</p>
                         <ul>
-                            <li><strong>Before Dispatch:</strong> You can cancel your order anytime before it has been dispatched from our facility. A full refund will be initiated immediately.</li>
-                            <li><strong>After Dispatch:</strong> Once an order is handed over to our shipping partner, it cannot be canceled. In such cases, please refer to our Return Policy.</li>
+                            <li><strong>Before Dispatch:</strong> You can cancel your order anytime before it has been
+                                dispatched from our facility. A full refund will be initiated immediately.</li>
+                            <li><strong>After Dispatch:</strong> Once an order is handed over to our shipping partner, it
+                                cannot be canceled. In such cases, please refer to our Return Policy.</li>
                         </ul>
-                        <p>To request a cancellation, please email us immediately at <a href="mailto:orthosanjeevanilab@gmail.com">orthosanjeevanilab@gmail.com</a> with your Order ID.</p>
+                        <p>To request a cancellation, please email us immediately at <a
+                                href="mailto:orthosanjeevanilab@gmail.com">orthosanjeevanilab@gmail.com</a> with your
+                            Order ID.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">2. Eligibility for Refunds</h3>
                         <p>Refunds for returned products are only processed under the following conditions:</p>
@@ -32,17 +37,20 @@
 
                         <h3 class="fw-bold mt-5 mb-3">3. Refund Process</h3>
                         <p>To initiate a refund for a return, please contact us at <a
-                                href="mailto:orthosanjeevanilab@gmail.com">orthosanjeevanilab@gmail.com</a> within 48 hours
+                                href="mailto:orthosanjeevanilab@gmail.com">orthosanjeevanilab@gmail.com</a> within 48
+                            hours
                             of receiving your order. You will be required to provide proof of damage or error (e.g.,
                             photographs).</p>
 
                         <h3 class="fw-bold mt-5 mb-3">4. Approval of Refunds</h3>
-                        <p>Once your return/refund request is received and inspected (or your cancellation is confirmed), we will notify you of the approval or rejection. If approved, your refund will be processed, and a credit will automatically be
+                        <p>Once your return/refund request is received and inspected (or your cancellation is confirmed), we
+                            will notify you of the approval or rejection. If approved, your refund will be processed, and a
+                            credit will automatically be
                             applied to your original method of payment within 7–10 business days.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">5. Non-Refundable Items</h3>
                         <p>Please note that used products or products with broken seals are not eligible for refunds due to
-                            health and safety reasons.</p>
+                            wellness and safety reasons.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">6. Late or Missing Refunds</h3>
                         <p>If you haven't received a refund yet, first check your bank account again. Then contact your

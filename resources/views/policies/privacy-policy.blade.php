@@ -15,8 +15,9 @@
                             <strong>Vatahari</strong> (“Company,” “we,” “our,” or “us”), we value your trust and are
                             committed to protecting your privacy. This Privacy Policy explains how we collect, use, and
                             safeguard your personal information when you visit our website <a
-                                href="https://vatahari.com">vatahari.com</a> (“Website”) or purchase our Ayurvedic health
-                            supplements (“Products”).</p>
+                                href="https://vatahari.com">vatahari.com</a> (“Website”) or purchase our Ayurvedic wellness
+                            formulations (“Products”).
+                        </p>
 
                         <p>By accessing our Website or using our Products, you agree to the terms of this Privacy Policy.
                         </p>
@@ -28,8 +29,8 @@
                                 payment information when you make a purchase or register with us.</li>
                             <li><strong>Non-Personal Information:</strong> Browser type, device information, IP address,
                                 cookies, and usage data for analytics and improving user experience.</li>
-                            <li><strong>Health-Related Information:</strong> Only if voluntarily provided by you (e.g.,
-                                during product inquiries or consultations). We do not collect sensitive medical data unless
+                            <li><strong>Wellness-Related Information:</strong> Only if voluntarily provided by you (e.g.,
+                                during product inquiries or guidance). We do not collect personal wellness data unless
                                 you share it with us.</li>
                         </ul>
 

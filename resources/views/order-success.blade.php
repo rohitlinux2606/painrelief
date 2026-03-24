@@ -140,8 +140,8 @@
             </div>
 
             <div class="whatsapp-section">
-                <h5 class="fw-bold mb-2">Join Our Health Community & get Expert Advice! 🌿</h5>
-                <p class="small text-muted mb-4">Connect with 500+ members, get daily health tips, and exclusive offers.
+                <h5 class="fw-bold mb-2">Join Our Wellness Community & get Usage Support! 🌿</h5>
+                <p class="small text-muted mb-4">Connect with 500+ members, get daily wellness tips, and exclusive offers.
                 </p>
 
                 <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp"
@@ -151,7 +151,7 @@
 
                 <div class="mt-3">
                     <small class="text-muted italic" style="font-size: 0.75rem;">*Private group, no spam
-                        guaranteed.</small>
+                        assured.</small>
                 </div>
             </div>
 

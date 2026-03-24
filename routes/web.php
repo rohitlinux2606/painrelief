@@ -84,4 +84,4 @@ Route::get('/seed-data', function () {
 })->name('seed-data');
 
 // add admin route file
-require __DIR__.'/admin.php';
+require __DIR__ . '/admin.php';
