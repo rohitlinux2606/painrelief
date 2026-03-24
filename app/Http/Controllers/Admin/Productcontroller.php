@@ -99,6 +99,7 @@ class Productcontroller extends Controller
                 'compare_at_price'  => $request->compare_at_price,
                 'cost_per_item'     => $request->cost_per_item,
                 'sku'               => $request->sku,
+                'amazon_sku'        => $request->sku,
                 'barcode'           => $request->barcode,
                 'stock_quantity'    => $request->stock_quantity ?? 0,
                 'track_quantity'    => $request->has('track_quantity'), // Checkbox handling
@@ -191,6 +192,8 @@ class Productcontroller extends Controller
                 // नई इमेज अपलोड करें
                 $data['thumbnail'] = uploadFile($request->file('thumbnail'), 'uploads/');
             }
+
+            $data['amazon_sku'] = $request->sku;
 
             // 3. डेटा अपडेट करें
             $product->update($data);

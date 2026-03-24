@@ -160,7 +160,7 @@ class Pagecontroller extends Controller
         }
 
         $cart = Cart::with('items')->find($item->cart_id);
-        $newSubtotal = $cart->items->sum(fn($i) => $i->price * $i->quantity);
+        $newSubtotal = $cart->items->sum(fn ($i) => $i->price * $i->quantity);
 
         return response()->json([
             'status' => 'success',
@@ -303,7 +303,7 @@ class Pagecontroller extends Controller
         $address = Address::create([
             'customer_id' => $customer->id,
             'type' => 'shipping',
-            'name' => $request->first_name . ' ' . $request->last_name,
+            'name' => $request->first_name.' '.$request->last_name,
             'phone' => $request->phone,
             'address_line1' => $request->address,
             'city' => $request->city,
@@ -318,7 +318,7 @@ class Pagecontroller extends Controller
         $shipping_charge_rate = $master->shipping_charge ?? 0;
         $free_shipping_amount = $master->free_shipping_amount ?? 0;
 
-        $cart_subtotal = $cart->items->sum(fn($item) => $item->price * $item->quantity);
+        $cart_subtotal = $cart->items->sum(fn ($item) => $item->price * $item->quantity);
         $effective_shipping = ($cart_subtotal < $free_shipping_amount) ? $shipping_charge_rate : 0;
         $discount = ($cart_subtotal * $discount_percentage) / 100;
         $order_total = round($cart_subtotal + $effective_shipping - $discount);
@@ -327,7 +327,7 @@ class Pagecontroller extends Controller
         $order = Order::create([
             'customer_id' => $customer->id,
             'address_id' => $address->id,
-            'order_number' => 'JVN-' . strtoupper(Str::random(10)),
+            'order_number' => 'JVN-'.strtoupper(Str::random(10)),
             'subtotal' => $cart_subtotal,
             'shipping' => $effective_shipping,
             'discount' => $discount,
@@ -349,13 +349,13 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        // // 🚀 Create Amazon MCF Order
-        // try {
-        //     $this->amazonService->createMcfOrder($order);
-        // } catch (\Exception $e) {
-        //     // Log the error but don't fail the local order creation
-        //     Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
-        // }
+        // 🚀 Create Amazon MCF Order
+        try {
+            $this->amazonService->createMcfOrder($order);
+        } catch (\Exception $e) {
+            // Log the error but don't fail the local order creation
+            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+        }
 
         // 6. Return response to triggering AJAX frontend modal
         return response()->json([
