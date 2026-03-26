@@ -172,7 +172,8 @@ class AmazonSpApiService
         $customer = $order->customer;
 
         // 1. Prepare Destination Address (split into max 60 chars per line)
-        $fullAddress = trim($address->address_line1.' '.($address->address_line2 ?? ''));
+        // Ensure we don't duplicate state/city in address lines if they are already in dedicated fields
+        $fullAddress = trim($address->address_line1);
         $addressLines = explode("\n", wordwrap($fullAddress, 60, "\n", true));
 
         // Sanitize Phone Number: Remove non-numeric, strip leading zero for India
@@ -182,15 +183,15 @@ class AmazonSpApiService
         }
 
         $destinationAddress = new AmazonAddress(
-            name: $address->name ?? ($customer->first_name.' '.$customer->last_name),
+            name: substr(trim($address->name ?? ($customer->first_name.' '.$customer->last_name)), 0, 50),
             addressLine1: $addressLines[0] ?? substr($fullAddress, 0, 60),
             postalCode: $address->postal_code,
-            countryCode: $address->country ?? 'IN', // Default to India if not set
+            countryCode: $address->country ?? 'IN',
             addressLine2: $addressLines[1] ?? null,
             addressLine3: $addressLines[2] ?? null,
             city: $address->city,
             stateOrRegion: $address->state,
-            phone: $phone,
+            phone: substr($phone, -10), // Ensure exactly 10 digits for India
         );
 
         // 2. Prepare Items & Check FBA Inventory
@@ -211,24 +212,55 @@ class AmazonSpApiService
         $items = [];
         $skippedItems = [];
         $isCodOrder = ($order->payment_method === 'COD');
-        Log::info('Checking FBA inventory for SKUs in Order #'.$order->order_number.': '.$isCodOrder);
 
-        foreach ($order->items as $item) {
-            $product = $item->product;
+        // 2b. COD Collection Logic (Distribution of order->total across items)
+        $totalItemsToCollect = 0;
+        if ($isCodOrder) {
+            $totalItemPriceSum = $order->items->sum(fn ($i) => $i->price * $i->quantity);
+            $orderTotal = (float) $order->total;
+            $runningTotal = 0;
 
-            // Only add items that have an Amazon SKU and ARE in FBA
-            if ($product && $product->amazon_sku) {
-                if (isset($fbaInventory[$product->amazon_sku])) {
+            foreach ($order->items as $index => $item) {
+                $product = $item->product;
+                if ($product && $product->amazon_sku && isset($fbaInventory[$product->amazon_sku])) {
+                    // For the last item, adjust to handle rounding and ensure sum == orderTotal
+                    if ($index === $order->items->count() - 1) {
+                        $itemTotalCollection = $orderTotal - $runningTotal;
+                    } else {
+                        // Weight based distribution
+                        $itemTotalCollection = ($totalItemPriceSum > 0)
+                            ? ($item->price * $item->quantity / $totalItemPriceSum) * $orderTotal
+                            : ($orderTotal / $order->items->count());
+                        $itemTotalCollection = round($itemTotalCollection, 2);
+                        $runningTotal += $itemTotalCollection;
+                    }
+
+                    $perUnitValue = round($itemTotalCollection / $item->quantity, 2);
+
                     $items[] = new CreateFulfillmentOrderItem(
                         sellerSku: $product->amazon_sku,
                         sellerFulfillmentOrderItemId: (string) $item->id,
                         quantity: (int) $item->quantity,
-                        perUnitDeclaredValue: $isCodOrder ? new Money(
+                        perUnitDeclaredValue: new Money(
                             currencyCode: 'INR',
-                            value: (string) number_format((float) $item->price, 2, '.', '')
-                        ) : null,
+                            value: number_format($perUnitValue, 2, '.', '')
+                        ),
                     );
-                } else {
+                } elseif ($product && $product->amazon_sku) {
+                    $skippedItems[] = $product->amazon_sku;
+                }
+            }
+        } else {
+            // Prepaid Orders - Simple items
+            foreach ($order->items as $item) {
+                $product = $item->product;
+                if ($product && $product->amazon_sku && isset($fbaInventory[$product->amazon_sku])) {
+                    $items[] = new CreateFulfillmentOrderItem(
+                        sellerSku: $product->amazon_sku,
+                        sellerFulfillmentOrderItemId: (string) $item->id,
+                        quantity: (int) $item->quantity,
+                    );
+                } elseif ($product && $product->amazon_sku) {
                     $skippedItems[] = $product->amazon_sku;
                 }
             }
@@ -244,20 +276,53 @@ class AmazonSpApiService
             return null;
         }
 
-        // 3. Prepare Payment Information and COD Settings
-        $paymentInformation = [];
-        $codSettings = null;
-
-        if ($isCodOrder) {
-            $paymentInformation[] = new PaymentInformation(
-                paymentTransactionId: $order->order_number,
-                paymentMode: 'COD', // Required value for India COD
-                paymentDate: $order->created_at,
+        // 2c. Get Fulfillment Preview to determine available speed and SLA
+        $shippingSpeed = 'Standard'; // Priority, Standard, Expedited
+        try {
+            $previewRequest = new \SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\GetFulfillmentPreviewRequest(
+                address: $destinationAddress,
+                items: array_map(fn ($i) => new \SellingPartnerApi\Seller\FBAOutboundV20200701\Dto\GetFulfillmentPreviewItem(
+                    sellerSku: $i->sellerSku,
+                    sellerFulfillmentOrderItemId: $i->sellerFulfillmentOrderItemId,
+                    quantity: $i->quantity
+                ), $items),
+                marketplaceId: $this->config['marketplace_id'],
+                includeCodFulfillmentPreview: $isCodOrder
             );
 
+            $previewResponse = $this->client->fbaOutboundV20200701()->getFulfillmentPreview($previewRequest);
+            if ($previewResponse->successful()) {
+                $previews = $previewResponse->dto()->fulfillmentPreviews ?? [];
+                if (! empty($previews)) {
+                    // Pick the first available speed that has valid fulfillment options
+                    $shippingSpeed = $previews[0]->shippingSpeedCategory;
+                    Log::info("Amazon MCF Preview Success. Selected Speed: {$shippingSpeed}");
+                } else {
+                    Log::warning("Amazon MCF Preview returned no fulfillment options for Order #{$order->order_number}. SLA might not be available.");
+                }
+            } else {
+                Log::warning("Amazon MCF Preview API call failed for Order #{$order->order_number}: ".$previewResponse->body());
+            }
+        } catch (\Exception $e) {
+            Log::warning('Amazon MCF Preview Error: '.$e->getMessage());
+        }
+
+        // 3. Prepare Payment Information and COD Settings
+        $paymentInformation = null;
+        if ($isCodOrder) {
+            $paymentInformation = [
+                new PaymentInformation(
+                    paymentTransactionId: $order->order_number,
+                    paymentMode: 'COD',
+                    paymentDate: $order->created_at->startOfSecond(),
+                ),
+            ];
+        }
+
+        $codSettings = null;
+        if ($isCodOrder) {
             $codSettings = new CodSettings(
                 isCodRequired: true,
-                // Note: codCharge and other fields must be null for India
             );
         }
 
@@ -265,16 +330,16 @@ class AmazonSpApiService
         $request = new CreateFulfillmentOrderRequest(
             sellerFulfillmentOrderId: $order->order_number,
             displayableOrderId: $order->order_number,
-            displayableOrderDate: $order->created_at,
+            displayableOrderDate: $order->created_at->startOfSecond(),
             displayableOrderComment: 'Order from Website: '.$order->order_number,
-            shippingSpeedCategory: 'Standard', // Can be Standard, Expedited, Priority
+            shippingSpeedCategory: $shippingSpeed,
             destinationAddress: $destinationAddress,
-            fulfillmentAction: 'Ship', // Ship or Hold
-            fulfillmentPolicy: 'FillOrKill', // Common default
+            fulfillmentAction: 'Ship',
+            fulfillmentPolicy: 'FillOrKill',
             items: $items,
             marketplaceId: $this->config['marketplace_id'],
             codSettings: $codSettings,
-            paymentInformation: ! empty($paymentInformation) ? $paymentInformation : null,
+            paymentInformation: $paymentInformation,
         );
 
         Log::info('Creating Amazon MCF Order:', [
@@ -331,5 +396,25 @@ class AmazonSpApiService
     public function listFulfillmentOrders(?\DateTimeInterface $queryStartDate = null, ?string $nextToken = null)
     {
         return $this->client->fbaOutboundV20200701()->listAllFulfillmentOrders($queryStartDate, $nextToken);
+    }
+
+    /**
+     * Cancel Fulfillment Order as a buyer is IsBuyerRequestedCancel flag is true
+     */
+    public function cancelFulfillmentOrder(string $sellerFulfillmentOrderId)
+    {
+        try {
+            $response = $this->client->fbaOutboundV20200701()->cancelFulfillmentOrder($sellerFulfillmentOrderId);
+            Log::info("Amazon MCF Order Cancelled Successfully for Order #{$sellerFulfillmentOrderId}");
+
+            return $response;
+        } catch (\Exception $e) {
+            Log::error("Amazon MCF Order Cancellation Failed for Order #{$sellerFulfillmentOrderId}: ".$e->getMessage(), [
+                'request' => $sellerFulfillmentOrderId,
+                'response' => method_exists($e, 'getResponse') ? $e->getResponse()?->body() : 'N/A',
+                'trace' => $e->getTraceAsString(),
+            ]);
+            throw $e;
+        }
     }
 }
