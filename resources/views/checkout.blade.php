@@ -87,13 +87,19 @@
                             data-qty="{{ $item->quantity }}">
 
                             <div class="product-img-wrapper">
-                                <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
-                                    style="object-fit: cover;">
+                                @if ($item->product)
+                                    <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
+                                        style="object-fit: cover;">
+                                @else
+                                    <div class="w-100 h-100 rounded bg-light d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                @endif
                                 <span class="img-badge qty-badge-{{ $item->id }}">{{ $item->quantity }}</span>
                             </div>
 
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="small mb-1 fw-bold">{{ $item->product->title }}</h6>
+                                <h6 class="small mb-1 fw-bold">{{ $item->product ? $item->product->title : 'Product Unavailable' }}</h6>
                                 <small class="text-muted d-block mb-2">Unit Price: Rs.
                                     {{ number_format($item->price, 2) }}</small>
 
@@ -231,9 +237,9 @@
         }
 
         /* .navbar {
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 0;
-        } */
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px 0;
+            } */
 
         .main-wrapper {
             max-width: 1100px;

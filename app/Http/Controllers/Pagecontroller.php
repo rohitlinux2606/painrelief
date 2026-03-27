@@ -185,6 +185,17 @@ class Pagecontroller extends Controller
             ->with('items.product')
             ->first();
 
+        if ($cart) {
+            $filteredItems = $cart->items->filter(function ($item) {
+                if (! $item->product) {
+                    $item->delete(); // Cleanup orphaned item
+                    return false;
+                }
+                return true;
+            });
+            $cart->setRelation('items', $filteredItems);
+        }
+
         return view('cart', compact('cart'));
     }
 
@@ -234,6 +245,17 @@ class Pagecontroller extends Controller
         })
             ->with('items.product')
             ->first();
+
+        if ($cart) {
+            $filteredItems = $cart->items->filter(function ($item) {
+                if (! $item->product) {
+                    $item->delete(); // Cleanup orphaned item
+                    return false;
+                }
+                return true;
+            });
+            $cart->setRelation('items', $filteredItems);
+        }
 
         if (! $cart || $cart->items->count() == 0) {
             return redirect()->route('show-cart')->with('error', 'Your cart is empty');

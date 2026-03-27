@@ -13,10 +13,17 @@
                         @foreach ($cart->items as $item)
                             <div class="row align-items-center g-3 mb-4 cart-item" data-item-id="{{ $item->id }}">
                                 <div class="col-auto">
-                                    <img src="{{ asset($item->product->thumbnail) }}" class="cart-item-img" alt="Product">
+                                @if ($item->product)
+                                    <img src="{{ asset($item->product->thumbnail) }}" class="cart-item-img"
+                                        alt="Product">
+                                @else
+                                    <div class="cart-item-img bg-light d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                @endif
                                 </div>
                                 <div class="col">
-                                    <h6 class="fw-bold mb-1">{{ $item->product->title }}</h6>
+                                    <h6 class="fw-bold mb-1">{{ $item->product ? $item->product->title : 'Product Unavailable' }}</h6>
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="d-flex align-items-center border rounded px-1">
                                             <button class="qty-btn"
