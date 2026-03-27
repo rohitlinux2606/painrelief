@@ -19,6 +19,7 @@ Route::post('/cart/update', [App\Http\Controllers\Pagecontroller::class, 'update
 Route::get('/cart/delete-item/{id}', [App\Http\Controllers\Pagecontroller::class, 'removeItem'])->name('cart.delete-item');
 Route::get('/checkout', [App\Http\Controllers\Pagecontroller::class, 'checkout'])->name('checkout');
 Route::post('/place-order', [App\Http\Controllers\Pagecontroller::class, 'placeOrder'])->name('place-order');
+Route::post('/cancel-order', [App\Http\Controllers\Pagecontroller::class, 'cancelOrder'])->name('cancel-order');
 Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller::class, 'orderSuccess'])->name('order-success');
 
 Route::post('cod', [App\Http\Controllers\Admin\PayementController::class, 'cod'])->name('shop.payment.cod');

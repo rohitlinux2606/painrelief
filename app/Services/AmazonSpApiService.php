@@ -399,20 +399,20 @@ class AmazonSpApiService
     }
 
     /**
-     * Cancel Fulfillment Order as a buyer is IsBuyerRequestedCancel flag is true
+     * Cancel Fulfillment Order.
+     * Note: MCF API does not have a specific 'BuyerRequested' flag, but this is triggered by buyer action.
      */
     public function cancelFulfillmentOrder(string $sellerFulfillmentOrderId)
     {
         try {
             $response = $this->client->fbaOutboundV20200701()->cancelFulfillmentOrder($sellerFulfillmentOrderId);
-            Log::info("Amazon MCF Order Cancelled Successfully for Order #{$sellerFulfillmentOrderId}");
+            Log::info("Amazon MCF Order Cancelled Successfully (Buyer Requested) for Order #{$sellerFulfillmentOrderId}");
 
             return $response;
         } catch (\Exception $e) {
             Log::error("Amazon MCF Order Cancellation Failed for Order #{$sellerFulfillmentOrderId}: ".$e->getMessage(), [
                 'request' => $sellerFulfillmentOrderId,
                 'response' => method_exists($e, 'getResponse') ? $e->getResponse()?->body() : 'N/A',
-                'trace' => $e->getTraceAsString(),
             ]);
             throw $e;
         }

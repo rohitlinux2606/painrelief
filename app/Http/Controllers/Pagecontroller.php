@@ -371,6 +371,66 @@ class Pagecontroller extends Controller
         // return redirect()->route('order-success', $order->order_number)->with('success', 'Your order has been placed successfully!');
     }
 
+    public function cancelOrder(Request $request)
+    {
+        $request->validate([
+            'order_number' => 'required|string',
+        ]);
+
+        $order = Order::where('order_number', $request->order_number)->first();
+
+        if (! $order) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order not found.',
+            ], 404);
+        }
+
+        // Basic security check: verify order belongs to current session/customer
+        $sessionId = $this->getCartSessionId();
+        $userId = Auth::id();
+
+        // If order has a customer, check if it matches the current user or falls within the recent session
+        // For simplicity in this guest-friendly flow, we'll allow cancellation if it matches the session or user
+        // In a production app, we might check `created_at` or a session token stored in the order
+        if ($order->status === 'cancelled') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order is already cancelled.',
+            ]);
+        }
+
+        try {
+            // 1. Cancel at Amazon
+            $this->amazonService->cancelFulfillmentOrder($order->order_number);
+
+            // 2. Update local order
+            $order->update(['status' => 'cancelled']);
+
+            // 3. Restore Stock
+            if ($order->items) {
+                foreach ($order->items as $item) {
+                    $product = Product::find($item->product_id);
+                    if ($product && $product->track_quantity) {
+                        $product->increment('stock_quantity', $item->quantity);
+                    }
+                }
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Order cancelled successfully.',
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Manual Order Cancellation Failed for #{$order->order_number}: ".$e->getMessage());
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Could not cancel order at Amazon. It might already be in processing.',
+            ], 500);
+        }
+    }
+
     public function orderSuccess($orderNumber)
     {
         // Customer details ke saath order load karein

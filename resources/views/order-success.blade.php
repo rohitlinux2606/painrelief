@@ -157,9 +157,54 @@
 
             <div class="text-center pb-4">
                 <a href="/" class="btn-home"><i class="bi bi-arrow-left me-1"></i> Continue Shopping</a>
+                <div class="mt-3">
+                    <button id="cancelOrderBtn" class="btn btn-link text-danger text-decoration-none small" 
+                            style="font-size: 0.8rem;">
+                        <i class="bi bi-x-circle me-1"></i> Cancel Order
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#cancelOrderBtn').click(function() {
+                if (confirm('Are you sure you want to cancel this order? This will also cancel the fulfillment on Amazon.')) {
+                    const btn = $(this);
+                    const originalHtml = btn.html();
+                    btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Cancelling...');
+
+                    $.ajax({
+                        url: "{{ route('cancel-order') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            order_number: "{{ $order->order_number }}"
+                        },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                alert('Order cancelled successfully.');
+                                window.location.href = '/';
+                            } else {
+                                alert(response.message || 'Failed to cancel order.');
+                                btn.prop('disabled', false).html(originalHtml);
+                            }
+                        },
+                        error: function(xhr) {
+                            let msg = 'Failed to cancel order. It might be already in process at Amazon.';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                msg = xhr.responseJSON.message;
+                            }
+                            alert(msg);
+                            btn.prop('disabled', false).html(originalHtml);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     <script>
         fbq('track', 'Lead');
