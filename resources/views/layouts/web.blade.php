@@ -232,7 +232,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Care</a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navMenu">
@@ -279,7 +279,7 @@
 
                 <!-- Brand -->
                 <div class="col-md-4">
-                    <h4 class="fw-bold">Vatahari</h4>
+                    <h4 class="fw-bold">Vatahari Care</h4>
                     <p class="text-secondary small"> Natural Wellness Solutions for Better Life.
                     </p>
                 </div>
