@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Checkout - Vatahari')
+@section('title', 'Checkout - Vatahari Care')
 
 @section('content')
     <div class="main-wrapper">
@@ -91,7 +91,8 @@
                                     <img src="{{ asset($item->product->thumbnail) }}" class="w-100 h-100 rounded"
                                         style="object-fit: cover;">
                                 @else
-                                    <div class="w-100 h-100 rounded bg-light d-flex align-items-center justify-content-center">
+                                    <div
+                                        class="w-100 h-100 rounded bg-light d-flex align-items-center justify-content-center">
                                         <i class="bi bi-image text-muted"></i>
                                     </div>
                                 @endif
@@ -99,7 +100,8 @@
                             </div>
 
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="small mb-1 fw-bold">{{ $item->product ? $item->product->title : 'Product Unavailable' }}</h6>
+                                <h6 class="small mb-1 fw-bold">
+                                    {{ $item->product ? $item->product->title : 'Product Unavailable' }}</h6>
                                 <small class="text-muted d-block mb-2">Unit Price: Rs.
                                     {{ number_format($item->price, 2) }}</small>
 
@@ -237,9 +239,9 @@
         }
 
         /* .navbar {
-                border-bottom: 1px solid var(--border-color);
-                padding: 15px 0;
-            } */
+                    border-bottom: 1px solid var(--border-color);
+                    padding: 15px 0;
+                } */
 
         .main-wrapper {
             max-width: 1100px;

@@ -7,7 +7,8 @@
                 <span class="hero-badge">Purely Ayurvedic • Natural Wellness</span>
                 <h1 class="hero-title">Experience Life With Ayurveda</h1>
 
-                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically crafted
+                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari Care formulations specifically
+                    crafted
                     to support joint comfort and restore mobility naturally.</p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="#products" class="btn-premium btn-primary-premium text-decoration-none">Shop Products</a>

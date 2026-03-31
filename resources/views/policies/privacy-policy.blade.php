@@ -12,7 +12,7 @@
                         <p class="text-muted mb-4">Effective Date: {{ date('F d, Y') }}</p>
 
                         <p>At <strong>Sanjeevani Ortho Lab</strong>, operating under the brand name
-                            <strong>Vatahari</strong> (“Company,” “we,” “our,” or “us”), we value your trust and are
+                            <strong>Vatahari Care</strong> (“Company,” “we,” “our,” or “us”), we value your trust and are
                             committed to protecting your privacy. This Privacy Policy explains how we collect, use, and
                             safeguard your personal information when you visit our website <a
                                 href="https://vatahari.com">vatahari.com</a> (“Website”) or purchase our Ayurvedic wellness

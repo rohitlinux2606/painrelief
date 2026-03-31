@@ -25,14 +25,16 @@
                             restore the body's balance without side effects.
                         </p>
 
-                        <h3 class="fw-bold mt-5 mb-3">Home of Vatahari Ayurveda</h3>
+                        <h3 class="fw-bold mt-5 mb-3">Home of Vatahari Care</h3>
                         <p>
                             We are proud to be the parent organization and exclusive manufacturer of the
-                            <strong>Vatahari</strong> product range. Vatahari is our flagship brand, meticulously formulated
+                            <strong>Vatahari Care</strong> product range. Vatahari Care is our flagship brand, meticulously
+                            formulated
                             using time-tested Ayurvedic herbs to provide support for joint comfort and rejuvenation.
                         </p>
                         <p>
-                            Under the expert guidance of Sanjeevani Ortho Lab, every Vatahari product undergoes rigorous
+                            Under the expert guidance of Sanjeevani Ortho Lab, every Vatahari Care product undergoes
+                            rigorous
                             quality checks to ensure purity, potency, and safety.
                         </p>
                     </div>

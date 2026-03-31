@@ -264,7 +264,7 @@
     @else
         <nav class="navbar navbar-light bg-white border-bottom py-3">
             <div class="container justify-content-center">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Care</a>
             </div>
         </nav>
     @endif
@@ -356,7 +356,7 @@
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">
-                    © 2026 Vatahari. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
+                    © 2026 Vatahari Care. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
                 </p>
             </div>
         </div>

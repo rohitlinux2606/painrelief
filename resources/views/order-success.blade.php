@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed - Vatahari</title>
+    <title>Order Confirmed - Vatahari Care</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
@@ -141,12 +141,13 @@
 
             <div class="whatsapp-section">
                 <h5 class="fw-bold mb-2">Join Our Wellness Community & get Usage Support! 🌿</h5>
-                <p class="small text-muted mb-4">Connect with 500+ members, get daily wellness tips, and exclusive offers.
+                <p class="small text-muted mb-4">Connect with 500+ members, get daily wellness tips, and exclusive
+                    offers.
                 </p>
 
                 <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp"
                     onclick="trackJoinCommunity()">
-                    <i class="bi bi-whatsapp"></i> Join Vatahari Community
+                    <i class="bi bi-whatsapp"></i> Join Vatahari Care Community
                 </a>
 
                 <div class="mt-3">
@@ -158,8 +159,8 @@
             <div class="text-center pb-4">
                 <a href="/" class="btn-home"><i class="bi bi-arrow-left me-1"></i> Continue Shopping</a>
                 <div class="mt-3">
-                    <button id="cancelOrderBtn" class="btn btn-link text-danger text-decoration-none small" 
-                            style="font-size: 0.8rem;">
+                    <button id="cancelOrderBtn" class="btn btn-link text-danger text-decoration-none small"
+                        style="font-size: 0.8rem;">
                         <i class="bi bi-x-circle me-1"></i> Cancel Order
                     </button>
                 </div>
@@ -171,10 +172,13 @@
     <script>
         $(document).ready(function() {
             $('#cancelOrderBtn').click(function() {
-                if (confirm('Are you sure you want to cancel this order? This will also cancel the fulfillment on Amazon.')) {
+                if (confirm(
+                        'Are you sure you want to cancel this order? This will also cancel the fulfillment on Amazon.'
+                    )) {
                     const btn = $(this);
                     const originalHtml = btn.html();
-                    btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Cancelling...');
+                    btn.prop('disabled', true).html(
+                        '<span class="spinner-border spinner-border-sm me-1"></span> Cancelling...');
 
                     $.ajax({
                         url: "{{ route('cancel-order') }}",
@@ -193,7 +197,8 @@
                             }
                         },
                         error: function(xhr) {
-                            let msg = 'Failed to cancel order. It might be already in process at Amazon.';
+                            let msg =
+                                'Failed to cancel order. It might be already in process at Amazon.';
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 msg = xhr.responseJSON.message;
                             }
