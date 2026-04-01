@@ -7,7 +7,8 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <h1 class="fw-bold mb-4 text-center">About Sanjeevani Ortho Lab</h1>
+                <h1 class="fw-bold mb-4 text-center">About Sanjeevani Ortho Lab <br> <span class="h4 text-muted">(Home of
+                        Vatahari)</span></h1>
 
                 <div class="card shadow-sm border-0 mb-5">
                     <div class="card-body p-4 p-md-5">
@@ -25,15 +26,15 @@
                             restore the body's balance without side effects.
                         </p>
 
-                        <h3 class="fw-bold mt-5 mb-3">Home of Vatahari Care</h3>
+                        <h3 class="fw-bold mt-5 mb-3">Home of Vatahari</h3>
                         <p>
                             We are proud to be the parent organization and exclusive manufacturer of the
-                            <strong>Vatahari Care</strong> product range. Vatahari Care is our flagship brand, meticulously
+                            <strong>Vatahari</strong> product range. Vatahari is our flagship brand, meticulously
                             formulated
                             using time-tested Ayurvedic herbs to provide support for joint comfort and rejuvenation.
                         </p>
                         <p>
-                            Under the expert guidance of Sanjeevani Ortho Lab, every Vatahari Care product undergoes
+                            Under the expert guidance of Sanjeevani Ortho Lab, every Vatahari product undergoes
                             rigorous
                             quality checks to ensure purity, potency, and safety.
                         </p>

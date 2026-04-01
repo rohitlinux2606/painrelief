@@ -40,7 +40,7 @@
             <div class="col-md-5">
                 <nav aria-label="breadcrumb" class="mb-2">
                     <ol class="breadcrumb small text-uppercase" style="letter-spacing: 1px; color: #6c757d;">
-                        <li class="breadcrumb-item">Vatahari Care</li>
+                        <li class="breadcrumb-item">Vatahari</li>
                         <li class="breadcrumb-item active">Natural Joint Support</li>
                     </ol>
                 </nav>

@@ -12,8 +12,11 @@
                         <p class="text-muted mb-4">Last Updated: {{ date('F d, Y') }}</p>
 
                         <p>Welcome to <strong>Sanjeevani Ortho Lab</strong>. These Terms and Conditions govern your use of
-                            our website <a href="https://vatahari.com">vatahari.com</a> and the purchase of our products. By
-                            accessing or using our website, you agree to be bound by these terms.</p>
+                            our website <a href="https://vatahari.com">vatahari.com</a> and the purchase of our products.
+                            <strong>Vatahari</strong> is a registered brand name under which Sanjeevani Ortho Lab conducts
+                            its business.
+                            By accessing or using our website, you agree to be bound by these terms.
+                        </p>
 
                         <h3 class="fw-bold mt-5 mb-3">1. Use of Website</h3>
                         <p>You may use our website for lawful purposes only. You must not use the website in any way that
@@ -36,7 +39,8 @@
 
                         <h3 class="fw-bold mt-5 mb-3">5. Intellectual Property</h3>
                         <p>All content on this website, including text, graphics, logos, and images, is the property of
-                            Sanjeevani Ortho Lab and is protected by intellectual property laws.</p>
+                            <strong>Sanjeevani Ortho Lab (Vatahari)</strong> and is protected by intellectual property laws.
+                        </p>
 
                         <h3 class="fw-bold mt-5 mb-3">6. Limitation of Liability</h3>
                         <p>Sanjeevani Ortho Lab shall not be liable for any direct, indirect, incidental, or consequential

@@ -11,9 +11,11 @@
                         <h1 class="fw-bold mb-4">Refund and Cancellation Policy</h1>
                         <p class="text-muted mb-4">Last Updated: {{ date('F d, Y') }}</p>
 
-                        <p>At <strong>Sanjeevani Ortho Lab</strong>, we take pride in the quality of our Ayurvedic products.
+                        <p>At <strong>Sanjeevani Ortho Lab</strong>, the owner and operator of the brand
+                            <strong>Vatahari</strong>, we take pride in the quality of our Ayurvedic products.
                             If you are not entirely satisfied with your purchase, or if you need to cancel your order, we're
-                            here to help.</p>
+                            here to help.
+                        </p>
 
                         <h3 class="fw-bold mt-5 mb-3">1. Order Cancellation</h3>
                         <p>You may request a cancellation of your order under the following conditions:</p>

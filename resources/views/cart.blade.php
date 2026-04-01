@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Your Shopping Cart - Vatahari Care')
+@section('title', 'Your Shopping Cart - Vatahari')
 
 @section('content')
     <div class="container cart-container">

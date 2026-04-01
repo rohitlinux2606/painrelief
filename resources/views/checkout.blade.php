@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Checkout - Vatahari Care')
+@section('title', 'Checkout - Vatahari')
 
 @section('content')
     <div class="main-wrapper">
@@ -239,9 +239,9 @@
         }
 
         /* .navbar {
-                    border-bottom: 1px solid var(--border-color);
-                    padding: 15px 0;
-                } */
+                        border-bottom: 1px solid var(--border-color);
+                        padding: 15px 0;
+                    } */
 
         .main-wrapper {
             max-width: 1100px;

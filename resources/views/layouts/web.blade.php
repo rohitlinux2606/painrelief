@@ -232,7 +232,9 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Care</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari <br> <span
+                        style="font-size: 10px; opacity: 0.7; display: block; margin-top: -5px;">by Sanjeevani Ortho
+                        Lab</span></a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navMenu">
@@ -264,7 +266,9 @@
     @else
         <nav class="navbar navbar-light bg-white border-bottom py-3">
             <div class="container justify-content-center">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Care</a>
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari <br> <span
+                        style="font-size: 10px; opacity: 0.7; display: block; margin-top: -5px;">by Sanjeevani Ortho
+                        Lab</span></a>
             </div>
         </nav>
     @endif
@@ -279,9 +283,9 @@
 
                 <!-- Brand -->
                 <div class="col-md-4">
-                    <h4 class="fw-bold">Vatahari Care</h4>
-                    <p class="text-secondary small"> Natural Wellness Solutions for Better Life.
-                    </p>
+                    <h4 class="fw-bold">Vatahari</h4>
+                    <p class="text-secondary small">A Brand of Sanjeevani Ortho Lab. Natural Wellness Solutions for
+                        Better Life.</p>
                 </div>
 
                 <!-- Quick Links -->
@@ -356,7 +360,7 @@
 
             <div class="text-center pb-4">
                 <p class="text-secondary small mb-0">
-                    © 2026 Vatahari Care. All Rights Reserved. | A Brand by Sanjeevani Ortho Lab
+                    © 2026 Sanjeevani Ortho Lab. All Rights Reserved. | Vatahari is a brand of Sanjeevani Ortho Lab.
                 </p>
             </div>
         </div>

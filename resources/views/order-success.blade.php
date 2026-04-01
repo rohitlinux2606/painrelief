@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed - Vatahari Care</title>
+    <title>Order Confirmed - Vatahari</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
@@ -147,7 +147,7 @@
 
                 <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" target="_blank" class="btn-whatsapp"
                     onclick="trackJoinCommunity()">
-                    <i class="bi bi-whatsapp"></i> Join Vatahari Care Community
+                    <i class="bi bi-whatsapp"></i> Join Vatahari Community
                 </a>
 
                 <div class="mt-3">

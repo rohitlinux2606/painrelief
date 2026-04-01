@@ -11,7 +11,8 @@
                         <h1 class="fw-bold mb-4">Return Policy</h1>
                         <p class="text-muted mb-4">Last Updated: {{ date('F d, Y') }}</p>
 
-                        <p>At <strong>Sanjeevani Ortho Lab</strong>, we want you to be completely satisfied with your
+                        <p>At <strong>Sanjeevani Ortho Lab</strong> (operating under the brand <strong>Vatahari</strong>),
+                            we want you to be completely satisfied with your
                             purchase. Our return policy is designed to be fair and transparent.</p>
 
                         <h3 class="fw-bold mt-5 mb-3">1. Return Window</h3>
