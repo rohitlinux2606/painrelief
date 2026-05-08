@@ -189,8 +189,10 @@ class Pagecontroller extends Controller
             $filteredItems = $cart->items->filter(function ($item) {
                 if (! $item->product) {
                     $item->delete(); // Cleanup orphaned item
+
                     return false;
                 }
+
                 return true;
             });
             $cart->setRelation('items', $filteredItems);
@@ -250,8 +252,10 @@ class Pagecontroller extends Controller
             $filteredItems = $cart->items->filter(function ($item) {
                 if (! $item->product) {
                     $item->delete(); // Cleanup orphaned item
+
                     return false;
                 }
+
                 return true;
             });
             $cart->setRelation('items', $filteredItems);
@@ -371,21 +375,21 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        // 🚀 Create Amazon MCF Order (Mandatory Gate)
-        try {
-            $this->amazonService->createMcfOrder($order);
-        } catch (\Exception $e) {
-            Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+        // // 🚀 Create Amazon MCF Order (Mandatory Gate)
+        // try {
+        //     $this->amazonService->createMcfOrder($order);
+        // } catch (\Exception $e) {
+        //     Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
 
-            // Delete order as per user requirement to handle unfulfillable cases
-            $order->items()->delete();
-            $order->delete();
+        //     // Delete order as per user requirement to handle unfulfillable cases
+        //     $order->items()->delete();
+        //     $order->delete();
 
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Fulfillment Problem: ' . $e->getMessage() . '. Please try a different address or verify product availability.',
-            ]);
-        }
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Fulfillment Problem: ' . $e->getMessage() . '. Please try a different address or verify product availability.',
+        //     ]);
+        // }
 
         // 6. Return response to triggering AJAX frontend modal
         return response()->json([

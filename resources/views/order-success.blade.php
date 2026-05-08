@@ -158,12 +158,12 @@
 
             <div class="text-center pb-4">
                 <a href="/" class="btn-home"><i class="bi bi-arrow-left me-1"></i> Continue Shopping</a>
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <button id="cancelOrderBtn" class="btn btn-link text-danger text-decoration-none small"
                         style="font-size: 0.8rem;">
                         <i class="bi bi-x-circle me-1"></i> Cancel Order
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

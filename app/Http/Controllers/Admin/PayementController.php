@@ -126,8 +126,19 @@ class PayementController extends Controller
             // // Use config values (config cache safe) for API endpoint and credentials
             // $url = $cashfreeApiUrl . '/orders';
 
-            $url = 'https://api.cashfree.com/pg/orders'; // Prodction Mode
+            // $url = 'https://api.cashfree.com/pg/orders'; // Prodction Mode
             // $url = 'https://sandbox.cashfree.com/pg/orders'; // for devlopement mode
+
+            // if app env is local then use sandbox else use production
+            if (env('APP_ENV') == 'local') {
+                $url = 'https://sandbox.cashfree.com/pg/orders';
+                $apiKey = config('cashfree.sandbox_api_key');
+                $apiSecret = config('cashfree.sandbox_api_secret');
+            } else {
+                $url = 'https://api.cashfree.com/pg/orders';
+                $apiKey = config('cashfree.api_key');
+                $apiSecret = config('cashfree.api_secret');
+            }
 
             $headers = [
                 'Content-Type' => 'application/json',
@@ -150,7 +161,7 @@ class PayementController extends Controller
                 'order_meta' => [
                     // "return_url" => env('APP_URL') . '/order-detail/order_id=' . $request->order_number . '&status=success&payment_method=cash_free&order_number=' . $request->order_id
 
-                    'return_url' => rtrim(config('app.url'), '/') . '/order-success/' . $request->order_number,
+                    'return_url' => rtrim(config('app.url'), '/').'/order-success/'.$request->order_number,
                 ],
             ];
 
@@ -260,7 +271,7 @@ class PayementController extends Controller
         $email = $address ? $address->email : $customer->email;
 
         // Sms
-        $message = 'Dear ' . $data['name'] . ', Thank you for your order with Shrivenu Naturals! Your order #' . $data['order_number'] . ' is confirmed and will be delivered date ' . $delivery_date . '. We appreciate your trust in Shrivenu Naturals! Warm regards, Shrivenu Naturals';
+        $message = 'Dear '.$data['name'].', Thank you for your order with Shrivenu Naturals! Your order #'.$data['order_number'].' is confirmed and will be delivered date '.$delivery_date.'. We appreciate your trust in Shrivenu Naturals! Warm regards, Shrivenu Naturals';
         // $result = sendSms($phone, $message);
         // if ($result != 'sent') {
         //     throw new Exception('Failed to send SMS.');
