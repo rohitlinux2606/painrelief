@@ -371,12 +371,20 @@ class Pagecontroller extends Controller
             ]);
         }
 
-        // 🚀 Create Amazon MCF Order
+        // 🚀 Create Amazon MCF Order (Mandatory Gate)
         try {
             $this->amazonService->createMcfOrder($order);
         } catch (\Exception $e) {
-            // Log the error but don't fail the local order creation
             Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+
+            // Delete order as per user requirement to handle unfulfillable cases
+            $order->items()->delete();
+            $order->delete();
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Fulfillment Problem: ' . $e->getMessage() . '. Please try a different address or verify product availability.',
+            ]);
         }
 
         // 6. Return response to triggering AJAX frontend modal

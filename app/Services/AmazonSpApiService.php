@@ -172,8 +172,18 @@ class AmazonSpApiService
         $customer = $order->customer;
 
         // 1. Prepare Destination Address (split into max 60 chars per line)
-        // Ensure we don't duplicate state/city in address lines if they are already in dedicated fields
         $fullAddress = trim($address->address_line1);
+
+        // Remove city and state from fullAddress if they are already there to avoid duplication in address lines
+        if ($address->city) {
+            $fullAddress = preg_replace('/\b'.preg_quote($address->city, '/').'\b/i', '', $fullAddress);
+        }
+        if ($address->state) {
+            $fullAddress = preg_replace('/\b'.preg_quote($address->state, '/').'\b/i', '', $fullAddress);
+        }
+        // Clean up commas and spaces
+        $fullAddress = trim(preg_replace('/,\s*,/', ',', $fullAddress), ' ,');
+
         $addressLines = explode("\n", wordwrap($fullAddress, 60, "\n", true));
 
         // Sanitize Phone Number: Remove non-numeric, strip leading zero for India
@@ -184,7 +194,7 @@ class AmazonSpApiService
 
         $destinationAddress = new AmazonAddress(
             name: substr(trim($address->name ?? ($customer->first_name.' '.$customer->last_name)), 0, 50),
-            addressLine1: $addressLines[0] ?? substr($fullAddress, 0, 60),
+            addressLine1: ! empty($addressLines[0]) ? $addressLines[0] : ($address->city ?: 'N/A'),
             postalCode: $address->postal_code,
             countryCode: $address->country ?? 'IN',
             addressLine2: $addressLines[1] ?? null,
@@ -291,20 +301,43 @@ class AmazonSpApiService
             );
 
             $previewResponse = $this->client->fbaOutboundV20200701()->getFulfillmentPreview($previewRequest);
+            $previews = $previewResponse->dto()->fulfillmentPreviews ?? [];
+
+            if (empty($previews)) {
+                Log::info('COD delivery available nahi hai is address par');
+                // ❌ COD not available
+                // throw new \Exception('COD delivery available nahi hai is address par');
+            }
+
             if ($previewResponse->successful()) {
                 $previews = $previewResponse->dto()->fulfillmentPreviews ?? [];
+                $fulfillableFound = false;
                 if (! empty($previews)) {
-                    // Pick the first available speed that has valid fulfillment options
-                    $shippingSpeed = $previews[0]->shippingSpeedCategory;
-                    Log::info("Amazon MCF Preview Success. Selected Speed: {$shippingSpeed}");
-                } else {
-                    Log::warning("Amazon MCF Preview returned no fulfillment options for Order #{$order->order_number}. SLA might not be available.");
+                    foreach ($previews as $preview) {
+                        if ($preview->isFulfillable) {
+                            $shippingSpeed = $preview->shippingSpeedCategory;
+                            Log::info("Amazon MCF Preview Success. Selected Speed: {$shippingSpeed}");
+                            $fulfillableFound = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (! $fulfillableFound) {
+                    $errorDetails = $previewResponse->body();
+                    $errorMessage = 'Amazon MCF cannot fulfill this order to the provided address. (Delivery SLA not available for these items/quantities)';
+                    Log::warning("Fulfillment Preview Failed for Order #{$order->order_number}: {$errorMessage}. JSON: {$errorDetails}");
+                    throw new \RuntimeException($errorMessage);
                 }
             } else {
+                $errorData = $previewResponse->json();
+                $amazonMessage = $errorData['errors'][0]['message'] ?? 'Unknown Amazon Error';
                 Log::warning("Amazon MCF Preview API call failed for Order #{$order->order_number}: ".$previewResponse->body());
+                throw new \RuntimeException('Fulfillment Preview Failed: '.$amazonMessage);
             }
         } catch (\Exception $e) {
             Log::warning('Amazon MCF Preview Error: '.$e->getMessage());
+            throw $e; // Ensure it bubbles up to trigger the hard gate (order deletion) in the controller
         }
 
         // 3. Prepare Payment Information and COD Settings
