@@ -96,7 +96,7 @@ class PayementController extends Controller
     public function cashFree(Request $request)
     {
         try {
-            Log::info($request->all());
+            // Log::info($request->all());
             // Log::info(env('CASHFREE_API_KEY'));
             // Log::info(env('CASHFREE_API_SECRET'));
 
@@ -325,7 +325,7 @@ class PayementController extends Controller
         }
 
         $address = $order->address;
-        Log::info($address);
+        // Log::info($address);
 
         $customerName = $customer->first_name ? $customer->full_name : ($address ? $address->name : 'Customer');
         $customerEmail = $customer->email;
