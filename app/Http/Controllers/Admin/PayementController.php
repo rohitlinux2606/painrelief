@@ -325,29 +325,35 @@ class PayementController extends Controller
         }
 
         $address = $order->address;
+        Log::info($address);
+
+        $customerName = $customer->first_name ? $customer->full_name : ($address ? $address->name : 'Customer');
+        $customerEmail = $customer->email;
+
         $data = [
-            'name' => is_numeric($customer->name) ? ($address ? $address->name : '') : $customer->name,
+            'name' => $customerName,
             'order_number' => $order->order_number,
-            'email' => $customer->email ?? ($address ? $address->email : ''),
+            'email' => $customerEmail,
             'total' => $order->total,
             'address' => $address,
+            'order' => $order,
         ];
 
         $today = Carbon::today();
         $delivery_date = $today->addDays(5)->format('Y-m-d');
         $phone = $address ? $address->phone : $customer->phone;
-        $email = $address ? $address->email : $customer->email;
+        $email = $customerEmail;
 
         // Sms
-        $message = 'Dear '.$data['name'].', Thank you for your order with Shrivenu Naturals! Your order #'.$data['order_number'].' is confirmed and will be delivered date '.$delivery_date.'. We appreciate your trust in Shrivenu Naturals! Warm regards, Shrivenu Naturals';
+        $message = 'Dear '.$data['name'].', Thank you for your order with Vatahari! Your order #'.$data['order_number'].' is confirmed and will be delivered date '.$delivery_date.'. We appreciate your trust in Vatahari! Warm regards, Vatahari';
         // $result = sendSms($phone, $message);
         // if ($result != 'sent') {
         //     throw new Exception('Failed to send SMS.');
         // }
 
-        if ($email != null || $email != '') {
+        if (! empty($email)) {
             // Mail
-            $subject = 'Your Order with Shrivenu Naturals – confirmation';
+            $subject = 'Your Order with Vatahari – confirmation';
             Mail::send('ecom.web.mails.orderMail', ['data' => $data], function ($message) use ($data, $subject) {
                 $message->to($data['email'], $data['name'])->subject($subject);
             });
