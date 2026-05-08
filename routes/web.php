@@ -25,6 +25,7 @@ Route::get('/order-success/{orderNumber}', [App\Http\Controllers\Pagecontroller:
 Route::post('cod', [App\Http\Controllers\Admin\PayementController::class, 'cod'])->name('shop.payment.cod');
 
 Route::post('cashfree', [App\Http\Controllers\Admin\PayementController::class, 'cashFree'])->name('shop.payment.cashfree');
+Route::get('cashfree/callback/{orderNumber}', [App\Http\Controllers\Admin\PayementController::class, 'cashFreeCallback'])->name('shop.payment.cashfree.callback');
 
 Route::get('/privacy-policy', [App\Http\Controllers\Pagecontroller::class, 'privacyPolicy'])->name('page.privacy');
 Route::get('/terms-and-conditions', [App\Http\Controllers\Pagecontroller::class, 'termsConditions'])->name('page.terms');

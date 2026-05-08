@@ -159,21 +159,21 @@ class PayementController extends Controller
                     'customer_phone' => $validated['mobile'],
                 ],
                 'order_meta' => [
+                    'return_url' => route('shop.payment.cashfree.callback', ['orderNumber' => $request->order_number]).'?order_id={order_id}',
+
                     // "return_url" => env('APP_URL') . '/order-detail/order_id=' . $request->order_number . '&status=success&payment_method=cash_free&order_number=' . $request->order_id
 
-                    'return_url' => rtrim(config('app.url'), '/').'/order-success/'.$request->order_number,
+                    // 'return_url' => rtrim(config('app.url'), '/').'/order-success/'.$request->order_number,
                 ],
             ];
 
             $response = Http::withHeaders($headers)->post($url, $data);
 
-            Log::info($response->json());
+            // Log::info($response->json());
             // Log::info($response['order_id']);
 
             if ($response->json('order_status') == 'ACTIVE') {
-                $order->payment_status = 'PAID';
                 $order->payment_method = 'Online payment';
-                $order->status = 'paid';
                 $order->save();
 
                 $method = 'Cashfree';
@@ -181,14 +181,12 @@ class PayementController extends Controller
                 $status = $response->json('order_status');
                 $amount = $order->total;
                 $currency = 'INR';
-                $payment_status = $response->json('order_status');
+                $payment_status = 'Unpaid';
                 $payment_response = $response->json('order_token');
                 $payment_date = now();
                 $payment_expiry = null;
                 $payment_type = 'online';
                 $payment_mode = 'online';
-
-                $this->orderConfirmation($order);
 
                 // save payment details
                 $payment = new Payment;
@@ -226,6 +224,76 @@ class PayementController extends Controller
             Log::error($e->getMessage());
 
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+
+    /**
+     * Cashfree Callback
+     */
+    public function cashFreeCallback(Request $request, $orderNumber)
+    {
+        try {
+            $order = Order::where('order_number', $orderNumber)->first();
+            if (! $order) {
+                return redirect()->route('page.home')->with('error', 'Order not found');
+            }
+
+            // If already paid, redirect to success
+            if ($order->payment_status == 'PAID' || $order->status == 'paid') {
+                return redirect()->route('order-success', $orderNumber);
+            }
+
+            // Verify with Cashfree
+            if (env('APP_ENV') == 'local') {
+                $url = 'https://sandbox.cashfree.com/pg/orders/'.$orderNumber;
+                $apiKey = config('cashfree.sandbox_api_key');
+                $apiSecret = config('cashfree.sandbox_api_secret');
+            } else {
+                $url = 'https://api.cashfree.com/pg/orders/'.$orderNumber;
+                $apiKey = config('cashfree.api_key');
+                $apiSecret = config('cashfree.api_secret');
+            }
+
+            $headers = [
+                'Content-Type' => 'application/json',
+                'x-api-version' => '2022-01-01',
+                'x-client-id' => $apiKey,
+                'x-client-secret' => $apiSecret,
+            ];
+
+            $response = Http::withHeaders($headers)->get($url);
+
+            if ($response->successful()) {
+                $status = $response->json('order_status');
+
+                if ($status == 'PAID') {
+                    $order->payment_status = 'PAID';
+                    $order->payment_method = 'Online payment';
+                    $order->status = 'paid';
+                    $order->save();
+
+                    // update payment record if exists
+                    $payment = Payment::where('order_id', $order->id)->first();
+                    if ($payment) {
+                        $payment->status = 'PAID';
+                        $payment->payment_status = 'PAID';
+                        $payment->save();
+                    }
+
+                    $this->orderConfirmation($order);
+
+                    return redirect()->route('order-success', $orderNumber);
+                } else {
+                    return redirect()->route('checkout')->with('error', 'Payment not completed or failed.');
+                }
+            }
+
+            return redirect()->route('checkout')->with('error', 'Failed to verify payment status.');
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            return redirect()->route('checkout')->with('error', 'Something went wrong while verifying payment!');
         }
     }
 
