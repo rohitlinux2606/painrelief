@@ -181,7 +181,7 @@
                             <button id="fire_cashfree" class="btn btn-dark btn-sm px-3 rounded">Pay Now</button>
                         </li>
 
-                        <!-- Cash on Delivery Option -->
+                        {{-- <!-- Cash on Delivery Option -->
                         <li
                             class="list-group-item d-flex justify-content-between align-items-center py-3 rounded bg-light">
                             <div class="d-flex align-items-center">
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <button id="cod_btn" class="btn btn-outline-dark btn-sm px-3 rounded">COD</button>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <form action="" hidden method="POST" id="pay_req">
@@ -239,9 +239,9 @@
         }
 
         /* .navbar {
-                                border-bottom: 1px solid var(--border-color);
-                                padding: 15px 0;
-                            } */
+                                        border-bottom: 1px solid var(--border-color);
+                                        padding: 15px 0;
+                                    } */
 
         .main-wrapper {
             max-width: 1100px;

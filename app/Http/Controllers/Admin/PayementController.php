@@ -49,8 +49,7 @@ class PayementController extends Controller
             $card_expiry_year = null;
             $card_holder_name = null;
 
-            // save payment details
-            // save payment details
+            // Save Payment Details
             $payment = new Payment;
             $payment->customer_id = $order->customer_id;
             $payment->order_id = $order->id;
