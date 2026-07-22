@@ -30,12 +30,12 @@ class OrderController extends Controller
         // 🔍 Search: Order No, Customer Name, Email, Phone
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
-                $q->where('order_number', 'like', '%'.$request->search.'%')
+                $q->where('order_number', 'like', '%' . $request->search . '%')
                     ->orWhereHas('customer', function ($qc) use ($request) {
-                        $qc->where('first_name', 'like', '%'.$request->search.'%')
-                            ->orWhere('last_name', 'like', '%'.$request->search.'%')
-                            ->orWhere('email', 'like', '%'.$request->search.'%')
-                            ->orWhere('phone', 'like', '%'.$request->search.'%');
+                        $qc->where('first_name', 'like', '%' . $request->search . '%')
+                            ->orWhere('last_name', 'like', '%' . $request->search . '%')
+                            ->orWhere('email', 'like', '%' . $request->search . '%')
+                            ->orWhere('phone', 'like', '%' . $request->search . '%');
                     });
             });
         }
@@ -76,7 +76,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info($request->all());
+        // Log::info($request->all());
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'address_id' => 'required|exists:addresses,id',
@@ -115,7 +115,7 @@ class OrderController extends Controller
             $order = Order::create([
                 'customer_id' => $request->customer_id,
                 'address_id' => $request->address_id,
-                'order_number' => 'ORD-'.time(),
+                'order_number' => 'ORD-' . time(),
                 'subtotal' => $subtotal,
                 'tax' => $tax,
                 'shipping' => $shipping,
@@ -149,7 +149,7 @@ class OrderController extends Controller
                 $this->amazonService->createMcfOrder($order);
             } catch (\Exception $e) {
                 // Log the error but don't fail the local order creation
-                Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: ".$e->getMessage());
+                Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: " . $e->getMessage());
             }
 
             DB::commit();
@@ -195,8 +195,8 @@ class OrderController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email,'.$customer->id,
-            'phone' => 'nullable|string|unique:customers,phone,'.$customer->id,
+            'email' => 'nullable|email|unique:customers,email,' . $customer->id,
+            'phone' => 'nullable|string|unique:customers,phone,' . $customer->id,
             'password' => 'nullable|string|min:6|confirmed',
             'dob' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
@@ -216,7 +216,7 @@ class OrderController extends Controller
             return redirect()->route('admin.customer-control.customer.index')
                 ->with('success', 'Customer updated successfully!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Something went wrong: '.$e->getMessage())->withInput();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -230,7 +230,7 @@ class OrderController extends Controller
 
             return redirect()->back()->with('success', 'Customer Deleted Successfully.');
         } catch (\Exception $e) {
-            Log::error('Tour Delete Error: '.$e->getMessage());
+            Log::error('Tour Delete Error: ' . $e->getMessage());
 
             return back()->with('error', 'Something went wrong.');
         }

@@ -142,6 +142,18 @@
                                         class="btn btn-sm btn-outline-primary">
                                         <i class="bx bx-edit"></i>
                                     </a>
+
+                                    <!-- Delete Button -->
+                                    <form action="{{ route('admin.order-control.order.destroy', $order->id) }}"
+                                        method="POST" class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this order?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+
+                                    </form>
                                 </td>
                             </tr>
                         @empty
