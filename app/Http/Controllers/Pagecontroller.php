@@ -69,6 +69,10 @@ class Pagecontroller extends Controller
     {
         $product = Product::findOrFail($id);
 
+        if (! empty($product->external_link)) {
+            return redirect()->away($product->external_link);
+        }
+
         $sessionId = $this->getCartSessionId();
         $userId = Auth::id();
 
@@ -110,6 +114,10 @@ class Pagecontroller extends Controller
     public function buyNow($id)
     {
         $product = Product::findOrFail($id);
+
+        if (! empty($product->external_link)) {
+            return redirect()->away($product->external_link);
+        }
 
         $sessionId = $this->getCartSessionId();
         $userId = Auth::id();

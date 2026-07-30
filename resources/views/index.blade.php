@@ -99,10 +99,10 @@
                             @endif
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="{{ route('add-to-cart', $product->id) }}"
+                            <a href="{{ $product->external_link ? $product->external_link : route('add-to-cart', $product->id) }}"
                                 class="btn-premium btn-outline-premium text-decoration-none text-center py-2"
                                 onclick="addToCartEvent()">Add To Cart</a>
-                            <a href="{{ route('buy-now', $product->id) }}"
+                            <a href="{{ $product->external_link ? $product->external_link : route('buy-now', $product->id) }}"
                                 class="btn-premium btn-primary-premium text-decoration-none text-center py-2"
                                 onclick="buyNowEvent()">Buy Now</a>
                         </div>

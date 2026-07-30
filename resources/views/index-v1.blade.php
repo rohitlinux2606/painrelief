@@ -29,11 +29,11 @@
                             @endif
                         </div>
                         <div class="d-grid gap-2 mt-3">
-                            <a href="{{ route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
+                            <a href="{{ $product->external_link ? $product->external_link : route('add-to-cart', $product->id) }}" class="btn-custom btn-atc"
                                 onclick="addToCartEvent()">Add To Cart</a>
 
                             {{-- <a href="{{ $product->external_link }}" class="btn-custom btn-atc">Add & Checkout</a> --}}
-                            <a href="{{ route('buy-now', $product->id) }}" class="btn-custom btn-buy"
+                            <a href="{{ $product->external_link ? $product->external_link : route('buy-now', $product->id) }}" class="btn-custom btn-buy"
                                 onclick="buyNowEvent()">Buy Now</a>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ preg_match('/Pack of (\d+)/i', $product->title, $matches);
                             @endif
 
                             <div class="d-grid mt-3">
-                                <a href="{{ route('buy-now', $product->id) }}" class="btn btn-dark"
+                                <a href="{{ $product->external_link ? $product->external_link : route('buy-now', $product->id) }}" class="btn btn-dark"
                                     onclick="buyNowEvent()">Buy Now</a>
                             </div>
                         </div>
