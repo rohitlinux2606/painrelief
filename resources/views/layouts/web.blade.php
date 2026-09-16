@@ -208,6 +208,28 @@
             .support-float i {
                 font-size: 1.6rem !important;
             }
+
+            /* Social Icon Buttons */
+            .social-icon-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-size: 1.1rem;
+            }
+
+            .social-icon-btn:hover {
+                background: var(--primary-green);
+                color: #ffffff;
+                transform: translateY(-3px);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
         }
     </style>
     @stack('styles')
@@ -215,12 +237,21 @@
 
 <body>
 
-    <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+    @php
+        $waLink = 'https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD';
+        if (!empty($webSetting->whatsapp)) {
+            $waLink = str_starts_with($webSetting->whatsapp, 'http')
+                ? $webSetting->whatsapp
+                : 'https://wa.me/' . preg_replace('/[^0-9]/', '', $webSetting->whatsapp);
+        }
+    @endphp
+
+    <a href="{{ $waLink }}" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <i class="bi bi-whatsapp fs-4"></i>
         <span class="float-text">Join Community</span>
     </a>
 
-    <a href="tel:+919691905073" class="support-float">
+    <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}" class="support-float">
         <i class="bi bi-headset fs-4"></i>
         <span class="float-text">Customer Support</span>
     </a>
@@ -281,11 +312,51 @@
         <div class="container">
             <div class="row g-4">
 
-                <!-- Brand -->
+                <!-- Brand & Social Links -->
                 <div class="col-md-4">
-                    <h4 class="fw-bold">Vatahari</h4>
+                    <h4 class="fw-bold">{{ $webSetting->site_name ?? 'Vatahari' }}</h4>
                     <p class="text-secondary small">A Brand of Sanjeevani Ortho Lab. Natural Wellness Solutions for
                         Better Life.</p>
+
+                    @if(!empty($webSetting))
+                        <div class="social-links d-flex flex-wrap gap-2 mt-3">
+                            @if(!empty($webSetting->facebook))
+                                <a href="{{ $webSetting->facebook }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->instagram))
+                                <a href="{{ $webSetting->instagram }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Instagram">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->youtube))
+                                <a href="{{ $webSetting->youtube }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="YouTube">
+                                    <i class="bi bi-youtube"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->twitter))
+                                <a href="{{ $webSetting->twitter }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Twitter / X">
+                                    <i class="bi bi-twitter-x"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->whatsapp))
+                                <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="WhatsApp">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->linkedin))
+                                <a href="{{ $webSetting->linkedin }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+                                    <i class="bi bi-linkedin"></i>
+                                </a>
+                            @endif
+                            @if(!empty($webSetting->pinterest))
+                                <a href="{{ $webSetting->pinterest }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Pinterest">
+                                    <i class="bi bi-pinterest"></i>
+                                </a>
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Quick Links -->
@@ -306,32 +377,32 @@
                 <div class="col-md-4">
                     <h5 class="fw-bold mb-3">Contact Us</h5>
 
-                    {{-- <p class="small mb-2">
-                        <i class="bi bi-person me-2"></i> Rohit Kumar
-                    </p> --}}
-
                     <p class="small mb-2">
                         <i class="bi bi-telephone me-2"></i>
-                        <a href="tel:+919691905073" class="text-white text-decoration-none">
-                            +91 96919 05073
+                        <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}" class="text-white text-decoration-none">
+                            {{ $webSetting->phone_number ?? '+91 96919 05073' }}
                         </a>
                     </p>
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto:orthosanjeevanilab@gmail.com" class="text-white text-decoration-none">
-                            orthosanjeevanilab@gmail.com
+                        <a href="mailto:{{ $webSetting->email ?? 'orthosanjeevanilab@gmail.com' }}" class="text-white text-decoration-none">
+                            {{ $webSetting->email ?? 'orthosanjeevanilab@gmail.com' }}
                         </a>
                     </p>
 
                     <p class="small">
                         <i class="bi bi-geo-alt me-2"></i>
-                        Building No./Flat No.: HANUMANT PALACE INDORE, BLOCK-C,<br>
-                        Road/Street: 2-A,<br>
-                        City/Town/Village: Indore,<br>
-                        District: Indore,<br>
-                        State: Madhya Pradesh,<br>
-                        PIN Code: 452002
+                        @if(!empty($webSetting->address))
+                            {!! nl2br(e($webSetting->address)) !!}
+                        @else
+                            Building No./Flat No.: HANUMANT PALACE INDORE, BLOCK-C,<br>
+                            Road/Street: 2-A,<br>
+                            City/Town/Village: Indore,<br>
+                            District: Indore,<br>
+                            State: Madhya Pradesh,<br>
+                            PIN Code: 452002
+                        @endif
                     </p>
                 </div>
 

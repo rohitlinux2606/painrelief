@@ -34,6 +34,8 @@ class WebSettingController extends Controller
             'instagram' => 'nullable|url|max:255',
             'youtube' => 'nullable|url|max:255',
             'twitter' => 'nullable|url|max:255',
+            'linkedin' => 'nullable|url|max:255',
+            'pinterest' => 'nullable|url|max:255',
             'address' => 'nullable|string',
             'map_link' => 'nullable|string',
             'shipping_charge' => 'nullable|numeric|min:0',

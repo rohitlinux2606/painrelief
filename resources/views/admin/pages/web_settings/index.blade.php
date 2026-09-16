@@ -147,33 +147,64 @@
                     {{-- SOCIAL MEDIA --}}
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-transparent py-3">
-                            <h5 class="form-section-title fw-bold mb-0">Social Links</h5>
+                            <h5 class="form-section-title fw-bold mb-0">Social Media Links</h5>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">WhatsApp Number</label>
-                                <input type="text" name="whatsapp" class="form-control"
-                                    value="{{ old('whatsapp', $setting->whatsapp ?? '') }}">
+                                <label class="form-label fw-semibold">WhatsApp Number / Link</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-whatsapp text-success fs-5"></i></span>
+                                    <input type="text" name="whatsapp" class="form-control" placeholder="+919876543210 or chat link"
+                                        value="{{ old('whatsapp', $setting->whatsapp ?? '') }}">
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Facebook URL</label>
-                                <input type="url" name="facebook" class="form-control"
-                                    value="{{ old('facebook', $setting->facebook ?? '') }}">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-facebook text-primary fs-5"></i></span>
+                                    <input type="url" name="facebook" class="form-control" placeholder="https://facebook.com/yourpage"
+                                        value="{{ old('facebook', $setting->facebook ?? '') }}">
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Instagram URL</label>
-                                <input type="url" name="instagram" class="form-control"
-                                    value="{{ old('instagram', $setting->instagram ?? '') }}">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-instagram text-danger fs-5"></i></span>
+                                    <input type="url" name="instagram" class="form-control" placeholder="https://instagram.com/yourprofile"
+                                        value="{{ old('instagram', $setting->instagram ?? '') }}">
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">YouTube URL</label>
-                                <input type="url" name="youtube" class="form-control"
-                                    value="{{ old('youtube', $setting->youtube ?? '') }}">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-youtube text-danger fs-5"></i></span>
+                                    <input type="url" name="youtube" class="form-control" placeholder="https://youtube.com/@yourchannel"
+                                        value="{{ old('youtube', $setting->youtube ?? '') }}">
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Twitter URL</label>
-                                <input type="url" name="twitter" class="form-control"
-                                    value="{{ old('twitter', $setting->twitter ?? '') }}">
+                                <label class="form-label fw-semibold">Twitter / X URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-twitter text-info fs-5"></i></span>
+                                    <input type="url" name="twitter" class="form-control" placeholder="https://twitter.com/yourhandle"
+                                        value="{{ old('twitter', $setting->twitter ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">LinkedIn URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-linkedin text-primary fs-5"></i></span>
+                                    <input type="url" name="linkedin" class="form-control" placeholder="https://linkedin.com/company/yourcompany"
+                                        value="{{ old('linkedin', $setting->linkedin ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Pinterest URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bx bxl-pinterest text-danger fs-5"></i></span>
+                                    <input type="url" name="pinterest" class="form-control" placeholder="https://pinterest.com/yourprofile"
+                                        value="{{ old('pinterest', $setting->pinterest ?? '') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
