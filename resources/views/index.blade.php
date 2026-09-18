@@ -10,6 +10,21 @@
                 <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically
                     crafted
                     to support joint comfort and restore mobility naturally.</p>
+
+                <div class="hero-order-notice mb-4">
+                    <div class="hero-notice-card">
+                        <span class="notice-icon"><i class="bi bi-info-circle-fill"></i></span>
+                        <div class="notice-text">
+                            <strong>Notice:</strong> Orders are accepted <strong>only</strong> via:
+                        </div>
+                        <div class="d-inline-flex gap-2 flex-wrap justify-content-center justify-content-lg-start">
+                            <span class="marketplace-badge badge-amazon"><i class="bi bi-box-seam"></i> Amazon</span>
+                            <span class="marketplace-badge badge-flipkart"><i class="bi bi-cart3"></i> Flipkart</span>
+                            <span class="marketplace-badge badge-meesho"><i class="bi bi-shop"></i> Meesho</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="#products" class="btn-premium btn-primary-premium text-decoration-none">Shop Products</a>
                     <a href="{{ route('page.about') }}" class="btn-premium btn-outline-premium text-decoration-none">Learn
@@ -354,7 +369,69 @@
             font-size: 1.1rem;
             line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 35px;
+            margin-bottom: 25px;
+        }
+
+        .hero-order-notice {
+            margin-bottom: 30px;
+        }
+
+        .hero-notice-card {
+            background: #ffffff;
+            border: 1px solid rgba(220, 160, 30, 0.3);
+            border-left: 4px solid #e67e22;
+            border-radius: 12px;
+            padding: 12px 18px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-notice-card .notice-icon {
+            color: #e67e22;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-notice-card .notice-text {
+            font-size: 0.925rem;
+            color: #444;
+        }
+
+        .hero-notice-card .notice-text strong {
+            color: #1a4d2e;
+        }
+
+        .marketplace-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.825rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .badge-amazon {
+            background: rgba(255, 153, 0, 0.12);
+            color: #d47a00;
+            border: 1px solid rgba(255, 153, 0, 0.3);
+        }
+
+        .badge-flipkart {
+            background: rgba(40, 116, 240, 0.12);
+            color: #1a60d1;
+            border: 1px solid rgba(40, 116, 240, 0.3);
+        }
+
+        .badge-meesho {
+            background: rgba(224, 53, 120, 0.12);
+            color: #cf1b67;
+            border: 1px solid rgba(224, 53, 120, 0.3);
         }
 
         .hero-image-wrapper {
