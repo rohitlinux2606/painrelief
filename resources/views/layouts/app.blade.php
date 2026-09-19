@@ -171,7 +171,7 @@
 
 <body>
     <div id="app">
-        <a href="https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD" class="whatsapp-float" target="_blank">
+        <a href="https://chat.whatsapp.com/H4tgldOC87DKdVFtftARjD" class="whatsapp-float" target="_blank">
             <i class="bi bi-whatsapp fs-4"></i>
             <span class="float-text">Join Community</span>
         </a>
