@@ -238,7 +238,7 @@
 <body>
 
     @php
-        $waLink = 'https://chat.whatsapp.com/IleJbXZJJLzI8nKSa7iXOD';
+        $waLink = 'https://chat.whatsapp.com/H4tgldOC87DKdVFtftARjD';
         if (!empty($webSetting->whatsapp)) {
             $waLink = str_starts_with($webSetting->whatsapp, 'http')
                 ? $webSetting->whatsapp
@@ -251,7 +251,8 @@
         <span class="float-text">Join Community</span>
     </a>
 
-    <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}" class="support-float">
+    <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}"
+        class="support-float">
         <i class="bi bi-headset fs-4"></i>
         <span class="float-text">Customer Support</span>
     </a>
@@ -318,40 +319,47 @@
                     <p class="text-secondary small">A Brand of Sanjeevani Ortho Lab. Natural Wellness Solutions for
                         Better Life.</p>
 
-                    @if(!empty($webSetting))
+                    @if (!empty($webSetting))
                         <div class="social-links d-flex flex-wrap gap-2 mt-3">
-                            @if(!empty($webSetting->facebook))
-                                <a href="{{ $webSetting->facebook }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook">
+                            @if (!empty($webSetting->facebook))
+                                <a href="{{ $webSetting->facebook }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="Facebook">
                                     <i class="bi bi-facebook"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->instagram))
-                                <a href="{{ $webSetting->instagram }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Instagram">
+                            @if (!empty($webSetting->instagram))
+                                <a href="{{ $webSetting->instagram }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="Instagram">
                                     <i class="bi bi-instagram"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->youtube))
-                                <a href="{{ $webSetting->youtube }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="YouTube">
+                            @if (!empty($webSetting->youtube))
+                                <a href="{{ $webSetting->youtube }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="YouTube">
                                     <i class="bi bi-youtube"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->twitter))
-                                <a href="{{ $webSetting->twitter }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Twitter / X">
+                            @if (!empty($webSetting->twitter))
+                                <a href="{{ $webSetting->twitter }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="Twitter / X">
                                     <i class="bi bi-twitter-x"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->whatsapp))
-                                <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="WhatsApp">
+                            @if (!empty($webSetting->whatsapp))
+                                <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="WhatsApp">
                                     <i class="bi bi-whatsapp"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->linkedin))
-                                <a href="{{ $webSetting->linkedin }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn">
+                            @if (!empty($webSetting->linkedin))
+                                <a href="{{ $webSetting->linkedin }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="LinkedIn">
                                     <i class="bi bi-linkedin"></i>
                                 </a>
                             @endif
-                            @if(!empty($webSetting->pinterest))
-                                <a href="{{ $webSetting->pinterest }}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Pinterest">
+                            @if (!empty($webSetting->pinterest))
+                                <a href="{{ $webSetting->pinterest }}" target="_blank" rel="noopener noreferrer"
+                                    class="social-icon-btn" title="Pinterest">
                                     <i class="bi bi-pinterest"></i>
                                 </a>
                             @endif
@@ -379,21 +387,23 @@
 
                     <p class="small mb-2">
                         <i class="bi bi-telephone me-2"></i>
-                        <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}" class="text-white text-decoration-none">
+                        <a href="tel:{{ !empty($webSetting->phone_number) ? preg_replace('/[^0-9+]/', '', $webSetting->phone_number) : '+919691905073' }}"
+                            class="text-white text-decoration-none">
                             {{ $webSetting->phone_number ?? '+91 96919 05073' }}
                         </a>
                     </p>
 
                     <p class="small mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        <a href="mailto:{{ $webSetting->email ?? 'orthosanjeevanilab@gmail.com' }}" class="text-white text-decoration-none">
+                        <a href="mailto:{{ $webSetting->email ?? 'orthosanjeevanilab@gmail.com' }}"
+                            class="text-white text-decoration-none">
                             {{ $webSetting->email ?? 'orthosanjeevanilab@gmail.com' }}
                         </a>
                     </p>
 
                     <p class="small">
                         <i class="bi bi-geo-alt me-2"></i>
-                        @if(!empty($webSetting->address))
+                        @if (!empty($webSetting->address))
                             {!! nl2br(e($webSetting->address)) !!}
                         @else
                             Building No./Flat No.: HANUMANT PALACE INDORE, BLOCK-C,<br>
