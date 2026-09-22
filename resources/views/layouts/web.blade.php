@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Vatahari – Home of Vatahari Ayurveda')</title>
+    <title>@yield('title', 'Vatahari Official – Home of Vatahari Ayurveda')</title>
     <meta name="facebook-domain-verification" content="4n5jhw95om6losg50kplq68f3n0axz" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -264,7 +264,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari <br> <span
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Official<br> <span
                         style="font-size: 10px; opacity: 0.7; display: block; margin-top: -5px;">by Sanjeevani Ortho
                         Lab</span></a>
 
@@ -298,7 +298,7 @@
     @else
         <nav class="navbar navbar-light bg-white border-bottom py-3">
             <div class="container justify-content-center">
-                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari <br> <span
+                <a class="navbar-brand" href="{{ route('page.home') }}">Vatahari Official<br> <span
                         style="font-size: 10px; opacity: 0.7; display: block; margin-top: -5px;">by Sanjeevani Ortho
                         Lab</span></a>
             </div>
