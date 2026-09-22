@@ -209,27 +209,66 @@
                 font-size: 1.6rem !important;
             }
 
-            /* Social Icon Buttons */
-            .social-icon-btn {
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.1);
-                color: #ffffff;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                font-size: 1.1rem;
-            }
+        }
 
-            .social-icon-btn:hover {
-                background: var(--primary-green);
-                color: #ffffff;
-                transform: translateY(-3px);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            }
+        /* Social Media Section Styling */
+        .social-heading {
+            font-size: 0.825rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #81c784;
+        }
+
+        .social-icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e0e0e0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .social-icon-btn:hover {
+            color: #ffffff;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border-color: transparent;
+        }
+
+        .social-facebook:hover {
+            background: #1877f2 !important;
+        }
+
+        .social-instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+        }
+
+        .social-youtube:hover {
+            background: #ff0000 !important;
+        }
+
+        .social-twitter:hover {
+            background: #000000 !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .social-whatsapp:hover {
+            background: #25d366 !important;
+        }
+
+        .social-linkedin:hover {
+            background: #0a66c2 !important;
+        }
+
+        .social-pinterest:hover {
+            background: #e60023 !important;
         }
     </style>
     @stack('styles')
@@ -315,54 +354,59 @@
 
                 <!-- Brand & Social Links -->
                 <div class="col-md-4">
-                    <h4 class="fw-bold">{{ $webSetting->site_name ?? 'Vatahari' }}</h4>
-                    <p class="text-secondary small">A Brand of Sanjeevani Ortho Lab. Natural Wellness Solutions for
+                    <h4 class="fw-bold text-white mb-2">{{ $webSetting->site_name ?? 'Vatahari Official' }}</h4>
+                    <p class="text-secondary small mb-4">A Brand of Sanjeevani Ortho Lab. Natural Wellness Solutions for a
                         Better Life.</p>
 
                     @if (!empty($webSetting))
-                        <div class="social-links d-flex flex-wrap gap-2 mt-3">
-                            @if (!empty($webSetting->facebook))
-                                <a href="{{ $webSetting->facebook }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="Facebook">
-                                    <i class="bi bi-facebook"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->instagram))
-                                <a href="{{ $webSetting->instagram }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="Instagram">
-                                    <i class="bi bi-instagram"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->youtube))
-                                <a href="{{ $webSetting->youtube }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="YouTube">
-                                    <i class="bi bi-youtube"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->twitter))
-                                <a href="{{ $webSetting->twitter }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="Twitter / X">
-                                    <i class="bi bi-twitter-x"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->whatsapp))
-                                <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="WhatsApp">
-                                    <i class="bi bi-whatsapp"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->linkedin))
-                                <a href="{{ $webSetting->linkedin }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="LinkedIn">
-                                    <i class="bi bi-linkedin"></i>
-                                </a>
-                            @endif
-                            @if (!empty($webSetting->pinterest))
-                                <a href="{{ $webSetting->pinterest }}" target="_blank" rel="noopener noreferrer"
-                                    class="social-icon-btn" title="Pinterest">
-                                    <i class="bi bi-pinterest"></i>
-                                </a>
-                            @endif
+                        <div class="social-section">
+                            <h6 class="social-heading text-uppercase mb-3">
+                                <i class="bi bi-share-fill me-2"></i>Connect With Us
+                            </h6>
+                            <div class="social-links d-flex flex-wrap gap-2">
+                                @if (!empty($webSetting->facebook))
+                                    <a href="{{ $webSetting->facebook }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-facebook" title="Facebook" aria-label="Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->instagram))
+                                    <a href="{{ $webSetting->instagram }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-instagram" title="Instagram" aria-label="Instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->youtube))
+                                    <a href="{{ $webSetting->youtube }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-youtube" title="YouTube" aria-label="YouTube">
+                                        <i class="bi bi-youtube"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->twitter))
+                                    <a href="{{ $webSetting->twitter }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-twitter" title="Twitter / X" aria-label="Twitter">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->whatsapp))
+                                    <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-whatsapp" title="WhatsApp" aria-label="WhatsApp">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->linkedin))
+                                    <a href="{{ $webSetting->linkedin }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-linkedin" title="LinkedIn" aria-label="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                @endif
+                                @if (!empty($webSetting->pinterest))
+                                    <a href="{{ $webSetting->pinterest }}" target="_blank" rel="noopener noreferrer"
+                                        class="social-icon-btn social-pinterest" title="Pinterest" aria-label="Pinterest">
+                                        <i class="bi bi-pinterest"></i>
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     @endif
                 </div>
