@@ -4,23 +4,19 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <span class="hero-badge">Purely Ayurvedic • Natural Wellness</span>
-                <h1 class="hero-title">Experience Life With Ayurveda</h1>
-
-                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically
-                    crafted
-                    to support joint comfort and restore mobility naturally.</p>
-
                 <div class="hero-order-notice mb-4">
                     <div class="hero-notice-card">
-                        <span class="notice-icon"><i class="bi bi-info-circle-fill"></i></span>
-                        <div class="notice-text">
-                            <strong>Notice:</strong> Orders are accepted <strong>only</strong> via:
+                        <div class="notice-badge-label">
+                            <i class="bi bi-exclamation-triangle-fill"></i> IMPORTANT NOTICE
                         </div>
-                        <div class="d-inline-flex gap-2 flex-wrap justify-content-center justify-content-lg-start">
-                            <span class="marketplace-badge badge-amazon"><i class="bi bi-box-seam"></i> Amazon</span>
-                            <span class="marketplace-badge badge-flipkart"><i class="bi bi-cart3"></i> Flipkart</span>
-                            <span class="marketplace-badge badge-meesho"><i class="bi bi-shop"></i> Meesho</span>
+                        <h2 class="notice-title">Orders are Accepted <span class="highlight-text">ONLY</span> via:</h2>
+                        <div class="marketplace-badges-container">
+                            <span class="marketplace-badge badge-amazon">
+                                <i class="bi bi-box-seam"></i> Amazon
+                            </span>
+                            <span class="marketplace-badge badge-flipkart">
+                                <i class="bi bi-cart3"></i> Flipkart
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -377,61 +373,82 @@
         }
 
         .hero-notice-card {
-            background: #ffffff;
-            border: 1px solid rgba(220, 160, 30, 0.3);
-            border-left: 4px solid #e67e22;
-            border-radius: 12px;
-            padding: 12px 18px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            background: linear-gradient(135deg, #fff9f0 0%, #fff2db 100%);
+            border: 2px solid #e67e22;
+            border-left: 8px solid #d35400;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 10px 30px rgba(211, 84, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+            max-width: 580px;
+        }
+
+        .notice-badge-label {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 8px;
+            background: #d35400;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            text-transform: uppercase;
         }
 
-        .hero-notice-card .notice-icon {
-            color: #e67e22;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-notice-card .notice-text {
-            font-size: 0.925rem;
-            color: #444;
-        }
-
-        .hero-notice-card .notice-text strong {
+        .notice-title {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.25;
             color: #1a4d2e;
+            margin: 0;
+        }
+
+        .notice-title .highlight-text {
+            color: #d35400;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .marketplace-badges-container {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 4px;
         }
 
         .marketplace-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.825rem;
-            font-weight: 700;
-            letter-spacing: 0.2px;
+            gap: 10px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .marketplace-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
 
         .badge-amazon {
-            background: rgba(255, 153, 0, 0.12);
-            color: #d47a00;
-            border: 1px solid rgba(255, 153, 0, 0.3);
+            background: #ff9900;
+            color: #111111;
+            border: 2px solid #e68a00;
         }
 
         .badge-flipkart {
-            background: rgba(40, 116, 240, 0.12);
-            color: #1a60d1;
-            border: 1px solid rgba(40, 116, 240, 0.3);
-        }
-
-        .badge-meesho {
-            background: rgba(224, 53, 120, 0.12);
-            color: #cf1b67;
-            border: 1px solid rgba(224, 53, 120, 0.3);
+            background: #2874f0;
+            color: #ffffff;
+            border: 2px solid #1a60d1;
         }
 
         .hero-image-wrapper {
