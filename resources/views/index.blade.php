@@ -4,6 +4,12 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
+                <span class="hero-badge">Purely Ayurvedic • Natural Wellness</span>
+                <h1 class="hero-title">Experience Life With Ayurveda</h1>
+
+                <p class="hero-subtitle">Sanjeevani Ortho Lab brings you authentic Vatahari formulations specifically
+                    crafted
+                    to support joint comfort and restore mobility naturally.</p>
                 <div class="hero-order-notice mb-4">
                     <div class="hero-notice-card">
                         <div class="notice-badge-label">
