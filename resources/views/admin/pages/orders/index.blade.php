@@ -164,7 +164,7 @@
                                         </a>
 
                                         @if ($order->hasShiprocketOrder())
-                                            <a href="{{ route('admin.order-control.track-shiprocket', $order->id) }}"
+                                            <a href="{{ route('admin.order-control.order.track-shiprocket', $order->id) }}"
                                                 class="btn btn-sm btn-outline-success" title="Track Shiprocket">
                                                 <i class="bx bx-radar"></i>
                                             </a>

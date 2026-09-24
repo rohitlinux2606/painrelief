@@ -65,6 +65,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
         Route::post('order/{id}/ship-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'shipWithShiprocket'])->name('order.ship-shiprocket');
         Route::get('order/{id}/track-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'trackShiprocket'])->name('order.track-shiprocket');
+        Route::get('order/{id}/shiprocket-details', [App\Http\Controllers\Admin\OrderController::class, 'showShiprocketDetails'])->name('order.shiprocket-details');
         Route::post('order/{id}/cancel-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'cancelShiprocket'])->name('order.cancel-shiprocket');
         Route::patch('order/{id}/update-status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('order.update-status');
     });
@@ -81,6 +82,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::get('/fetch-locations', [App\Http\Controllers\Admin\ShiprocketController::class, 'fetchLocations'])->name('fetch-locations');
         Route::get('/fetch-couriers', [App\Http\Controllers\Admin\ShiprocketController::class, 'fetchCouriers'])->name('fetch-couriers');
         Route::get('/check-serviceability', [App\Http\Controllers\Admin\ShiprocketController::class, 'checkServiceability'])->name('check-serviceability');
+        Route::get('/order-details/{order_id?}', [App\Http\Controllers\Admin\ShiprocketController::class, 'getSpecificOrderDetails'])->name('order-details');
     });
 });
 

@@ -213,4 +213,34 @@ class ShiprocketController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * Get Specific Order Details from Shiprocket API by Order ID / Shipment ID.
+     *
+     * Endpoint: /v1/external/orders/show/{order_id}
+     */
+    public function getSpecificOrderDetails(Request $request, $order_id = null)
+    {
+        $searchId = $order_id ?: $request->input('order_id');
+
+        if (!$searchId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please provide a valid Shiprocket Order ID or Shipment ID.',
+            ], 422);
+        }
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->getOrderDetails($searchId);
+
+        return response()->json($result);
+    }
 }

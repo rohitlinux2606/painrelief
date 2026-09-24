@@ -280,6 +280,83 @@
             </div>
         </form>
 
+        {{-- SHIPROCKET GET SPECIFIC ORDER DETAILS WIDGET --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="form-section-title fw-bold mb-0">Get Specific Order Details</h5>
+                    <span class="text-muted small">Endpoint: <code>GET /v1/external/orders/show/{order_id}</code></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 align-items-end mb-3">
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold">Shiprocket Order ID / Shipment ID</label>
+                        <input type="text" id="lookup_order_id" class="form-control" placeholder="e.g. 16167171 or ORD-12345">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" id="btn_fetch_order_details" class="btn btn-primary w-100 shadow-sm">
+                            <i class="bx bx-search-alt me-1"></i> Fetch Order Details
+                        </button>
+                    </div>
+                </div>
+
+                <div id="order_details_result" style="display: none;" class="mt-4 pt-3 border-top">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-primary mb-0"><i class="bx bx-info-circle me-1"></i> Order Information</h6>
+                        <button type="button" id="btn_view_order_json" class="btn btn-sm btn-outline-secondary">
+                            <i class="bx bx-code-alt me-1"></i> View Raw API Response
+                        </button>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Shiprocket Order ID</small>
+                            <span id="dt_order_id" class="fw-bold text-dark"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Channel Order ID</small>
+                            <span id="dt_channel_order_id" class="fw-bold"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Status</small>
+                            <span id="dt_status" class="badge bg-label-info"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Payment Method</small>
+                            <span id="dt_payment_method" class="fw-semibold"></span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Customer Name</small>
+                            <span id="dt_customer_name" class="fw-semibold"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Customer Email</small>
+                            <span id="dt_customer_email"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Customer Phone</small>
+                            <span id="dt_customer_phone"></span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Delivery Address</small>
+                            <div id="dt_address" class="small bg-light p-2 rounded"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Pickup Location</small>
+                            <div id="dt_pickup_location" class="small bg-light p-2 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- COURIER SERVICEABILITY CHECK WIDGET --}}
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -419,12 +496,12 @@
         </div>
     </div>
 
-    {{-- COURIER JSON DETAILS MODAL --}}
+    {{-- COURIER / ORDER JSON DETAILS MODAL --}}
     <div class="modal fade" id="courierJsonModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold">Courier API Data</h5>
+                    <h5 class="modal-title fw-bold" id="modal_title_text">Shiprocket API Raw Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -441,6 +518,8 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            let currentOrderJson = null;
+
             // Password Visibility Toggle
             $('#toggle_password_btn').click(function() {
                 const input = $('#sr_password');
@@ -530,6 +609,64 @@
                         alert('Could not retrieve pickup locations. Ensure API token is active.');
                     }
                 });
+            });
+
+            // Fetch Specific Order Details via AJAX
+            $('#btn_fetch_order_details').click(function() {
+                const orderId = $('#lookup_order_id').val();
+                if (!orderId) {
+                    alert('Please enter a Shiprocket Order ID or Shipment ID.');
+                    $('#lookup_order_id').focus();
+                    return;
+                }
+
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Fetching...');
+
+                $.ajax({
+                    url: "{{ url('admin/shiprocket/order-details') }}/" + encodeURIComponent(orderId),
+                    type: "GET",
+                    success: function(response) {
+                        btn.prop('disabled', false).html(originalText);
+                        if (response.success && response.order) {
+                            currentOrderJson = response.raw_data || response.order;
+                            const ord = response.order;
+
+                            $('#dt_order_id').text(ord.id || ord.order_id || orderId);
+                            $('#dt_channel_order_id').text(ord.channel_order_id || ord.order_number || 'N/A');
+                            $('#dt_status').text(ord.status || 'NEW');
+                            $('#dt_payment_method').text(ord.payment_method || 'N/A');
+                            $('#dt_customer_name').text(ord.customer_name || (ord.billing_customer_name ? ord.billing_customer_name + ' ' + (ord.billing_last_name || '') : 'N/A'));
+                            $('#dt_customer_email').text(ord.customer_email || ord.billing_email || 'N/A');
+                            $('#dt_customer_phone').text(ord.customer_phone || ord.billing_phone || 'N/A');
+
+                            const addr = [ord.customer_address || ord.billing_address, ord.customer_city || ord.billing_city, ord.customer_state || ord.billing_state, ord.customer_pincode || ord.billing_pincode].filter(Boolean).join(', ');
+                            $('#dt_address').text(addr || 'N/A');
+                            $('#dt_pickup_location').text(ord.pickup_location || 'Primary');
+
+                            $('#order_details_result').slideDown();
+                        } else {
+                            alert('Order Details Error: ' + (response.message || 'Order not found on Shiprocket.'));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).html(originalText);
+                        let msg = 'Failed to fetch order details.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
+            });
+
+            $('#btn_view_order_json').click(function() {
+                if (currentOrderJson) {
+                    $('#modal_title_text').text('Shiprocket Order Details API JSON');
+                    $('#courier_json_content').text(JSON.stringify(currentOrderJson, null, 4));
+                    $('#courierJsonModal').modal('show');
+                }
             });
 
             // Fetch Couriers List via AJAX
@@ -715,6 +852,7 @@
             // View Courier JSON Modal Handler
             $(document).on('click', '.view-courier-json', function() {
                 const json = $(this).data('json');
+                $('#modal_title_text').text('Shiprocket API Raw Data');
                 $('#courier_json_content').text(JSON.stringify(json, null, 4));
                 $('#courierJsonModal').modal('show');
             });

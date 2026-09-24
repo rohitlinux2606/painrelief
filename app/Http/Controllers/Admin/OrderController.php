@@ -345,6 +345,36 @@ class OrderController extends Controller
     }
 
     /**
+     * Get Specific Order Details from Shiprocket API for an order.
+     */
+    public function showShiprocketDetails(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $searchId = $order->shiprocket_order_id ?: ($order->shiprocket_shipment_id ?: $order->order_number);
+
+        if (!$searchId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No Shiprocket Order ID or Shipment ID found for this order.',
+            ], 404);
+        }
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->getOrderDetails($searchId);
+
+        return response()->json($result);
+    }
+
+    /**
      * Cancel Shiprocket Order.
      */
     public function cancelShiprocket(Request $request, $id)

@@ -157,9 +157,13 @@
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 pt-2 border-top">
-                                <a href="{{ route('admin.order-control.track-shiprocket', $order->id) }}" class="btn btn-primary btn-sm shadow-sm">
+                                <a href="{{ route('admin.order-control.order.track-shiprocket', $order->id) }}" class="btn btn-primary btn-sm shadow-sm">
                                     <i class="bx bx-radar me-1"></i> Refresh / Track Status
                                 </a>
+
+                                <button type="button" id="btn_view_sr_details" class="btn btn-outline-primary btn-sm">
+                                    <i class="bx bx-show me-1"></i> View Shiprocket API Details
+                                </button>
 
                                 @if ($order->shiprocket_tracking_url)
                                     <a href="{{ $order->shiprocket_tracking_url }}" target="_blank" class="btn btn-outline-info btn-sm">
@@ -167,7 +171,7 @@
                                     </a>
                                 @endif
 
-                                <form action="{{ route('admin.order-control.cancel-shiprocket', $order->id) }}" method="POST" class="d-inline"
+                                <form action="{{ route('admin.order-control.order.cancel-shiprocket', $order->id) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to cancel this order on Shiprocket?');">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -325,4 +329,56 @@
             </div>
         </div>
     @endif
+
+    {{-- SHIPROCKET DETAILS JSON MODAL --}}
+    <div class="modal fade" id="srDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Shiprocket Specific Order API Details (`/v1/external/orders/show/`)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <pre id="sr_details_json" class="bg-dark text-light p-3 rounded" style="max-height: 420px; overflow-y: auto; font-size: 0.85rem;"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#btn_view_sr_details').click(function() {
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Fetching...');
+
+                $.ajax({
+                    url: "{{ route('admin.order-control.order.shiprocket-details', $order->id) }}",
+                    type: "GET",
+                    success: function(response) {
+                        btn.prop('disabled', false).html(originalText);
+                        if (response.success) {
+                            $('#sr_details_json').text(JSON.stringify(response.raw_data || response.order, null, 4));
+                            $('#srDetailsModal').modal('show');
+                        } else {
+                            alert('Error: ' + (response.message || 'Failed to fetch order details.'));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).html(originalText);
+                        let msg = 'Failed to load Shiprocket order details.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

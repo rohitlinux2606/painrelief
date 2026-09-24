@@ -487,6 +487,64 @@ class Shiprocket extends Model
     }
 
     /**
+     * Get Specific Order Details from Shiprocket API.
+     *
+     * Endpoint: /v1/external/orders/show/{order_id}
+     *
+     * @param string|int $shiprocketOrderId
+     * @return array ['success' => bool, 'message' => string, 'order' => array, 'raw_data' => mixed]
+     */
+    public function getOrderDetails($shiprocketOrderId): array
+    {
+        $token = $this->getValidToken();
+
+        if (!$token) {
+            return [
+                'success' => false,
+                'message' => 'Unable to obtain a valid Shiprocket authentication token.',
+                'order' => [],
+            ];
+        }
+
+        $baseUrl = rtrim($this->api_base_url ?: 'https://apiv2.shiprocket.in/v1/external', '/');
+        $endpoint = $baseUrl . '/orders/show/' . $shiprocketOrderId;
+
+        try {
+            $response = Http::withToken($token)
+                ->acceptJson()
+                ->get($endpoint);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $orderDetails = $data['data'] ?? ($data['order'] ?? $data);
+
+                return [
+                    'success' => true,
+                    'message' => 'Shiprocket order details fetched successfully.',
+                    'order' => is_array($orderDetails) ? $orderDetails : [],
+                    'raw_data' => $data,
+                ];
+            }
+
+            $errorMessage = $response->json('message') ?? $response->json('error') ?? $response->body() ?? 'Failed to retrieve order details from Shiprocket.';
+
+            return [
+                'success' => false,
+                'message' => 'Shiprocket API Error: ' . (is_string($errorMessage) ? $errorMessage : json_encode($errorMessage)),
+                'order' => [],
+            ];
+        } catch (\Exception $e) {
+            Log::error('Shiprocket Order Details Fetch Error: ' . $e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Connection Exception: ' . $e->getMessage(),
+                'order' => [],
+            ];
+        }
+    }
+
+    /**
      * Track Order / Shipment status from Shiprocket API.
      *
      * @param string|int $orderIdOrShipmentId
