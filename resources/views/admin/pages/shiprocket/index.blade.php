@@ -422,6 +422,213 @@
             </div>
         </div>
 
+        {{-- SHIPROCKET CREATE RETURN ORDER WIDGET --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="form-section-title fw-bold mb-0">Create a Return Order</h5>
+                    <span class="text-muted small">Endpoint: <code>POST /v1/external/orders/create/return</code></span>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#return_order_collapse">
+                    <i class="bx bx-chevron-down me-1"></i> Toggle Form
+                </button>
+            </div>
+            <div class="collapse show" id="return_order_collapse">
+                <div class="card-body">
+                    <form id="return_order_form">
+                        @csrf
+                        <div class="alert alert-primary py-2 px-3 small mb-4">
+                            <i class="bx bx-undo me-1"></i> Dispatch a return shipment pickup from customer to warehouse/store with Quality Check (QC) options.
+                        </div>
+
+                        {{-- Section 1: Order Details --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bx bx-file me-1"></i> Order & Channel Metadata</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Return Order ID <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_order_id" class="form-control" value="RET-{{ time() }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Order Date <span class="text-danger">*</span></label>
+                                <input type="date" id="ret_order_date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Channel ID</label>
+                                <input type="text" id="ret_channel_id" class="form-control" placeholder="27202" value="{{ $shiprocket->channel_id ?? '' }}">
+                            </div>
+                        </div>
+
+                        {{-- Section 2: Pickup Customer Info (Customer returning item) --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bx bx-user me-1"></i> Pickup Contact (Customer Returning Item)</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Pickup First Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_name" class="form-control" placeholder="Iron" value="Iron" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Pickup Last Name</label>
+                                <input type="text" id="ret_pickup_last_name" class="form-control" placeholder="Man" value="Man">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Company Name</label>
+                                <input type="text" id="ret_company_name" class="form-control" placeholder="Company Name" value="{{ $shiprocket->company_name ?? 'Customer Inc' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pickup Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_address" class="form-control" value="House 123, Leaf Street" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pickup Address Line 2</label>
+                                <input type="text" id="ret_pickup_address_2" class="form-control" value="Near Central Park">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_city" class="form-control" value="Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_state" class="form-control" value="New Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_pincode" class="form-control" value="110030" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Country</label>
+                                <input type="text" id="ret_pickup_country" class="form-control" value="India" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <input type="email" id="ret_pickup_email" class="form-control" value="customer@example.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_pickup_phone" class="form-control" value="9810363552" required>
+                            </div>
+                        </div>
+
+                        {{-- Section 3: Destination Shipping Info (Warehouse receiving item) --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-store me-1"></i> Destination Contact (Warehouse Receiving Item)</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Shipping First Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_name" class="form-control" value="{{ $shiprocket->company_name ?: 'Warehouse Manager' }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Shipping Last Name</label>
+                                <input type="text" id="ret_shipping_last_name" class="form-control" value="Admin">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Shipping Phone <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_phone" class="form-control" value="{{ $shiprocket->phone ?: '8888888888' }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Shipping Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_address" class="form-control" value="{{ $shiprocket->pickup_location ?: 'Warehouse Main Gate' }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Shipping Address Line 2</label>
+                                <input type="text" id="ret_shipping_address_2" class="form-control" value="Industrial Area Phase 1">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_city" class="form-control" value="Ghaziabad" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_state" class="form-control" value="Uttar Pradesh" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_shipping_pincode" class="form-control" value="{{ $shiprocket->pincode ?: '201005' }}" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Shipping Email</label>
+                                <input type="email" id="ret_shipping_email" class="form-control" value="{{ $shiprocket->email ?: 'admin@example.com' }}">
+                            </div>
+                        </div>
+
+                        {{-- Section 4: Return Item & Quality Check (QC) --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-package me-1"></i> Return Item & Quality Check (QC) Specifications</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Product Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_item_name" class="form-control" value="Shoes" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">SKU <span class="text-danger">*</span></label>
+                                <input type="text" id="ret_item_sku" class="form-control" value="WSH234" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Units <span class="text-danger">*</span></label>
+                                <input type="number" id="ret_item_units" class="form-control" value="1" min="1" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Selling Price (₹) <span class="text-danger">*</span></label>
+                                <input type="number" step="0.01" id="ret_item_price" class="form-control" value="100" required>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check form-switch pt-4">
+                                    <input class="form-check-input" type="checkbox" id="ret_qc_enable" value="1" checked>
+                                    <label class="form-check-label fw-bold" for="ret_qc_enable">Enable Quality Check (QC)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Product Name</label>
+                                <input type="text" id="ret_qc_product_name" class="form-control" value="Shoes">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Brand</label>
+                                <input type="text" id="ret_qc_brand" class="form-control" value="Levi">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Product Image URL</label>
+                                <input type="url" id="ret_qc_product_image" class="form-control" placeholder="https://example.com/image.jpg" value="https://assets.vogue.in/photos/5d7224d50ce95e0008696c55/2:3/w_2240,c_limit/Joker.jpg">
+                            </div>
+                        </div>
+
+                        {{-- Section 5: Dimensions & Totals --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-cube me-1"></i> Dimensions & Payment Method</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Length (cm)</label>
+                                <input type="number" step="0.1" id="ret_length" class="form-control" value="11" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Breadth (cm)</label>
+                                <input type="number" step="0.1" id="ret_breadth" class="form-control" value="11" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Height (cm)</label>
+                                <input type="number" step="0.1" id="ret_height" class="form-control" value="11" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Weight (Kg)</label>
+                                <input type="number" step="0.01" id="ret_weight" class="form-control" value="0.5" min="0.01" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Payment Method</label>
+                                <select id="ret_payment_method" class="form-select">
+                                    <option value="PREPAID">PREPAID</option>
+                                    <option value="COD">COD</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Subtotal (₹)</label>
+                                <input type="number" step="0.01" id="ret_sub_total" class="form-control" value="400" required>
+                            </div>
+                        </div>
+
+                        <div class="text-end border-top pt-3">
+                            <button type="button" id="btn_submit_return_order" class="btn btn-success btn-lg px-4 shadow-sm">
+                                <i class="bx bx-undo me-1"></i> Submit Return Order API Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- SHIPROCKET COURIERS LIST SECTION --}}
         <div class="card shadow-sm mb-5">
             <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -855,6 +1062,90 @@
                 $('#modal_title_text').text('Shiprocket API Raw Data');
                 $('#courier_json_content').text(JSON.stringify(json, null, 4));
                 $('#courierJsonModal').modal('show');
+            });
+
+            // Submit Create Return Order via AJAX
+            $('#btn_submit_return_order').click(function(e) {
+                e.preventDefault();
+
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Submitting Return Order...');
+
+                const orderItems = [{
+                    name: $('#ret_item_name').val(),
+                    sku: $('#ret_item_sku').val(),
+                    units: parseInt($('#ret_item_units').val() || 1),
+                    selling_price: parseFloat($('#ret_item_price').val() || 0),
+                    discount: 0,
+                    qc_enable: $('#ret_qc_enable').is(':checked'),
+                    qc_product_name: $('#ret_qc_product_name').val(),
+                    qc_brand: $('#ret_qc_brand').val(),
+                    qc_product_image: $('#ret_qc_product_image').val()
+                }];
+
+                const payload = {
+                    _token: "{{ csrf_token() }}",
+                    order_id: $('#ret_order_id').val(),
+                    order_date: $('#ret_order_date').val(),
+                    channel_id: $('#ret_channel_id').val(),
+                    pickup_customer_name: $('#ret_pickup_name').val(),
+                    pickup_last_name: $('#ret_pickup_last_name').val(),
+                    company_name: $('#ret_company_name').val(),
+                    pickup_address: $('#ret_pickup_address').val(),
+                    pickup_address_2: $('#ret_pickup_address_2').val(),
+                    pickup_city: $('#ret_pickup_city').val(),
+                    pickup_state: $('#ret_pickup_state').val(),
+                    pickup_country: $('#ret_pickup_country').val(),
+                    pickup_pincode: $('#ret_pickup_pincode').val(),
+                    pickup_email: $('#ret_pickup_email').val(),
+                    pickup_phone: $('#ret_pickup_phone').val(),
+                    pickup_isd_code: "91",
+                    shipping_customer_name: $('#ret_shipping_name').val(),
+                    shipping_last_name: $('#ret_shipping_last_name').val(),
+                    shipping_address: $('#ret_shipping_address').val(),
+                    shipping_address_2: $('#ret_shipping_address_2').val(),
+                    shipping_city: $('#ret_shipping_city').val(),
+                    shipping_state: $('#ret_shipping_state').val(),
+                    shipping_country: 'India',
+                    shipping_pincode: $('#ret_shipping_pincode').val(),
+                    shipping_email: $('#ret_shipping_email').val(),
+                    shipping_isd_code: "91",
+                    shipping_phone: $('#ret_shipping_phone').val(),
+                    order_items: orderItems,
+                    payment_method: $('#ret_payment_method').val(),
+                    total_discount: "0",
+                    sub_total: parseFloat($('#ret_sub_total').val() || 0),
+                    length: parseFloat($('#ret_length').val() || 10),
+                    breadth: parseFloat($('#ret_breadth').val() || 10),
+                    height: parseFloat($('#ret_height').val() || 10),
+                    weight: parseFloat($('#ret_weight').val() || 0.5)
+                };
+
+                $.ajax({
+                    url: "{{ route('admin.shiprocket.create-return-order') }}",
+                    type: "POST",
+                    data: payload,
+                    success: function(response) {
+                        btn.prop('disabled', false).html(originalText);
+                        if (response.success) {
+                            alert('Success! Return Order Created. Order ID: ' + (response.order_id || 'N/A') + ' | Shipment ID: ' + (response.shipment_id || 'N/A'));
+                            $('#modal_title_text').text('Shiprocket Create Return Order API JSON Response');
+                            $('#courier_json_content').text(JSON.stringify(response.raw_data || response, null, 4));
+                            $('#courierJsonModal').modal('show');
+                        } else {
+                            alert('Return Order Error: ' + (response.message || 'Failed to create return order on Shiprocket.'));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).html(originalText);
+                        let msg = 'Failed to submit return order to Shiprocket API.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
             });
 
             // Live Search Filter for Couriers Table

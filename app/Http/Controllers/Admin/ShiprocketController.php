@@ -243,4 +243,45 @@ class ShiprocketController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * Create a Return Order on Shiprocket API.
+     *
+     * Endpoint: /v1/external/orders/create/return
+     */
+    public function createReturnOrder(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|string|max:100',
+            'order_date' => 'required|string',
+            'pickup_customer_name' => 'required|string|max:100',
+            'pickup_address' => 'required|string|max:255',
+            'pickup_city' => 'required|string|max:100',
+            'pickup_state' => 'required|string|max:100',
+            'pickup_pincode' => 'required',
+            'pickup_email' => 'required|email',
+            'pickup_phone' => 'required|string|max:20',
+            'shipping_customer_name' => 'required|string|max:100',
+            'shipping_address' => 'required|string|max:255',
+            'shipping_city' => 'required|string|max:100',
+            'shipping_state' => 'required|string|max:100',
+            'shipping_pincode' => 'required',
+            'shipping_phone' => 'required|string|max:20',
+            'sub_total' => 'required|numeric',
+            'weight' => 'required|numeric|min:0.01',
+        ]);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->createReturnOrder($request->all());
+
+        return response()->json($result);
+    }
 }

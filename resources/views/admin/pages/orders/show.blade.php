@@ -171,6 +171,10 @@
                                     </a>
                                 @endif
 
+                                <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#returnOrderModal">
+                                    <i class="bx bx-undo me-1"></i> Create Return Order
+                                </button>
+
                                 <form action="{{ route('admin.order-control.order.cancel-shiprocket', $order->id) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to cancel this order on Shiprocket?');">
                                     @csrf
@@ -322,6 +326,79 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-success px-4 shadow">
                                 <i class="bx bx-paper-plane me-1"></i> Confirm & Push to Shiprocket
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- CREATE RETURN ORDER MODAL --}}
+    @if ($shiprocket && $shiprocket->isTokenValid())
+        <div class="modal fade" id="returnOrderModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <form action="{{ route('admin.order-control.order.create-return-order', $order->id) }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold"><i class="bx bx-undo me-1 text-warning"></i> Create Shiprocket Return Order</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning py-2 small mb-3">
+                                Target Store Order: <strong>#{{ $order->order_number }}</strong> | Customer: <strong>{{ $order->customer->full_name ?? ($order->address->name ?? 'Customer') }}</strong>
+                                <br>Initiating a Return Order will arrange pickup from the customer's address to your store warehouse.
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Pickup Address (Customer)</label>
+                                    <input type="text" class="form-control" value="{{ $order->address->address_line1 ?? '' }}, {{ $order->address->city ?? '' }} - {{ $order->address->postal_code ?? '' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Shipping Address (Warehouse Destination)</label>
+                                    <input type="text" class="form-control" value="{{ $shiprocket->pickup_location ?: 'Main Warehouse' }} (Pincode: {{ $shiprocket->pincode ?: '110001' }})" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch pt-2">
+                                        <input class="form-check-input" type="checkbox" name="qc_enable" id="modal_qc_enable" value="1" checked>
+                                        <label class="form-check-label fw-bold" for="modal_qc_enable">Enable Quality Check (QC)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">QC Brand</label>
+                                    <input type="text" name="qc_brand" class="form-control" value="{{ $shiprocket->company_name ?: 'Store Item' }}">
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <label class="form-label fw-semibold mb-1">Return Package Dimensions (cm) & Weight (Kg)</label>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="length" class="form-control" placeholder="Length" value="10" required>
+                                    <small class="text-muted">Length (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="breadth" class="form-control" placeholder="Breadth" value="10" required>
+                                    <small class="text-muted">Breadth (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="height" class="form-control" placeholder="Height" value="10" required>
+                                    <small class="text-muted">Height (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.01" name="weight" class="form-control" placeholder="Weight" value="0.5" min="0.01" required>
+                                    <small class="text-muted">Weight (Kg)</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-warning px-4 shadow">
+                                <i class="bx bx-undo me-1"></i> Submit Return Order to Shiprocket
                             </button>
                         </div>
                     </form>

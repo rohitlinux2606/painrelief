@@ -745,4 +745,169 @@ class Shiprocket extends Model
             ];
         }
     }
+
+    /**
+     * Create a Return Order in Shiprocket.
+     *
+     * Endpoint: /v1/external/orders/create/return
+     *
+     * @param array $data Return order payload data
+     * @return array ['success' => bool, 'message' => string, 'order_id' => string, 'shipment_id' => string, 'raw_data' => mixed]
+     */
+    public function createReturnOrder(array $data): array
+    {
+        $token = $this->getValidToken();
+
+        if (!$token) {
+            return [
+                'success' => false,
+                'message' => 'Unable to obtain a valid Shiprocket authentication token.',
+            ];
+        }
+
+        $baseUrl = rtrim($this->api_base_url ?: 'https://apiv2.shiprocket.in/v1/external', '/');
+        $endpoint = $baseUrl . '/orders/create/return';
+
+        // Pickup Customer Details (Customer returning the item)
+        $pickupCustomerName = $data['pickup_customer_name'] ?? 'Customer';
+        $pickupLastName = $data['pickup_last_name'] ?? '';
+        $companyName = $data['company_name'] ?? ($this->company_name ?? 'Store');
+        $pickupAddress = $data['pickup_address'] ?? '';
+        $pickupAddress2 = $data['pickup_address_2'] ?? '';
+        $pickupCity = $data['pickup_city'] ?? '';
+        $pickupState = $data['pickup_state'] ?? '';
+        $pickupCountry = $data['pickup_country'] ?? 'India';
+        $pickupPincode = (int) preg_replace('/[^0-9]/', '', (string) ($data['pickup_pincode'] ?? 110001));
+        $pickupEmail = $data['pickup_email'] ?? 'customer@example.com';
+        $pickupPhone = preg_replace('/[^0-9]/', '', (string) ($data['pickup_phone'] ?? '9876543210'));
+        if (strlen($pickupPhone) > 10) {
+            $pickupPhone = substr($pickupPhone, -10);
+        }
+        $pickupIsdCode = (string) ($data['pickup_isd_code'] ?? '91');
+
+        // Destination Shipping Details (Warehouse / Merchant receiving returned item)
+        $shippingCustomerName = $data['shipping_customer_name'] ?? ($this->company_name ?? 'Warehouse');
+        $shippingLastName = $data['shipping_last_name'] ?? '';
+        $shippingAddress = $data['shipping_address'] ?? ($this->pickup_location ?? 'Main Warehouse');
+        $shippingAddress2 = $data['shipping_address_2'] ?? '';
+        $shippingCity = $data['shipping_city'] ?? '';
+        $shippingState = $data['shipping_state'] ?? '';
+        $shippingCountry = $data['shipping_country'] ?? 'India';
+        $shippingPincode = (int) preg_replace('/[^0-9]/', '', (string) ($data['shipping_pincode'] ?? ($this->pincode ?? 110001)));
+        $shippingEmail = $data['shipping_email'] ?? ($this->email ?? 'admin@example.com');
+        $shippingPhone = preg_replace('/[^0-9]/', '', (string) ($data['shipping_phone'] ?? ($this->phone ?? '9876543210')));
+        if (strlen($shippingPhone) > 10) {
+            $shippingPhone = substr($shippingPhone, -10);
+        }
+        $shippingIsdCode = (string) ($data['shipping_isd_code'] ?? '91');
+
+        // Formulate order items
+        $rawItems = $data['order_items'] ?? [];
+        $orderItems = [];
+
+        if (is_array($rawItems) && !empty($rawItems)) {
+            foreach ($rawItems as $item) {
+                $orderItems[] = [
+                    'name' => $item['name'] ?? 'Returned Item',
+                    'qc_enable' => isset($item['qc_enable']) ? (bool) $item['qc_enable'] : true,
+                    'qc_product_name' => $item['qc_product_name'] ?? ($item['name'] ?? 'Returned Item'),
+                    'sku' => $item['sku'] ?? 'RET-SKU-1',
+                    'units' => (int) ($item['units'] ?? 1),
+                    'selling_price' => (float) ($item['selling_price'] ?? 0),
+                    'discount' => (float) ($item['discount'] ?? 0),
+                    'qc_brand' => $item['qc_brand'] ?? 'General',
+                    'qc_product_image' => $item['qc_product_image'] ?? '',
+                ];
+            }
+        } else {
+            $orderItems[] = [
+                'name' => 'Returned Product',
+                'qc_enable' => true,
+                'qc_product_name' => 'Returned Product',
+                'sku' => 'RET-SKU-1',
+                'units' => 1,
+                'selling_price' => (float) ($data['sub_total'] ?? 100),
+                'discount' => 0,
+                'qc_brand' => 'General',
+                'qc_product_image' => '',
+            ];
+        }
+
+        $payload = [
+            'order_id' => (string) ($data['order_id'] ?? 'RET-' . time()),
+            'order_date' => $data['order_date'] ?? date('Y-m-d'),
+            'pickup_customer_name' => $pickupCustomerName,
+            'pickup_last_name' => $pickupLastName,
+            'company_name' => $companyName,
+            'pickup_address' => $pickupAddress,
+            'pickup_address_2' => $pickupAddress2,
+            'pickup_city' => $pickupCity,
+            'pickup_state' => $pickupState,
+            'pickup_country' => $pickupCountry,
+            'pickup_pincode' => $pickupPincode,
+            'pickup_email' => $pickupEmail,
+            'pickup_phone' => $pickupPhone,
+            'pickup_isd_code' => $pickupIsdCode,
+
+            'shipping_customer_name' => $shippingCustomerName,
+            'shipping_last_name' => $shippingLastName,
+            'shipping_address' => $shippingAddress,
+            'shipping_address_2' => $shippingAddress2,
+            'shipping_city' => $shippingCity,
+            'shipping_state' => $shippingState,
+            'shipping_country' => $shippingCountry,
+            'shipping_pincode' => $shippingPincode,
+            'shipping_email' => $shippingEmail,
+            'shipping_isd_code' => $shippingIsdCode,
+            'shipping_phone' => $shippingPhone,
+
+            'order_items' => $orderItems,
+            'payment_method' => strtoupper($data['payment_method'] ?? 'PREPAID'),
+            'total_discount' => (string) ($data['total_discount'] ?? '0'),
+            'sub_total' => (float) ($data['sub_total'] ?? 0),
+            'length' => (float) ($data['length'] ?? 10),
+            'breadth' => (float) ($data['breadth'] ?? 10),
+            'height' => (float) ($data['height'] ?? 10),
+            'weight' => (float) ($data['weight'] ?? 0.5),
+        ];
+
+        if (!empty($data['channel_id']) || !empty($this->channel_id)) {
+            $payload['channel_id'] = (string) ($data['channel_id'] ?? $this->channel_id);
+        }
+
+        try {
+            $response = Http::withToken($token)
+                ->acceptJson()
+                ->post($endpoint, $payload);
+
+            if ($response->successful()) {
+                $responseData = $response->json();
+                $srOrderId = (string) ($responseData['order_id'] ?? ($responseData['data']['order_id'] ?? $payload['order_id']));
+                $srShipmentId = (string) ($responseData['shipment_id'] ?? ($responseData['data']['shipment_id'] ?? ''));
+
+                return [
+                    'success' => true,
+                    'message' => 'Return order created successfully on Shiprocket.',
+                    'order_id' => $srOrderId,
+                    'shipment_id' => $srShipmentId,
+                    'raw_data' => $responseData,
+                ];
+            }
+
+            $errorMessage = $response->json('message') ?? $response->json('error') ?? $response->body() ?? 'Failed to create return order on Shiprocket.';
+
+            return [
+                'success' => false,
+                'message' => 'Shiprocket API Error: ' . (is_string($errorMessage) ? $errorMessage : json_encode($errorMessage)),
+                'raw_data' => $response->json(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Shiprocket Create Return Order Error: ' . $e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Connection Exception: ' . $e->getMessage(),
+            ];
+        }
+    }
 }

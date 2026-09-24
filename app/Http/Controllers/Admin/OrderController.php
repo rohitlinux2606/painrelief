@@ -433,4 +433,99 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Order status updated to ' . ucfirst($request->status));
     }
+
+    /**
+     * Create a Return Order on Shiprocket for a specific store order.
+     */
+    public function createReturnOrder(Request $request, $id)
+    {
+        $order = Order::with(['items', 'address', 'customer'])->findOrFail($id);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return redirect()->back()->with('error', 'Shiprocket is not configured.');
+        }
+
+        $address = $order->address;
+        $customer = $order->customer;
+
+        $fullName = trim($customer->full_name ?? ($address->name ?? 'Customer'));
+        $nameParts = explode(' ', $fullName, 2);
+        $firstName = $nameParts[0] ?? 'Customer';
+        $lastName = $nameParts[1] ?? '';
+
+        $orderItems = [];
+        if ($order->items && $order->items->count() > 0) {
+            foreach ($order->items as $item) {
+                $orderItems[] = [
+                    'name' => $item->title ?? 'Returned Item',
+                    'qc_enable' => $request->has('qc_enable') ? (bool) $request->input('qc_enable') : true,
+                    'qc_product_name' => $item->title ?? 'Returned Item',
+                    'sku' => 'PROD-' . ($item->product_id ?? $item->id),
+                    'units' => (int) $item->quantity,
+                    'selling_price' => (float) $item->price,
+                    'discount' => 0,
+                    'qc_brand' => $request->input('qc_brand', 'Store Item'),
+                    'qc_product_image' => $request->input('qc_product_image', ''),
+                ];
+            }
+        } else {
+            $orderItems[] = [
+                'name' => 'Returned Item',
+                'qc_enable' => true,
+                'qc_product_name' => 'Returned Item',
+                'sku' => 'PROD-' . $order->id,
+                'units' => 1,
+                'selling_price' => (float) $order->total,
+                'discount' => 0,
+                'qc_brand' => 'Store Item',
+                'qc_product_image' => '',
+            ];
+        }
+
+        $returnData = [
+            'order_id' => 'RET-' . $order->order_number,
+            'order_date' => date('Y-m-d'),
+            'pickup_customer_name' => $firstName,
+            'pickup_last_name' => $lastName,
+            'company_name' => $shiprocket->company_name ?: 'Store',
+            'pickup_address' => $address->address_line1 ?? ($address->address ?? 'Customer Address'),
+            'pickup_address_2' => $address->address_line2 ?? '',
+            'pickup_city' => $address->city ?? 'City',
+            'pickup_state' => $address->state ?? 'State',
+            'pickup_country' => $address->country ?? 'India',
+            'pickup_pincode' => $address->postal_code ?? '110001',
+            'pickup_email' => $customer->email ?? ($order->email ?? 'customer@example.com'),
+            'pickup_phone' => $customer->phone ?? ($address->phone ?? '9876543210'),
+            'pickup_isd_code' => '91',
+
+            'shipping_customer_name' => $shiprocket->company_name ?: 'Warehouse',
+            'shipping_address' => $shiprocket->pickup_location ?: 'Main Warehouse',
+            'shipping_city' => 'Delhi',
+            'shipping_state' => 'Delhi',
+            'shipping_country' => 'India',
+            'shipping_pincode' => $shiprocket->pincode ?: '110001',
+            'shipping_email' => $shiprocket->email ?: 'warehouse@example.com',
+            'shipping_phone' => $shiprocket->phone ?: '9876543210',
+            'shipping_isd_code' => '91',
+
+            'order_items' => $orderItems,
+            'payment_method' => strtolower($order->payment_method) === 'cod' ? 'COD' : 'PREPAID',
+            'total_discount' => '0',
+            'sub_total' => (float) $order->subtotal,
+            'length' => (float) $request->input('length', 10),
+            'breadth' => (float) $request->input('breadth', 10),
+            'height' => (float) $request->input('height', 10),
+            'weight' => (float) $request->input('weight', 0.5),
+        ];
+
+        $result = $shiprocket->createReturnOrder($returnData);
+
+        if ($result['success']) {
+            return redirect()->back()->with('success', 'Return Order #' . ($result['order_id'] ?? '') . ' created successfully on Shiprocket! Shipment ID: ' . ($result['shipment_id'] ?? 'N/A'));
+        }
+
+        return redirect()->back()->with('error', 'Return Order Error: ' . $result['message']);
+    }
 }
