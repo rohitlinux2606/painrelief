@@ -69,6 +69,15 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::get('web-settings', [App\Http\Controllers\Admin\WebSettingController::class, 'index'])->name('index');
         Route::post('web-settings', [App\Http\Controllers\Admin\WebSettingController::class, 'store'])->name('store');
     });
+
+    Route::name('shiprocket.')->prefix('shiprocket')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\ShiprocketController::class, 'index'])->name('index');
+        Route::post('/store', [App\Http\Controllers\Admin\ShiprocketController::class, 'store'])->name('store');
+        Route::post('/test-connection', [App\Http\Controllers\Admin\ShiprocketController::class, 'testConnection'])->name('test-connection');
+        Route::get('/fetch-locations', [App\Http\Controllers\Admin\ShiprocketController::class, 'fetchLocations'])->name('fetch-locations');
+        Route::get('/fetch-couriers', [App\Http\Controllers\Admin\ShiprocketController::class, 'fetchCouriers'])->name('fetch-couriers');
+        Route::get('/check-serviceability', [App\Http\Controllers\Admin\ShiprocketController::class, 'checkServiceability'])->name('check-serviceability');
+    });
 });
 
 // Migration command
