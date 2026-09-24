@@ -27,8 +27,10 @@
             </a>
         </div>
 
+        @include('admin.layouts.messages')
+
         {{-- FILTERS --}}
-        <div class="card mb-4">
+        <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <form action="{{ route('admin.order-control.order.index') }}" method="GET">
                     <div class="row g-3">
@@ -78,7 +80,7 @@
         </div>
 
         {{-- TABLE --}}
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
@@ -87,13 +89,23 @@
                             <th>Order</th>
                             <th>Customer</th>
                             <th>Amount</th>
-                            <th>Status</th>
+                            <th>Order Status</th>
+                            <th>Shiprocket</th>
                             <th>Payment</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($orders as $order)
+                            @php
+                                $badgeClass = match($order->status) {
+                                    'paid' => 'bg-label-success',
+                                    'shipped' => 'bg-label-info',
+                                    'delivered' => 'bg-success',
+                                    'cancelled' => 'bg-label-danger',
+                                    default => 'bg-label-warning',
+                                };
+                            @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
 
@@ -120,44 +132,49 @@
                                 </td>
 
                                 <td>
-                                    <span class="badge bg-label-primary text-capitalize">
+                                    <span class="badge {{ $badgeClass }} text-capitalize">
                                         {{ $order->status }}
                                     </span>
                                 </td>
 
                                 <td>
-                                    <span
-                                        class="badge bg-{{ $order->payment_status == 'paid' ? 'success' : 'secondary' }}">
+                                    @if ($order->hasShiprocketOrder())
+                                        <span class="badge bg-label-success me-1" title="Shiprocket Order ID: {{ $order->shiprocket_order_id }}">
+                                            <i class="bx bx-package me-1"></i> Pushed
+                                        </span>
+                                        @if ($order->shiprocket_awb_code)
+                                            <small class="d-block text-muted">AWB: {{ $order->shiprocket_awb_code }}</small>
+                                        @endif
+                                    @else
+                                        <span class="badge bg-label-secondary">Not Pushed</span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-{{ $order->payment_status == 'paid' ? 'success' : 'secondary' }}">
                                         {{ ucfirst($order->payment_status) }}
                                     </span>
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="{{ route('admin.order-control.order.show', $order->id) }}"
-                                        class="btn btn-sm btn-outline-info">
-                                        <i class="bx bx-show"></i>
-                                    </a>
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.order-control.order.show', $order->id) }}"
+                                            class="btn btn-sm btn-outline-info" title="View Order">
+                                            <i class="bx bx-show"></i>
+                                        </a>
 
-                                    <a href="{{ route('admin.order-control.order.edit', $order->id) }}"
-                                        class="btn btn-sm btn-outline-primary">
-                                        <i class="bx bx-edit"></i>
-                                    </a>
-
-                                    {{-- <!-- Delete Button -->
-                                    <form action="{{ route('admin.order-control.order.destroy', $order->id) }}"
-                                        method="POST" class="d-inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this order?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </form> --}}
+                                        @if ($order->hasShiprocketOrder())
+                                            <a href="{{ route('admin.order-control.track-shiprocket', $order->id) }}"
+                                                class="btn btn-sm btn-outline-success" title="Track Shiprocket">
+                                                <i class="bx bx-radar"></i>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center py-5">No orders found.</td>
+                                <td colspan="8" class="text-center py-5">No orders found.</td>
                             </tr>
                         @endforelse
                     </tbody>

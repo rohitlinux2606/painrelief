@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Shiprocket;
 use App\Services\AmazonSpApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -54,7 +56,9 @@ class OrderController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.pages.orders.index', compact('orders'));
+        $shiprocket = Shiprocket::first();
+
+        return view('admin.pages.orders.index', compact('orders', 'shiprocket'));
     }
 
     /**
@@ -65,7 +69,6 @@ class OrderController extends Controller
         $title = 'Create New Order';
 
         $customers = Customer::where('is_active', 1)->get();
-        // $products  = Product::where('status', 'active')->get();
         $products = Product::all();
 
         return view('admin.pages.orders.create', compact('title', 'customers', 'products'));
@@ -76,7 +79,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // Log::info($request->all());
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'address_id' => 'required|exists:addresses,id',
@@ -92,7 +94,6 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-
             $subtotal = 0;
 
             foreach ($request->items as $item) {
@@ -123,10 +124,10 @@ class OrderController extends Controller
                 'status' => $request->status,
                 'payment_method' => $request->payment_method,
                 'payment_status' => $request->payment_status,
+                'shipped_at' => $request->status === 'shipped' ? Carbon::now() : null,
             ]);
 
             foreach ($request->items as $item) {
-
                 $product = Product::findOrFail($item['product_id']);
 
                 $order->items()->create([
@@ -148,8 +149,19 @@ class OrderController extends Controller
             try {
                 $this->amazonService->createMcfOrder($order);
             } catch (\Exception $e) {
-                // Log the error but don't fail the local order creation
                 Log::error("Amazon MCF Order Creation Failed for Order #{$order->order_number}: " . $e->getMessage());
+            }
+
+            // 📦 If status set to shipped, auto-create Shiprocket Order if integration active
+            if ($request->status === 'shipped') {
+                $shiprocket = Shiprocket::first();
+                if ($shiprocket && $shiprocket->status && $shiprocket->isTokenValid()) {
+                    try {
+                        $shiprocket->createOrder($order);
+                    } catch (\Exception $se) {
+                        Log::error("Shiprocket Order Creation Error for Order #{$order->order_number}: " . $se->getMessage());
+                    }
+                }
             }
 
             DB::commit();
@@ -169,9 +181,10 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::with(['items', 'address', 'customer'])->findOrFail($id);
+        $shiprocket = Shiprocket::first();
         $title = 'View Order Detail';
 
-        return view('admin.pages.orders.show', compact('order', 'title'));
+        return view('admin.pages.orders.show', compact('order', 'shiprocket', 'title'));
     }
 
     /**
@@ -204,7 +217,6 @@ class OrderController extends Controller
         ]);
 
         try {
-            // Password update only if entered
             if ($request->filled('password')) {
                 $validated['password'] = bcrypt($request->password);
             } else {
@@ -228,11 +240,167 @@ class OrderController extends Controller
         try {
             Order::findOrFail($id)->delete();
 
-            return redirect()->back()->with('success', 'Customer Deleted Successfully.');
+            return redirect()->back()->with('success', 'Order Deleted Successfully.');
         } catch (\Exception $e) {
-            Log::error('Tour Delete Error: ' . $e->getMessage());
+            Log::error('Order Delete Error: ' . $e->getMessage());
 
             return back()->with('error', 'Something went wrong.');
         }
+    }
+
+    /**
+     * Ship Order via Shiprocket integration.
+     */
+    public function shipWithShiprocket(Request $request, $id)
+    {
+        $order = Order::with(['items', 'address', 'customer'])->findOrFail($id);
+
+        $request->validate([
+            'length' => 'nullable|numeric|min:0.1',
+            'breadth' => 'nullable|numeric|min:0.1',
+            'height' => 'nullable|numeric|min:0.1',
+            'weight' => 'nullable|numeric|min:0.01',
+            'pickup_location' => 'nullable|string',
+        ]);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return redirect()->back()->with('error', 'Shiprocket is not configured yet. Please configure credentials in Shiprocket Settings first.');
+        }
+
+        $packageData = [
+            'length' => $request->input('length', 10),
+            'breadth' => $request->input('breadth', 10),
+            'height' => $request->input('height', 10),
+            'weight' => $request->input('weight', 0.5),
+            'pickup_location' => $request->input('pickup_location', $shiprocket->pickup_location ?: 'Primary'),
+        ];
+
+        $result = $shiprocket->createOrder($order, $packageData);
+
+        if ($result['success']) {
+            return redirect()->back()->with('success', 'Order #' . $order->order_number . ' successfully pushed to Shiprocket! Shipment ID: ' . ($result['shipment_id'] ?? 'N/A'));
+        }
+
+        return redirect()->back()->with('error', 'Shiprocket Error: ' . $result['message']);
+    }
+
+    /**
+     * Track Order Shipment via Shiprocket.
+     */
+    public function trackShiprocket(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'Shiprocket is not configured.']);
+            }
+            return redirect()->back()->with('error', 'Shiprocket is not configured.');
+        }
+
+        $searchId = $order->shiprocket_shipment_id ?: ($order->shiprocket_order_id ?: $order->order_number);
+
+        $result = $shiprocket->trackShipment($searchId);
+
+        if ($result['success']) {
+            $trackData = $result['tracking_data'];
+
+            $status = $trackData['current_status'] ?? ($trackData['status'] ?? $order->shiprocket_status);
+            $courier = $trackData['courier_name'] ?? $order->shiprocket_courier_name;
+            $awb = $trackData['awb_code'] ?? ($trackData['awb'] ?? $order->shiprocket_awb_code);
+            $trackUrl = $trackData['track_url'] ?? ($trackData['tracking_url'] ?? $order->shiprocket_tracking_url);
+
+            $updateData = [];
+            if ($status) $updateData['shiprocket_status'] = $status;
+            if ($courier) $updateData['shiprocket_courier_name'] = $courier;
+            if ($awb) $updateData['shiprocket_awb_code'] = $awb;
+            if ($trackUrl) $updateData['shiprocket_tracking_url'] = $trackUrl;
+
+            if (strtolower($status) === 'delivered') {
+                $updateData['status'] = 'delivered';
+            } elseif (strtolower($status) === 'shipped' || strtolower($status) === 'in transit') {
+                $updateData['status'] = 'shipped';
+            }
+
+            if (!empty($updateData)) {
+                $order->update($updateData);
+            }
+
+            if ($request->wantsJson()) {
+                return response()->json($result);
+            }
+
+            return redirect()->back()->with('success', 'Shipment tracking updated! Current Status: ' . ($status ?: 'In Transit'));
+        }
+
+        if ($request->wantsJson()) {
+            return response()->json($result, 400);
+        }
+
+        return redirect()->back()->with('error', 'Tracking Error: ' . $result['message']);
+    }
+
+    /**
+     * Cancel Shiprocket Order.
+     */
+    public function cancelShiprocket(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        if (!$order->shiprocket_order_id) {
+            return redirect()->back()->with('error', 'Order is not associated with a Shiprocket Order ID.');
+        }
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return redirect()->back()->with('error', 'Shiprocket is not configured.');
+        }
+
+        $result = $shiprocket->cancelOrder($order->shiprocket_order_id);
+
+        if ($result['success']) {
+            $order->update([
+                'status' => 'cancelled',
+                'shiprocket_status' => 'CANCELLED',
+            ]);
+
+            return redirect()->back()->with('success', 'Order cancelled on Shiprocket successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Cancel Error: ' . $result['message']);
+    }
+
+    /**
+     * Update order status manually.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,paid,shipped,delivered,cancelled',
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->status = $request->status;
+
+        if ($request->status === 'shipped' && !$order->shipped_at) {
+            $order->shipped_at = Carbon::now();
+        }
+
+        $order->save();
+
+        // If admin checked auto-push to Shiprocket when setting status to shipped
+        if ($request->status === 'shipped' && $request->has('push_to_shiprocket') && !$order->shiprocket_order_id) {
+            $shiprocket = Shiprocket::first();
+            if ($shiprocket && $shiprocket->status && $shiprocket->isTokenValid()) {
+                $shiprocket->createOrder($order);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Order status updated to ' . ucfirst($request->status));
     }
 }

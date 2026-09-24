@@ -63,6 +63,10 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
 
     Route::name('order-control.')->group(function () {
         Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
+        Route::post('order/{id}/ship-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'shipWithShiprocket'])->name('order.ship-shiprocket');
+        Route::get('order/{id}/track-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'trackShiprocket'])->name('order.track-shiprocket');
+        Route::post('order/{id}/cancel-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'cancelShiprocket'])->name('order.cancel-shiprocket');
+        Route::patch('order/{id}/update-status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('order.update-status');
     });
 
     Route::name('web-setting.')->group(function () {

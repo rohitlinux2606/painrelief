@@ -16,7 +16,22 @@ class Order extends Model
         'total',
         'status',
         'payment_method',
-        'payment_status'
+        'payment_status',
+        'shiprocket_order_id',
+        'shiprocket_shipment_id',
+        'shiprocket_awb_code',
+        'shiprocket_courier_name',
+        'shiprocket_status',
+        'shiprocket_tracking_url',
+        'shipped_at',
+    ];
+
+    protected $casts = [
+        'shipped_at' => 'datetime',
+        'subtotal' => 'decimal:2',
+        'tax' => 'decimal:2',
+        'shipping' => 'decimal:2',
+        'total' => 'decimal:2',
     ];
 
     public function items()
@@ -32,5 +47,21 @@ class Order extends Model
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+    /**
+     * Check if order has been sent to Shiprocket.
+     */
+    public function hasShiprocketOrder(): bool
+    {
+        return !empty($this->shiprocket_order_id);
+    }
+
+    /**
+     * Check if order status is shipped.
+     */
+    public function isShipped(): bool
+    {
+        return $this->status === 'shipped';
     }
 }
