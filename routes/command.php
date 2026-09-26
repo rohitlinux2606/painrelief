@@ -188,4 +188,18 @@ Route::group(['prefix' => 'dev', 'as' => 'dev.', 'middleware' => 'auth'], functi
 
         return 'Log file does not exist.';
     })->name('download-and-clear-log');
+
+    Route::get('/fix-autoload', function () {
+        // Cache clear
+        Artisan::call('optimize:clear');
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+
+        // Dump-autoload alternative via shell if exec/system allowed
+        if (function_exists('exec')) {
+            exec('composer dump-autoload');
+        }
+
+        return 'Cache cleared & Autoload refreshed successfully!';
+    });
 });
