@@ -175,6 +175,10 @@
                                     <i class="bx bx-undo me-1"></i> Create Return Order
                                 </button>
 
+                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#exchangeOrderModal">
+                                    <i class="bx bx-sync me-1"></i> Create Exchange Order
+                                </button>
+
                                 <form action="{{ route('admin.order-control.order.cancel-shiprocket', $order->id) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to cancel this order on Shiprocket?');">
                                     @csrf
@@ -399,6 +403,79 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-warning px-4 shadow">
                                 <i class="bx bx-undo me-1"></i> Submit Return Order to Shiprocket
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- CREATE EXCHANGE ORDER MODAL --}}
+    @if ($shiprocket && $shiprocket->isTokenValid())
+        <div class="modal fade" id="exchangeOrderModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <form action="{{ route('admin.order-control.order.create-exchange-order', $order->id) }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold"><i class="bx bx-sync me-1 text-info"></i> Create Shiprocket Exchange Order</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info py-2 small mb-3">
+                                Target Store Order: <strong>#{{ $order->order_number }}</strong> | Customer: <strong>{{ $order->customer->full_name ?? ($order->address->name ?? 'Customer') }}</strong>
+                                <br>Initiating an Exchange Order will process return pickup for the old item and forward delivery for the new item simultaneously.
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Customer Address (Pickup & Delivery)</label>
+                                    <input type="text" class="form-control" value="{{ $order->address->address_line1 ?? '' }}, {{ $order->address->city ?? '' }} - {{ $order->address->postal_code ?? '' }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Seller Location ID</label>
+                                    <input type="text" class="form-control" value="{{ $shiprocket->pickup_location ?: 'Primary' }}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch pt-2">
+                                        <input class="form-check-input" type="checkbox" name="qc_enable" id="ex_modal_qc_enable" value="1" checked>
+                                        <label class="form-check-label fw-bold" for="ex_modal_qc_enable">Enable Quality Check (QC)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">QC Brand</label>
+                                    <input type="text" name="qc_brand" class="form-control" value="{{ $shiprocket->company_name ?: 'Store Item' }}">
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <label class="form-label fw-semibold mb-1">Exchange Package Dimensions (cm) & Weight (Kg)</label>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="exchange_length" class="form-control" placeholder="Length" value="11" required>
+                                    <small class="text-muted">Length (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="exchange_breadth" class="form-control" placeholder="Breadth" value="11" required>
+                                    <small class="text-muted">Breadth (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.1" name="exchange_height" class="form-control" placeholder="Height" value="11" required>
+                                    <small class="text-muted">Height (cm)</small>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" step="0.01" name="exchange_weight" class="form-control" placeholder="Weight" value="0.5" min="0.01" required>
+                                    <small class="text-muted">Weight (Kg)</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-info px-4 shadow text-white">
+                                <i class="bx bx-sync me-1"></i> Submit Exchange Order to Shiprocket
                             </button>
                         </div>
                     </form>

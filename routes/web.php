@@ -68,6 +68,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::get('order/{id}/shiprocket-details', [App\Http\Controllers\Admin\OrderController::class, 'showShiprocketDetails'])->name('order.shiprocket-details');
         Route::post('order/{id}/cancel-shiprocket', [App\Http\Controllers\Admin\OrderController::class, 'cancelShiprocket'])->name('order.cancel-shiprocket');
         Route::post('order/{id}/create-return-order', [App\Http\Controllers\Admin\OrderController::class, 'createReturnOrder'])->name('order.create-return-order');
+        Route::post('order/{id}/create-exchange-order', [App\Http\Controllers\Admin\OrderController::class, 'createExchangeOrder'])->name('order.create-exchange-order');
         Route::patch('order/{id}/update-status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('order.update-status');
     });
 
@@ -84,7 +85,10 @@ Route::middleware(['web', 'auth'])->prefix('admin')->name('admin.')->group(funct
         Route::get('/fetch-couriers', [App\Http\Controllers\Admin\ShiprocketController::class, 'fetchCouriers'])->name('fetch-couriers');
         Route::get('/check-serviceability', [App\Http\Controllers\Admin\ShiprocketController::class, 'checkServiceability'])->name('check-serviceability');
         Route::get('/order-details/{order_id?}', [App\Http\Controllers\Admin\ShiprocketController::class, 'getSpecificOrderDetails'])->name('order-details');
+        Route::get('/track-awb/{awb_code?}', [App\Http\Controllers\Admin\ShiprocketController::class, 'getTrackingByAwb'])->name('track-awb');
         Route::post('/create-return-order', [App\Http\Controllers\Admin\ShiprocketController::class, 'createReturnOrder'])->name('create-return-order');
+        Route::post('/create-exchange-order', [App\Http\Controllers\Admin\ShiprocketController::class, 'createExchangeOrder'])->name('create-exchange-order');
+        Route::get('/wallet-balance', [App\Http\Controllers\Admin\ShiprocketController::class, 'getWalletBalance'])->name('wallet-balance');
     });
 });
 

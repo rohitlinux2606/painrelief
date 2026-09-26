@@ -612,6 +612,121 @@ class Shiprocket extends Model
     }
 
     /**
+     * Get Tracking details through AWB code from Shiprocket API.
+     *
+     * Endpoint: /v1/external/courier/track/awb/{awb_code}
+     *
+     * @param string $awbCode
+     * @return array ['success' => bool, 'message' => string, 'tracking_data' => mixed, 'raw_data' => mixed]
+     */
+    public function trackByAwb(string $awbCode): array
+    {
+        $token = $this->getValidToken();
+
+        if (!$token) {
+            return [
+                'success' => false,
+                'message' => 'Unable to obtain a valid Shiprocket authentication token.',
+                'tracking_data' => [],
+            ];
+        }
+
+        $baseUrl = rtrim($this->api_base_url ?: 'https://apiv2.shiprocket.in/v1/external', '/');
+        $endpoint = $baseUrl . '/courier/track/awb/' . trim($awbCode);
+
+        try {
+            $response = Http::withToken($token)
+                ->acceptJson()
+                ->get($endpoint);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $trackingData = $data['tracking_data'] ?? ($data['data'] ?? $data);
+
+                return [
+                    'success' => true,
+                    'message' => 'AWB tracking information retrieved successfully.',
+                    'tracking_data' => $trackingData,
+                    'raw_data' => $data,
+                ];
+            }
+
+            $errorMessage = $response->json('message') ?? $response->json('error') ?? $response->body() ?? 'Failed to retrieve tracking data for AWB: ' . $awbCode;
+
+            return [
+                'success' => false,
+                'message' => 'Shiprocket API Error: ' . (is_string($errorMessage) ? $errorMessage : json_encode($errorMessage)),
+                'tracking_data' => [],
+            ];
+        } catch (\Exception $e) {
+            Log::error('Shiprocket AWB Track Error: ' . $e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Connection Exception: ' . $e->getMessage(),
+                'tracking_data' => [],
+            ];
+        }
+    }
+
+    /**
+     * Get Wallet Balance from Shiprocket API.
+     *
+     * Endpoint: /v1/external/account/details/wallet-balance
+     *
+     * @return array ['success' => bool, 'message' => string, 'balance' => mixed, 'raw_data' => mixed]
+     */
+    public function getWalletBalance(): array
+    {
+        $token = $this->getValidToken();
+
+        if (!$token) {
+            return [
+                'success' => false,
+                'message' => 'Unable to obtain a valid Shiprocket authentication token.',
+                'balance' => 0,
+            ];
+        }
+
+        $baseUrl = rtrim($this->api_base_url ?: 'https://apiv2.shiprocket.in/v1/external', '/');
+        $endpoint = $baseUrl . '/account/details/wallet-balance';
+
+        try {
+            $response = Http::withToken($token)
+                ->acceptJson()
+                ->get($endpoint);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $balance = $data['data']['balance'] ?? ($data['balance'] ?? ($data['wallet_balance'] ?? 0));
+
+                return [
+                    'success' => true,
+                    'message' => 'Wallet balance retrieved successfully.',
+                    'balance' => $balance,
+                    'raw_data' => $data,
+                ];
+            }
+
+            $errorMessage = $response->json('message') ?? $response->json('error') ?? $response->body() ?? 'Failed to retrieve wallet balance.';
+
+            return [
+                'success' => false,
+                'message' => 'Shiprocket API Error: ' . (is_string($errorMessage) ? $errorMessage : json_encode($errorMessage)),
+                'balance' => 0,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Shiprocket Wallet Balance Error: ' . $e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Connection Exception: ' . $e->getMessage(),
+                'balance' => 0,
+            ];
+        }
+    }
+
+    /**
      * Cancel Order(s) in Shiprocket API.
      *
      * Endpoint: /v1/external/orders/cancel
@@ -903,6 +1018,177 @@ class Shiprocket extends Model
             ];
         } catch (\Exception $e) {
             Log::error('Shiprocket Create Return Order Error: ' . $e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Connection Exception: ' . $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * Create an Exchange Order in Shiprocket.
+     *
+     * Endpoint: /v1/external/orders/create/exchange
+     *
+     * @param array $data Exchange order payload data
+     * @return array ['success' => bool, 'message' => string, 'exchange_order_id' => string, 'return_order_id' => string, 'raw_data' => mixed]
+     */
+    public function createExchangeOrder(array $data): array
+    {
+        $token = $this->getValidToken();
+
+        if (!$token) {
+            return [
+                'success' => false,
+                'message' => 'Unable to obtain a valid Shiprocket authentication token.',
+            ];
+        }
+
+        $baseUrl = rtrim($this->api_base_url ?: 'https://apiv2.shiprocket.in/v1/external', '/');
+        $endpoint = $baseUrl . '/orders/create/exchange';
+
+        // Format order_items with exchange & QC attributes
+        $rawItems = $data['order_items'] ?? [];
+        $orderItems = [];
+
+        if (is_array($rawItems) && !empty($rawItems)) {
+            foreach ($rawItems as $item) {
+                $orderItems[] = [
+                    'name' => (string) ($item['name'] ?? 'Exchanged Item'),
+                    'selling_price' => (string) ($item['selling_price'] ?? '500.00'),
+                    'units' => (string) ($item['units'] ?? '1'),
+                    'hsn' => (string) ($item['hsn'] ?? ''),
+                    'sku' => (string) ($item['sku'] ?? 'EX-SKU-1'),
+                    'tax' => (string) ($item['tax'] ?? ''),
+                    'discount' => (string) ($item['discount'] ?? ''),
+                    'brand' => (string) ($item['brand'] ?? ''),
+                    'color' => (string) ($item['color'] ?? ''),
+                    'exchange_item_id' => (string) ($item['exchange_item_id'] ?? ($item['sku'] ?? 'EX-ITEM-1')),
+                    'exchange_item_name' => (string) ($item['exchange_item_name'] ?? ($item['name'] ?? 'Exchanged Item')),
+                    'exchange_item_sku' => (string) ($item['exchange_item_sku'] ?? ($item['sku'] ?? 'EX-SKU-1')),
+                    'qc_enable' => isset($item['qc_enable']) ? (bool) $item['qc_enable'] : true,
+                    'qc_product_name' => (string) ($item['qc_product_name'] ?? ($item['name'] ?? 'Exchanged Item')),
+                    'qc_product_image' => (string) ($item['qc_product_image'] ?? ''),
+                    'qc_brand' => (string) ($item['qc_brand'] ?? 'Brand'),
+                    'qc_color' => (string) ($item['qc_color'] ?? ''),
+                    'qc_size' => (string) ($item['qc_size'] ?? ''),
+                    'accessories' => (string) ($item['accessories'] ?? ''),
+                    'qc_used_check' => (string) ($item['qc_used_check'] ?? '1'),
+                    'qc_sealtag_check' => (string) ($item['qc_sealtag_check'] ?? '1'),
+                    'qc_brand_box' => (string) ($item['qc_brand_box'] ?? '1'),
+                    'qc_check_damaged_product' => (string) ($item['qc_check_damaged_product'] ?? 'yes'),
+                ];
+            }
+        } else {
+            $orderItems[] = [
+                'name' => 'Exchanged Item',
+                'selling_price' => (string) ($data['sub_total'] ?? '500.00'),
+                'units' => '1',
+                'hsn' => '',
+                'sku' => 'EX-SKU-1',
+                'tax' => '',
+                'discount' => '',
+                'brand' => '',
+                'color' => '',
+                'exchange_item_id' => 'EX-ITEM-1',
+                'exchange_item_name' => 'Exchanged Item',
+                'exchange_item_sku' => 'EX-SKU-1',
+                'qc_enable' => true,
+                'qc_product_name' => 'Exchanged Item',
+                'qc_product_image' => '',
+                'qc_brand' => 'Brand',
+                'qc_color' => '',
+                'qc_size' => '',
+                'accessories' => '',
+                'qc_used_check' => '1',
+                'qc_sealtag_check' => '1',
+                'qc_brand_box' => '1',
+                'qc_check_damaged_product' => 'yes',
+            ];
+        }
+
+        $exOrderId = (string) ($data['exchange_order_id'] ?? 'EX_' . time());
+        $retOrderId = (string) ($data['return_order_id'] ?? 'R_' . time());
+
+        $payload = [
+            'order_items' => $orderItems,
+            'buyer_pickup_first_name' => (string) ($data['buyer_pickup_first_name'] ?? 'Buyer'),
+            'buyer_pickup_last_name' => (string) ($data['buyer_pickup_last_name'] ?? ''),
+            'buyer_pickup_email' => (string) ($data['buyer_pickup_email'] ?? 'buyer@example.com'),
+            'buyer_pickup_address' => (string) ($data['buyer_pickup_address'] ?? 'Pickup Address'),
+            'buyer_pickup_address_2' => (string) ($data['buyer_pickup_address_2'] ?? ''),
+            'buyer_pickup_city' => (string) ($data['buyer_pickup_city'] ?? 'City'),
+            'buyer_pickup_state' => (string) ($data['buyer_pickup_state'] ?? 'State'),
+            'buyer_pickup_country' => (string) ($data['buyer_pickup_country'] ?? 'India'),
+            'buyer_pickup_phone' => (string) ($data['buyer_pickup_phone'] ?? '9876543210'),
+            'buyer_pickup_pincode' => (string) ($data['buyer_pickup_pincode'] ?? '110001'),
+
+            'buyer_shipping_first_name' => (string) ($data['buyer_shipping_first_name'] ?? ($data['buyer_pickup_first_name'] ?? 'Buyer')),
+            'buyer_shipping_last_name' => (string) ($data['buyer_shipping_last_name'] ?? ($data['buyer_pickup_last_name'] ?? '')),
+            'buyer_shipping_email' => (string) ($data['buyer_shipping_email'] ?? ($data['buyer_pickup_email'] ?? 'buyer@example.com')),
+            'buyer_shipping_address' => (string) ($data['buyer_shipping_address'] ?? ($data['buyer_pickup_address'] ?? 'Shipping Address')),
+            'buyer_shipping_address_2' => (string) ($data['buyer_shipping_address_2'] ?? ''),
+            'buyer_shipping_city' => (string) ($data['buyer_shipping_city'] ?? ($data['buyer_pickup_city'] ?? 'City')),
+            'buyer_shipping_state' => (string) ($data['buyer_shipping_state'] ?? ($data['buyer_pickup_state'] ?? 'State')),
+            'buyer_shipping_country' => (string) ($data['buyer_shipping_country'] ?? 'India'),
+            'buyer_shipping_phone' => (string) ($data['buyer_shipping_phone'] ?? ($data['buyer_pickup_phone'] ?? '9876543210')),
+            'buyer_shipping_pincode' => (string) ($data['buyer_shipping_pincode'] ?? ($data['buyer_pickup_pincode'] ?? '110001')),
+
+            'seller_pickup_location_id' => (string) ($data['seller_pickup_location_id'] ?? ($this->pickup_location ?: 'Primary')),
+            'seller_shipping_location_id' => (string) ($data['seller_shipping_location_id'] ?? ($this->pickup_location ?: 'Primary')),
+
+            'exchange_order_id' => $exOrderId,
+            'return_order_id' => $retOrderId,
+            'payment_method' => strtolower($data['payment_method'] ?? 'prepaid'),
+            'order_date' => (string) ($data['order_date'] ?? date('Y-m-d')),
+            'channel_id' => (string) ($data['channel_id'] ?? ($this->channel_id ?? '')),
+            'existing_order_id' => (string) ($data['existing_order_id'] ?? ''),
+            'return_reason' => (string) ($data['return_reason'] ?? '29'),
+            'sub_total' => (string) ($data['sub_total'] ?? '500.00'),
+            'shipping_charges' => (string) ($data['shipping_charges'] ?? ''),
+            'giftwrap_charges' => (string) ($data['giftwrap_charges'] ?? ''),
+            'total_discount' => (string) ($data['total_discount'] ?? '0'),
+            'transaction_charges' => (string) ($data['transaction_charges'] ?? ''),
+
+            'exchange_length' => (string) ($data['exchange_length'] ?? '11'),
+            'exchange_breadth' => (string) ($data['exchange_breadth'] ?? '11'),
+            'exchange_height' => (string) ($data['exchange_height'] ?? '11'),
+            'exchange_weight' => (string) ($data['exchange_weight'] ?? '0.5'),
+
+            'return_length' => (string) ($data['return_length'] ?? '10.00'),
+            'return_breadth' => (string) ($data['return_breadth'] ?? '10.00'),
+            'return_height' => (string) ($data['return_height'] ?? '10.00'),
+            'return_weight' => (string) ($data['return_weight'] ?? '0.500'),
+            'qc_check' => (string) ($data['qc_check'] ?? 'true'),
+        ];
+
+        try {
+            $response = Http::withToken($token)
+                ->acceptJson()
+                ->post($endpoint, $payload);
+
+            if ($response->successful()) {
+                $responseData = $response->json();
+
+                return [
+                    'success' => true,
+                    'message' => 'Exchange order created successfully on Shiprocket.',
+                    'exchange_order_id' => $exOrderId,
+                    'return_order_id' => $retOrderId,
+                    'raw_data' => $responseData,
+                ];
+            }
+
+            $errorMessage = $response->json('message') ?? $response->json('error') ?? $response->body() ?? 'Failed to create exchange order on Shiprocket.';
+
+            return [
+                'success' => false,
+                'message' => 'Shiprocket API Error: ' . (is_string($errorMessage) ? $errorMessage : json_encode($errorMessage)),
+                'raw_data' => $response->json(),
+            ];
+        } catch (\Exception $e) {
+            Log::error('Shiprocket Create Exchange Order Error: ' . $e->getMessage());
 
             return [
                 'success' => false,

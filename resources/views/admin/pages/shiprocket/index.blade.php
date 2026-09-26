@@ -56,7 +56,10 @@
                 </h4>
             </div>
             <div class="col-sm-6 text-sm-end">
-                <button type="button" id="btn_test_connection" class="btn btn-outline-primary shadow-sm me-2">
+                <button type="button" id="btn_quick_wallet_balance" class="btn btn-outline-success shadow-sm me-2">
+                    <i class="bx bx-wallet me-1"></i> Check Wallet Balance
+                </button>
+                <button type="button" id="btn_test_connection" class="btn btn-outline-primary shadow-sm">
                     <i class="bx bx-wifi me-1"></i> Test API Connection
                 </button>
             </div>
@@ -357,6 +360,118 @@
             </div>
         </div>
 
+        {{-- SHIPROCKET GET TRACKING THROUGH AWB WIDGET --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="form-section-title fw-bold mb-0">Get Tracking through AWB</h5>
+                    <span class="text-muted small">Endpoint: <code>GET /v1/external/courier/track/awb/{awb_code}</code></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 align-items-end mb-3">
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold">AWB Tracking Code <span class="text-danger">*</span></label>
+                        <input type="text" id="lookup_awb_code" class="form-control" placeholder="e.g. 788830567028">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" id="btn_track_awb" class="btn btn-primary w-100 shadow-sm">
+                            <i class="bx bx-map-pin me-1"></i> Track Shipment
+                        </button>
+                    </div>
+                </div>
+
+                <div id="awb_tracking_result" style="display: none;" class="mt-4 pt-3 border-top">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-primary mb-0"><i class="bx bx-run me-1"></i> Tracking Status & History</h6>
+                        <button type="button" id="btn_view_awb_json" class="btn btn-sm btn-outline-secondary">
+                            <i class="bx bx-code-alt me-1"></i> View Raw API Response
+                        </button>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">AWB Code</small>
+                            <span id="awb_dt_code" class="fw-bold text-dark"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Courier Partner</small>
+                            <span id="awb_dt_courier" class="fw-semibold"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Current Status</small>
+                            <span id="awb_dt_status" class="badge bg-label-info"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted d-block">Estimated Delivery (ETD)</small>
+                            <span id="awb_dt_etd" class="fw-semibold"></span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Origin</small>
+                            <div id="awb_dt_origin" class="small bg-light p-2 rounded"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted d-block">Destination</small>
+                            <div id="awb_dt_destination" class="small bg-light p-2 rounded"></div>
+                        </div>
+                    </div>
+
+                    <div id="awb_scans_container" class="mt-3">
+                        <h6 class="fw-bold text-dark mb-2">Tracking Activity Log / Scans</h6>
+                        <div class="table-responsive border rounded">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Activity / Event</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="awb_scans_table_body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- SHIPROCKET GET WALLET BALANCE WIDGET --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="form-section-title fw-bold mb-0">Get Wallet Balance</h5>
+                    <span class="text-muted small">Endpoint: <code>GET /v1/external/account/details/wallet-balance</code></span>
+                </div>
+                <button type="button" id="btn_fetch_wallet_balance" class="btn btn-primary shadow-sm">
+                    <i class="bx bx-wallet me-1"></i> Fetch Wallet Balance
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between p-3 bg-label-primary rounded flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar avatar-md flex-shrink-0">
+                            <span class="avatar-initial rounded bg-primary text-white">
+                                <i class="bx bx-wallet fs-3"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block fw-semibold text-uppercase">Account Wallet Balance</small>
+                            <h3 class="mb-0 fw-extrabold text-primary" id="wb_amount">₹ --</h3>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="btn_view_wallet_json" class="btn btn-sm btn-outline-secondary" style="display: none;">
+                            <i class="bx bx-code-alt me-1"></i> View Raw API Response
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- COURIER SERVICEABILITY CHECK WIDGET --}}
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -629,6 +744,242 @@
             </div>
         </div>
 
+        {{-- SHIPROCKET CREATE EXCHANGE ORDER WIDGET --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h5 class="form-section-title fw-bold mb-0">Create an Exchange Order</h5>
+                    <span class="text-muted small">Endpoint: <code>POST /v1/external/orders/create/exchange</code></span>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#exchange_order_collapse">
+                    <i class="bx bx-chevron-down me-1"></i> Toggle Form
+                </button>
+            </div>
+            <div class="collapse show" id="exchange_order_collapse">
+                <div class="card-body">
+                    <form id="exchange_order_form">
+                        @csrf
+                        <div class="alert alert-info py-2 px-3 small mb-4">
+                            <i class="bx bx-sync me-1"></i> Simultaneously process a return pickup for the old product and dispatch a forward delivery for the exchanged item.
+                        </div>
+
+                        {{-- Section 1: Order References & Channel --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bx bx-file me-1"></i> Exchange & Return Order References</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Exchange Order ID <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_exchange_order_id" class="form-control" value="EX_{{ time() }}" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Return Order ID <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_return_order_id" class="form-control" value="R_{{ time() }}" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Existing Order ID</label>
+                                <input type="text" id="ex_existing_order_id" class="form-control" placeholder="ORD-12345">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Channel ID</label>
+                                <input type="text" id="ex_channel_id" class="form-control" placeholder="1960878" value="{{ $shiprocket->channel_id ?? '' }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Order Date <span class="text-danger">*</span></label>
+                                <input type="date" id="ex_order_date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Return Reason Code</label>
+                                <input type="text" id="ex_return_reason" class="form-control" value="29">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Seller Pickup Location ID</label>
+                                <input type="text" id="ex_seller_pickup_id" class="form-control" value="{{ $shiprocket->pickup_location ?: 'Primary' }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Seller Shipping Location ID</label>
+                                <input type="text" id="ex_seller_shipping_id" class="form-control" value="{{ $shiprocket->pickup_location ?: 'Primary' }}">
+                            </div>
+                        </div>
+
+                        {{-- Section 2: Buyer Pickup Info --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bx bx-user me-1"></i> Buyer Pickup Address (Return Pickup)</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_fn" class="form-control" value="Test" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Last Name</label>
+                                <input type="text" id="ex_buyer_pickup_ln" class="form-control" value="User">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <input type="email" id="ex_buyer_pickup_email" class="form-control" value="test@example.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_addr" class="form-control" value="House 45, West End" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Address Line 2</label>
+                                <input type="text" id="ex_buyer_pickup_addr2" class="form-control" value="">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_city" class="form-control" value="South West Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_state" class="form-control" value="Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_pin" class="form-control" value="110045" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_pickup_phone" class="form-control" value="9716414139" required>
+                            </div>
+                        </div>
+
+                        {{-- Section 3: Buyer Shipping Info --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-map me-1"></i> Buyer Shipping Address (New Item Delivery)</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_fn" class="form-control" value="Test" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Last Name</label>
+                                <input type="text" id="ex_buyer_ship_ln" class="form-control" value="User">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <input type="email" id="ex_buyer_ship_email" class="form-control" value="test@example.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_addr" class="form-control" value="House 45, West End" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Address Line 2</label>
+                                <input type="text" id="ex_buyer_ship_addr2" class="form-control" value="">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">City <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_city" class="form-control" value="South West Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_state" class="form-control" value="Delhi" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_pin" class="form-control" value="110045" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_buyer_ship_phone" class="form-control" value="9716414139" required>
+                            </div>
+                        </div>
+
+                        {{-- Section 4: Exchange Item & QC Specifications --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-package me-1"></i> Exchange Item & Quality Check (QC) Settings</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Product Name <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_item_name" class="form-control" value="Black tshirt XL" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">SKU <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_item_sku" class="form-control" value="mackbook" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-semibold">Selling Price (₹) <span class="text-danger">*</span></label>
+                                <input type="text" id="ex_item_price" class="form-control" value="500.00" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Exchange Item ID</label>
+                                <input type="text" id="ex_item_exchange_id" class="form-control" value="193658024">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check form-switch pt-3">
+                                    <input class="form-check-input" type="checkbox" id="ex_qc_enable" value="1" checked>
+                                    <label class="form-check-label fw-bold" for="ex_qc_enable">Enable Quality Check</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Product Name</label>
+                                <input type="text" id="ex_qc_product_name" class="form-control" value="Black tshirt XL">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Brand</label>
+                                <input type="text" id="ex_qc_brand" class="form-control" value="changedname1">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">QC Color & Size</label>
+                                <div class="input-group">
+                                    <input type="text" id="ex_qc_color" class="form-control" placeholder="Color" value="changecolr">
+                                    <input type="text" id="ex_qc_size" class="form-control" placeholder="Size" value="changesize112">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">QC Image URL</label>
+                                <input type="url" id="ex_qc_product_image" class="form-control" value="https://sr-multichannel-stage.s3.ap-south-1.amazonaws.com/1310/qc_product_img/547950c2-9c2f-4908-98d5-276f9ad5b63a.png">
+                            </div>
+                        </div>
+
+                        {{-- Section 5: Forward & Backward Package Dimensions --}}
+                        <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 mt-4"><i class="bx bx-cube me-1"></i> Forward (Exchange Delivery) & Backward (Return Pickup) Dimensions</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6 border-end">
+                                <span class="fw-bold text-primary d-block mb-2"><i class="bx bx-export me-1"></i> Forward Exchange Package</span>
+                                <div class="row g-2">
+                                    <div class="col-3"><input type="text" id="ex_length" class="form-control" value="11" placeholder="L"><small class="text-muted">Length</small></div>
+                                    <div class="col-3"><input type="text" id="ex_breadth" class="form-control" value="11" placeholder="B"><small class="text-muted">Breadth</small></div>
+                                    <div class="col-3"><input type="text" id="ex_height" class="form-control" value="11" placeholder="H"><small class="text-muted">Height</small></div>
+                                    <div class="col-3"><input type="text" id="ex_weight" class="form-control" value="0.5" placeholder="W"><small class="text-muted">Weight (Kg)</small></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="fw-bold text-warning d-block mb-2"><i class="bx bx-import me-1"></i> Backward Return Package</span>
+                                <div class="row g-2">
+                                    <div class="col-3"><input type="text" id="ret_ex_length" class="form-control" value="10.00" placeholder="L"><small class="text-muted">Length</small></div>
+                                    <div class="col-3"><input type="text" id="ret_ex_breadth" class="form-control" value="10.00" placeholder="B"><small class="text-muted">Breadth</small></div>
+                                    <div class="col-3"><input type="text" id="ret_ex_height" class="form-control" value="10.00" placeholder="H"><small class="text-muted">Height</small></div>
+                                    <div class="col-3"><input type="text" id="ret_ex_weight" class="form-control" value="0.500" placeholder="W"><small class="text-muted">Weight (Kg)</small></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Section 6: Payment Method & Totals --}}
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Payment Method</label>
+                                <select id="ex_payment_method" class="form-select">
+                                    <option value="prepaid">Prepaid</option>
+                                    <option value="cod">COD</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Subtotal (₹)</label>
+                                <input type="text" id="ex_sub_total" class="form-control" value="500.00" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Total Discount (₹)</label>
+                                <input type="text" id="ex_total_discount" class="form-control" value="0">
+                            </div>
+                        </div>
+
+                        <div class="text-end border-top pt-3">
+                            <button type="button" id="btn_submit_exchange_order" class="btn btn-info btn-lg px-4 shadow-sm text-white">
+                                <i class="bx bx-sync me-1"></i> Submit Exchange Order API Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- SHIPROCKET COURIERS LIST SECTION --}}
         <div class="card shadow-sm mb-5">
             <div class="card-header bg-transparent py-3 d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -726,6 +1077,8 @@
     <script>
         $(document).ready(function() {
             let currentOrderJson = null;
+            let currentAwbTrackingJson = null;
+            let currentWalletJson = null;
 
             // Password Visibility Toggle
             $('#toggle_password_btn').click(function() {
@@ -872,6 +1225,159 @@
                 if (currentOrderJson) {
                     $('#modal_title_text').text('Shiprocket Order Details API JSON');
                     $('#courier_json_content').text(JSON.stringify(currentOrderJson, null, 4));
+                    $('#courierJsonModal').modal('show');
+                }
+            });
+
+            // Track Shipment by AWB Code via AJAX
+            $('#btn_track_awb').click(function() {
+                const awbCode = $('#lookup_awb_code').val();
+                if (!awbCode) {
+                    alert('Please enter an AWB tracking code.');
+                    $('#lookup_awb_code').focus();
+                    return;
+                }
+
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Tracking...');
+
+                $.ajax({
+                    url: "{{ url('admin/shiprocket/track-awb') }}/" + encodeURIComponent(awbCode),
+                    type: "GET",
+                    success: function(response) {
+                        btn.prop('disabled', false).html(originalText);
+                        if (response.success && response.tracking_data) {
+                            currentAwbTrackingJson = response.raw_data || response.tracking_data;
+                            const tData = response.tracking_data;
+
+                            let trackInfo = tData;
+                            if (tData.shipment_track && Array.isArray(tData.shipment_track) && tData.shipment_track.length > 0) {
+                                trackInfo = tData.shipment_track[0];
+                            } else if (tData[awbCode] && tData[awbCode].tracking_data) {
+                                trackInfo = tData[awbCode].tracking_data.shipment_track?.[0] || tData[awbCode].tracking_data;
+                            }
+
+                            const code = trackInfo.awb_code || trackInfo.awb_number || awbCode;
+                            const courier = trackInfo.courier_name || trackInfo.courier || 'N/A';
+                            const status = trackInfo.current_status || trackInfo.shipment_status || tData.track_status || 'N/A';
+                            const etd = trackInfo.etd || trackInfo.edd || 'N/A';
+                            const origin = trackInfo.origin || trackInfo.pickup_location || 'N/A';
+                            const destination = trackInfo.destination || trackInfo.delivered_to || 'N/A';
+
+                            $('#awb_dt_code').text(code);
+                            $('#awb_dt_courier').text(courier);
+                            $('#awb_dt_status').text(status);
+                            $('#awb_dt_etd').text(etd);
+                            $('#awb_dt_origin').text(origin);
+                            $('#awb_dt_destination').text(destination);
+
+                            const scans = trackInfo.scans || trackInfo.shipment_track_activities || tData.shipment_track_activities || [];
+                            const tbody = $('#awb_scans_table_body');
+                            tbody.empty();
+
+                            if (Array.isArray(scans) && scans.length > 0) {
+                                scans.forEach(function(scan) {
+                                    const date = scan.date || scan['date-time'] || scan.created_at || '-';
+                                    const activity = scan.activity || scan.status || scan.sr_status_label || '-';
+                                    const location = scan.location || scan.city || '-';
+
+                                    tbody.append(`
+                                        <tr>
+                                            <td><small class="fw-semibold">${date}</small></td>
+                                            <td>${activity}</td>
+                                            <td><small class="text-muted">${location}</small></td>
+                                        </tr>
+                                    `);
+                                });
+                            } else {
+                                tbody.append(`
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-3">No detailed scan activity log available yet.</td>
+                                    </tr>
+                                `);
+                            }
+
+                            $('#awb_tracking_result').slideDown();
+                        } else {
+                            alert('AWB Tracking Error: ' + (response.message || 'Tracking data not found for AWB: ' + awbCode));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).html(originalText);
+                        let msg = 'Failed to fetch AWB tracking information.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
+            });
+
+            $('#btn_view_awb_json').click(function() {
+                if (currentAwbTrackingJson) {
+                    $('#modal_title_text').text('Shiprocket AWB Tracking API Raw Data JSON');
+                    $('#courier_json_content').text(JSON.stringify(currentAwbTrackingJson, null, 4));
+                    $('#courierJsonModal').modal('show');
+                }
+            });
+
+            // Fetch Wallet Balance via AJAX
+            function fetchWalletBalance(showNotice = false) {
+                const btn1 = $('#btn_fetch_wallet_balance');
+                const btn2 = $('#btn_quick_wallet_balance');
+                const origText1 = btn1.html();
+                const origText2 = btn2.html();
+
+                btn1.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Fetching...');
+                btn2.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Loading...');
+
+                $.ajax({
+                    url: "{{ route('admin.shiprocket.wallet-balance') }}",
+                    type: "GET",
+                    success: function(response) {
+                        btn1.prop('disabled', false).html(origText1);
+                        btn2.prop('disabled', false).html(origText2);
+
+                        if (response.success) {
+                            currentWalletJson = response.raw_data || response;
+                            const bal = response.balance !== undefined ? response.balance : '0.00';
+                            const formattedBal = typeof bal === 'number' ? bal.toFixed(2) : bal;
+
+                            $('#wb_amount').text('₹' + formattedBal);
+                            $('#btn_view_wallet_json').show();
+
+                            if (showNotice) {
+                                alert('Current Shiprocket Wallet Balance: ₹' + formattedBal);
+                            }
+                        } else {
+                            alert('Wallet Balance Error: ' + (response.message || 'Failed to fetch wallet balance.'));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn1.prop('disabled', false).html(origText1);
+                        btn2.prop('disabled', false).html(origText2);
+                        let msg = 'Failed to fetch wallet balance.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
+            }
+
+            $('#btn_fetch_wallet_balance').click(function() {
+                fetchWalletBalance(false);
+            });
+
+            $('#btn_quick_wallet_balance').click(function() {
+                fetchWalletBalance(true);
+            });
+
+            $('#btn_view_wallet_json').click(function() {
+                if (currentWalletJson) {
+                    $('#modal_title_text').text('Shiprocket Wallet Balance API Raw Data JSON');
+                    $('#courier_json_content').text(JSON.stringify(currentWalletJson, null, 4));
                     $('#courierJsonModal').modal('show');
                 }
             });
@@ -1140,6 +1646,114 @@
                     error: function(xhr) {
                         btn.prop('disabled', false).html(originalText);
                         let msg = 'Failed to submit return order to Shiprocket API.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        alert('Error: ' + msg);
+                    }
+                });
+            });
+
+            // Submit Create Exchange Order via AJAX
+            $('#btn_submit_exchange_order').click(function(e) {
+                e.preventDefault();
+
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i> Submitting Exchange Order...');
+
+                const orderItems = [{
+                    name: $('#ex_item_name').val(),
+                    selling_price: $('#ex_item_price').val(),
+                    units: "1",
+                    hsn: "1733808730720",
+                    sku: $('#ex_item_sku').val(),
+                    tax: "",
+                    discount: "",
+                    brand: "",
+                    color: "",
+                    exchange_item_id: $('#ex_item_exchange_id').val() || "193658024",
+                    exchange_item_name: $('#ex_item_name').val(),
+                    exchange_item_sku: $('#ex_item_sku').val(),
+                    qc_enable: $('#ex_qc_enable').is(':checked'),
+                    qc_product_name: $('#ex_qc_product_name').val(),
+                    qc_product_image: $('#ex_qc_product_image').val(),
+                    qc_brand: $('#ex_qc_brand').val(),
+                    qc_color: $('#ex_qc_color').val(),
+                    qc_size: $('#ex_qc_size').val(),
+                    accessories: "",
+                    qc_used_check: "1",
+                    qc_sealtag_check: "1",
+                    qc_brand_box: "1",
+                    qc_check_damaged_product: "yes"
+                }];
+
+                const payload = {
+                    _token: "{{ csrf_token() }}",
+                    order_items: orderItems,
+                    buyer_pickup_first_name: $('#ex_buyer_pickup_fn').val(),
+                    buyer_pickup_last_name: $('#ex_buyer_pickup_ln').val(),
+                    buyer_pickup_email: $('#ex_buyer_pickup_email').val(),
+                    buyer_pickup_address: $('#ex_buyer_pickup_addr').val(),
+                    buyer_pickup_address_2: $('#ex_buyer_pickup_addr2').val(),
+                    buyer_pickup_city: $('#ex_buyer_pickup_city').val(),
+                    buyer_pickup_state: $('#ex_buyer_pickup_state').val(),
+                    buyer_pickup_country: "India",
+                    buyer_pickup_phone: $('#ex_buyer_pickup_phone').val(),
+                    buyer_pickup_pincode: $('#ex_buyer_pickup_pin').val(),
+                    buyer_shipping_first_name: $('#ex_buyer_ship_fn').val(),
+                    buyer_shipping_last_name: $('#ex_buyer_ship_ln').val(),
+                    buyer_shipping_email: $('#ex_buyer_ship_email').val(),
+                    buyer_shipping_address: $('#ex_buyer_ship_addr').val(),
+                    buyer_shipping_address_2: $('#ex_buyer_ship_addr2').val(),
+                    buyer_shipping_city: $('#ex_buyer_ship_city').val(),
+                    buyer_shipping_state: $('#ex_buyer_ship_state').val(),
+                    buyer_shipping_country: "India",
+                    buyer_shipping_phone: $('#ex_buyer_ship_phone').val(),
+                    buyer_shipping_pincode: $('#ex_buyer_ship_pin').val(),
+                    seller_pickup_location_id: $('#ex_seller_pickup_id').val(),
+                    seller_shipping_location_id: $('#ex_seller_shipping_id').val(),
+                    exchange_order_id: $('#ex_exchange_order_id').val(),
+                    return_order_id: $('#ex_return_order_id').val(),
+                    payment_method: $('#ex_payment_method').val(),
+                    order_date: $('#ex_order_date').val(),
+                    channel_id: $('#ex_channel_id').val(),
+                    existing_order_id: $('#ex_existing_order_id').val(),
+                    return_reason: $('#ex_return_reason').val(),
+                    sub_total: $('#ex_sub_total').val(),
+                    shipping_charges: "",
+                    giftwrap_charges: "",
+                    total_discount: $('#ex_total_discount').val(),
+                    transaction_charges: "",
+                    exchange_length: $('#ex_length').val(),
+                    exchange_breadth: $('#ex_breadth').val(),
+                    exchange_height: $('#ex_height').val(),
+                    exchange_weight: $('#ex_weight').val(),
+                    return_length: $('#ret_ex_length').val(),
+                    return_breadth: $('#ret_ex_breadth').val(),
+                    return_height: $('#ret_ex_height').val(),
+                    return_weight: $('#ret_ex_weight').val(),
+                    qc_check: "true"
+                };
+
+                $.ajax({
+                    url: "{{ route('admin.shiprocket.create-exchange-order') }}",
+                    type: "POST",
+                    data: payload,
+                    success: function(response) {
+                        btn.prop('disabled', false).html(originalText);
+                        if (response.success) {
+                            alert('Success! Exchange Order Created. Exchange ID: ' + (response.exchange_order_id || 'N/A') + ' | Return ID: ' + (response.return_order_id || 'N/A'));
+                            $('#modal_title_text').text('Shiprocket Create Exchange Order API JSON Response');
+                            $('#courier_json_content').text(JSON.stringify(response.raw_data || response, null, 4));
+                            $('#courierJsonModal').modal('show');
+                        } else {
+                            alert('Exchange Order Error: ' + (response.message || 'Failed to create exchange order on Shiprocket.'));
+                        }
+                    },
+                    error: function(xhr) {
+                        btn.prop('disabled', false).html(originalText);
+                        let msg = 'Failed to submit exchange order to Shiprocket API.';
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             msg = xhr.responseJSON.message;
                         }

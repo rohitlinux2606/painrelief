@@ -284,4 +284,94 @@ class ShiprocketController extends Controller
 
         return response()->json($result);
     }
+
+    /**
+     * Create an Exchange Order on Shiprocket API.
+     *
+     * Endpoint: /v1/external/orders/create/exchange
+     */
+    public function createExchangeOrder(Request $request)
+    {
+        $request->validate([
+            'exchange_order_id' => 'required|string|max:100',
+            'return_order_id' => 'required|string|max:100',
+            'buyer_pickup_first_name' => 'required|string|max:100',
+            'buyer_pickup_address' => 'required|string|max:255',
+            'buyer_pickup_city' => 'required|string|max:100',
+            'buyer_pickup_state' => 'required|string|max:100',
+            'buyer_pickup_pincode' => 'required',
+            'buyer_pickup_phone' => 'required|string|max:20',
+            'buyer_shipping_first_name' => 'required|string|max:100',
+            'buyer_shipping_address' => 'required|string|max:255',
+            'buyer_shipping_city' => 'required|string|max:100',
+            'buyer_shipping_state' => 'required|string|max:100',
+            'buyer_shipping_pincode' => 'required',
+            'buyer_shipping_phone' => 'required|string|max:20',
+            'sub_total' => 'required',
+        ]);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->createExchangeOrder($request->all());
+
+        return response()->json($result);
+    }
+
+    /**
+     * Get Tracking details by AWB code via Shiprocket API.
+     *
+     * Endpoint: /v1/external/courier/track/awb/{awb_code}
+     */
+    public function getTrackingByAwb(Request $request, $awb_code = null)
+    {
+        $awbCode = $awb_code ?: $request->input('awb_code');
+
+        if (!$awbCode) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please provide a valid AWB tracking code.',
+            ], 422);
+        }
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->trackByAwb($awbCode);
+
+        return response()->json($result);
+    }
+
+    /**
+     * Get Wallet Balance via Shiprocket API.
+     *
+     * Endpoint: /v1/external/account/details/wallet-balance
+     */
+    public function getWalletBalance(Request $request)
+    {
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shiprocket configuration not found.',
+            ], 404);
+        }
+
+        $result = $shiprocket->getWalletBalance();
+
+        return response()->json($result);
+    }
 }

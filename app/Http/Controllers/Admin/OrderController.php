@@ -528,4 +528,143 @@ class OrderController extends Controller
 
         return redirect()->back()->with('error', 'Return Order Error: ' . $result['message']);
     }
+
+    /**
+     * Create an Exchange Order on Shiprocket for a specific store order.
+     */
+    public function createExchangeOrder(Request $request, $id)
+    {
+        $order = Order::with(['items', 'address', 'customer'])->findOrFail($id);
+
+        $shiprocket = Shiprocket::first();
+
+        if (!$shiprocket) {
+            return redirect()->back()->with('error', 'Shiprocket is not configured.');
+        }
+
+        $address = $order->address;
+        $customer = $order->customer;
+
+        $fullName = trim($customer->full_name ?? ($address->name ?? 'Customer'));
+        $nameParts = explode(' ', $fullName, 2);
+        $firstName = $nameParts[0] ?? 'Customer';
+        $lastName = $nameParts[1] ?? '';
+
+        $orderItems = [];
+        if ($order->items && $order->items->count() > 0) {
+            foreach ($order->items as $item) {
+                $orderItems[] = [
+                    'name' => $item->title ?? 'Exchanged Item',
+                    'selling_price' => (string) $item->price,
+                    'units' => (string) $item->quantity,
+                    'hsn' => '',
+                    'sku' => 'PROD-' . ($item->product_id ?? $item->id),
+                    'tax' => '',
+                    'discount' => '0',
+                    'brand' => $request->input('qc_brand', 'Store Item'),
+                    'color' => '',
+                    'exchange_item_id' => 'ITEM-' . $item->id,
+                    'exchange_item_name' => $item->title ?? 'Exchanged Item',
+                    'exchange_item_sku' => 'PROD-' . ($item->product_id ?? $item->id),
+                    'qc_enable' => $request->has('qc_enable') ? (bool) $request->input('qc_enable') : true,
+                    'qc_product_name' => $item->title ?? 'Exchanged Item',
+                    'qc_product_image' => $request->input('qc_product_image', ''),
+                    'qc_brand' => $request->input('qc_brand', 'Store Item'),
+                    'qc_color' => '',
+                    'qc_size' => '',
+                    'accessories' => '',
+                    'qc_used_check' => '1',
+                    'qc_sealtag_check' => '1',
+                    'qc_brand_box' => '1',
+                    'qc_check_damaged_product' => 'yes',
+                ];
+            }
+        } else {
+            $orderItems[] = [
+                'name' => 'Exchanged Product',
+                'selling_price' => (string) $order->total,
+                'units' => '1',
+                'hsn' => '',
+                'sku' => 'PROD-' . $order->id,
+                'tax' => '',
+                'discount' => '0',
+                'brand' => 'Store Item',
+                'color' => '',
+                'exchange_item_id' => 'ITEM-' . $order->id,
+                'exchange_item_name' => 'Exchanged Product',
+                'exchange_item_sku' => 'PROD-' . $order->id,
+                'qc_enable' => true,
+                'qc_product_name' => 'Exchanged Product',
+                'qc_product_image' => '',
+                'qc_brand' => 'Store Item',
+                'qc_color' => '',
+                'qc_size' => '',
+                'accessories' => '',
+                'qc_used_check' => '1',
+                'qc_sealtag_check' => '1',
+                'qc_brand_box' => '1',
+                'qc_check_damaged_product' => 'yes',
+            ];
+        }
+
+        $exData = [
+            'order_items' => $orderItems,
+            'buyer_pickup_first_name' => $firstName,
+            'buyer_pickup_last_name' => $lastName,
+            'buyer_pickup_email' => $customer->email ?? ($order->email ?? 'customer@example.com'),
+            'buyer_pickup_address' => $address->address_line1 ?? ($address->address ?? 'Customer Address'),
+            'buyer_pickup_address_2' => $address->address_line2 ?? '',
+            'buyer_pickup_city' => $address->city ?? 'City',
+            'buyer_pickup_state' => $address->state ?? 'State',
+            'buyer_pickup_country' => $address->country ?? 'India',
+            'buyer_pickup_phone' => $customer->phone ?? ($address->phone ?? '9876543210'),
+            'buyer_pickup_pincode' => $address->postal_code ?? '110001',
+
+            'buyer_shipping_first_name' => $firstName,
+            'buyer_shipping_last_name' => $lastName,
+            'buyer_shipping_email' => $customer->email ?? ($order->email ?? 'customer@example.com'),
+            'buyer_shipping_address' => $address->address_line1 ?? ($address->address ?? 'Customer Address'),
+            'buyer_shipping_address_2' => $address->address_line2 ?? '',
+            'buyer_shipping_city' => $address->city ?? 'City',
+            'buyer_shipping_state' => $address->state ?? 'State',
+            'buyer_shipping_country' => $address->country ?? 'India',
+            'buyer_shipping_phone' => $customer->phone ?? ($address->phone ?? '9876543210'),
+            'buyer_shipping_pincode' => $address->postal_code ?? '110001',
+
+            'seller_pickup_location_id' => $shiprocket->pickup_location ?: 'Primary',
+            'seller_shipping_location_id' => $shiprocket->pickup_location ?: 'Primary',
+
+            'exchange_order_id' => 'EX_' . $order->order_number,
+            'return_order_id' => 'R_' . $order->order_number,
+            'payment_method' => strtolower($order->payment_method) === 'cod' ? 'cod' : 'prepaid',
+            'order_date' => date('Y-m-d'),
+            'channel_id' => $shiprocket->channel_id ?: '',
+            'existing_order_id' => (string) $order->order_number,
+            'return_reason' => $request->input('return_reason', '29'),
+            'sub_total' => (string) $order->subtotal,
+            'shipping_charges' => '',
+            'giftwrap_charges' => '',
+            'total_discount' => '0',
+            'transaction_charges' => '',
+
+            'exchange_length' => (string) $request->input('exchange_length', 11),
+            'exchange_breadth' => (string) $request->input('exchange_breadth', 11),
+            'exchange_height' => (string) $request->input('exchange_height', 11),
+            'exchange_weight' => (string) $request->input('exchange_weight', 0.5),
+
+            'return_length' => (string) $request->input('return_length', 10),
+            'return_breadth' => (string) $request->input('return_breadth', 10),
+            'return_height' => (string) $request->input('return_height', 10),
+            'return_weight' => (string) $request->input('return_weight', 0.5),
+            'qc_check' => 'true',
+        ];
+
+        $result = $shiprocket->createExchangeOrder($exData);
+
+        if ($result['success']) {
+            return redirect()->back()->with('success', 'Exchange Order created successfully! Exchange ID: ' . ($result['exchange_order_id'] ?? '') . ' | Return ID: ' . ($result['return_order_id'] ?? ''));
+        }
+
+        return redirect()->back()->with('error', 'Exchange Order Error: ' . $result['message']);
+    }
 }
